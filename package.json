@@ -2,6 +2,7 @@
   "name": "diaflower-frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,6 +15,7 @@
     "framer-motion": "^11.3.19",
     "lucide-react": "^0.418.0",
     "next": "14.2.5",
+    "next-intl": "^3.17.2",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.4.0",

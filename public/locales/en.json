@@ -1,0 +1,19 @@
+{
+  "heading": {
+    "title": "Welcome to our Flower Shop"
+  },
+  "Metadata": {
+    "title": "Flower Shop",
+    "description": "Welcome to our beautiful flower shop",
+    "lang": "Change To Arabic"
+  },
+    "header": {
+      "home": "Home",
+      "shop": "Shop",
+      "contact": "Contact Us"
+    }
+    , 
+    "common": {
+      "buttonText": "English"
+    }
+  }
