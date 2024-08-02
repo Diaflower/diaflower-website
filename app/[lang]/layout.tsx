@@ -1,5 +1,7 @@
 import {Providers} from '../providers';
 import {getTranslations} from 'next-intl/server';
+import MainLayout from '@/components/layout/MainLayout'
+import '../globals.css'
 
 export async function generateMetadata({params: {lang}}: {params: {lang: string}}) {
   const t = await getTranslations({locale: lang, namespace: 'Metadata'});
@@ -21,11 +23,15 @@ export default async function LocaleLayout({
 
   return (
     <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <body>
+      <body className='w-[100%]'>
         <Providers locale={lang} messages={messages}>
+          <MainLayout>
           {children}
+          </MainLayout>
         </Providers>
       </body>
     </html>
   );
 }
+
+
