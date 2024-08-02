@@ -7,6 +7,7 @@ export default function Component() {
       <div className="grid grid-cols-3 place-items-center py-2 w-full">
         {/* /// LEFT NAV */}
         <div className="flex items-center space-x-4">
+          {/* test  */}
           <a href="#" className="text-sm font-medium">
             EN / العربية
           </a>
