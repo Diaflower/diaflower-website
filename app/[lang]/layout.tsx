@@ -23,7 +23,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <body className=''>
+      <body className='w-[100%]'>
         <Providers locale={lang} messages={messages}>
           <MainLayout>
           {children}
