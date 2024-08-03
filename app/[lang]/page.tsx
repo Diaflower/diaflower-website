@@ -113,9 +113,12 @@
 // }
 
 import {getTranslations} from 'next-intl/server';
+import Hero from '@/components/home/Hero';
 
 import LanguageAwareButton from '@/components/LanguageAwareButton';
 import Link from 'next/link';
+import ProductCard from '@/components/product/ProductCard';
+import { ProductCarousel } from '@/components/product/ProductCarousel';
 
 export default async function Home({
   params: {lang}
@@ -125,15 +128,17 @@ export default async function Home({
 
   const t = await getTranslations({locale: lang, namespace: 'Metadata'});
   return (
-    <div>
-      <h1>{t('title')}</h1>
+    <div className='w-full'>
+      {/* <h1>{t('title')}</h1>
       <LanguageAwareButton />
       <div>
         <Link href={`/${lang === 'en' ? 'ar' : 'en'}`}>
-          {/* Switch to {lang === 'en' ? 'Arabic' : 'English'} */}
+          
           {t('lang')}
         </Link>
-      </div>
+      </div> */}
+      <Hero/>
+      <ProductCarousel/>
     </div>
   );
 }

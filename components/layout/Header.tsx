@@ -1,12 +1,22 @@
+'user client'
+import { useState } from "react";
 import Logo from "../shared/icons/Logo";
 
-export default function Component() {
+export default function Hwader() {
+  const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
+  const icons = [
+    { icon: <HeartIcon className="w-5 h-5 text-[#1d1c1c]" />, text: 'Wishlist' },
+    { icon: <UserIcon className="w-5 h-5 text-[#1d1c1c]" />, text: 'Account' },
+    { icon: <MapPinIcon className="w-5 h-5 text-[#1d1c1c]" />, text: 'Location' },
+    { icon: <ShoppingBagIcon className="w-5 h-5 text-[#1d1c1c]" />, text: 'View Cart', badge: true }
+  ];
+
   return (
-    <div className="w-full border-b flex flex-col pt-4 pb-2 gap-6">
+    <div className="w-full border-b flex flex-col pt-4  pb-4">
       {/* /// TOP HEADER NAV */}
-      <div className="grid grid-cols-3 place-items-center py-2 w-full">
+      <div className="grid grid-cols-3 place-items-center py-2 w-full container">
         {/* /// LEFT NAV */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 w-full">
           {/* test  */}
           <a href="#" className="text-sm font-medium">
             EN / العربية
@@ -25,7 +35,30 @@ export default function Component() {
         </div>
 
         {/* /// RIGHT NAV  */}
-        <div className="flex items-center space-x-4 justify-end">
+       
+        <div className="flex items-center space-x-4 justify-end w-full">
+      {icons.map((item, index) => (
+        <div
+          key={index}
+          className="relative flex items-center"
+          onMouseEnter={() => setHoveredIcon(index)}
+          onMouseLeave={() => setHoveredIcon(null)}
+        >
+          {item.icon}
+          {item.badge && (
+            <span className="absolute top-0 right-0 text-xs text-pink-600">
+              1
+            </span>
+          )}
+          {hoveredIcon === index && (
+            <span className="absolute top-8 left-1/2 transform -translate-x-1/2 p-1 bg-gray-800 text-white text-sm rounded whitespace-nowrap">
+              {item.text}
+            </span>
+          )}
+        </div>
+      ))}
+         </div>
+        {/* <div className="flex items-center space-x-4 justify-end w-full">
           <HeartIcon className="w-5 h-5 text-[#1d1c1c]" />
           <UserIcon className="w-5 h-5 text-[#1d1c1c]" />
           <MapPinIcon className="w-5 h-5 text-[#1d1c1c]" />
@@ -35,7 +68,7 @@ export default function Component() {
               1
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* /// BOTTOM HEADER NAV */}
