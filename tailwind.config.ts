@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss"
+import plugin from 'tailwindcss/plugin'
+import { PluginAPI } from 'tailwindcss/types/config'
 
 const config = {
   darkMode: ["class"],
@@ -10,6 +12,10 @@ const config = {
 	],
   prefix: "",
   theme: {
+    fontFamily:{
+      brilliant: ['var(--brilliant)'],
+      fancy: ['var(--fancy)'],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -74,7 +80,18 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),
+   plugin(function({addBase,theme}:PluginAPI){
+    addBase({
+      'h1,h2,h3,h4,h5,h6,a':{
+        fontFamily:theme('fontFamily.brilliant'),
+      },
+      'a': {
+        fontFamily:theme('fontFamily.fancy'),
+      },
+    })
+   })
+  ],
 } satisfies Config
 
 export default config

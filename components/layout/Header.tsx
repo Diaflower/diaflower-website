@@ -1,6 +1,8 @@
 'user client'
 import { useState } from "react";
 import Logo from "../shared/icons/Logo";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { MenuIcon } from "lucide-react";
 
 export default function Hwader() {
   const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
@@ -12,83 +14,65 @@ export default function Hwader() {
   ];
 
   return (
-    <div className="w-full border-b flex flex-col pt-4  pb-4">
-      {/* /// TOP HEADER NAV */}
-      <div className="grid grid-cols-3 place-items-center py-2 w-full container">
-        {/* /// LEFT NAV */}
-        <div className="flex items-center space-x-4 w-full">
-          {/* test  */}
-          <a href="#" className="text-sm font-medium">
-            EN / العربية
-          </a>
-          <a href="#" className="text-sm font-medium">
-            CONTACT US
-          </a>
-          <a href="#" className="text-sm font-medium">
-            SERVICES
-          </a>
+    <header className="border-b flex flex-col">
+    {/* Top Header Nav */}
+    <div className="px-2 py-4 flex justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full md:container">
+      {/* Left Nav */}
+      <div className="flex w-full space-x-4">
+        <Sheet>
+          <SheetTrigger className="md:hidden">
+            <MenuIcon className="h-6 w-6" />
+          </SheetTrigger>
+          <SheetContent side="left">
+            {/* Mobile menu content */}
+          </SheetContent>
+        </Sheet>
+        <div className="hidden md:flex space-x-4">
+          <button>EN / العربية</button>
+          <a href="#">CONTACT US</a>
+          <a href="#">SERVICES</a>
         </div>
-
-        {/* /// LOGO */}
-        <div className="text-4xl font-serif flex justify-center">
-          <Logo />
-        </div>
-
-        {/* /// RIGHT NAV  */}
-       
-        <div className="flex items-center space-x-4 justify-end w-full">
-      {icons.map((item, index) => (
-        <div
-          key={index}
-          className="relative flex items-center"
-          onMouseEnter={() => setHoveredIcon(index)}
-          onMouseLeave={() => setHoveredIcon(null)}
-        >
-          {item.icon}
-          {item.badge && (
-            <span className="absolute top-0 right-0 text-xs text-pink-600">
-              1
-            </span>
-          )}
-          {hoveredIcon === index && (
-            <span className="absolute top-8 left-1/2 transform -translate-x-1/2 p-1 bg-gray-800 text-white text-sm rounded whitespace-nowrap">
-              {item.text}
-            </span>
-          )}
-        </div>
-      ))}
-         </div>
-        {/* <div className="flex items-center space-x-4 justify-end w-full">
-          <HeartIcon className="w-5 h-5 text-[#1d1c1c]" />
-          <UserIcon className="w-5 h-5 text-[#1d1c1c]" />
-          <MapPinIcon className="w-5 h-5 text-[#1d1c1c]" />
-          <div className="relative">
-            <ShoppingBagIcon className="w-5 h-5 text-[#1d1c1c]" />
-            <span className="absolute top-0 right-0 text-xs text-pink-600">
-              1
-            </span>
-          </div>
-        </div> */}
       </div>
 
-      {/* /// BOTTOM HEADER NAV */}
-      <div className="flex items-center justify-center py-2 space-x-4">
-        <a href="#" className="text-sm font-medium">
-          TIMELESS COLLECTION
-        </a>
-        <a href="#" className="text-sm font-medium">
-          BLOOMS
-        </a>
-        <a href="#" className="text-sm font-medium">
-          BUNDLES
-        </a>
-        <a href="#" className="text-sm font-medium">
-          SHOP
-        </a>
-        <SearchIcon className="w-6 h-6" />
+      {/* Logo */}
+      <Logo />
+
+      {/* Right Nav */}
+      <div className="flex justify-end space-x-4 w-full">
+        {icons.map((item, index) => (
+          <div
+            key={item.text}
+            className={`relative ${index < icons.length - 1 ? 'hidden md:block' : ''}`}
+            onMouseEnter={() => setHoveredIcon(index)}
+            onMouseLeave={() => setHoveredIcon(null)}
+          >
+            {item.icon}
+            {item.badge && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                1
+              </span>
+            )}
+            {hoveredIcon === index && (
+              <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded mt-1">
+                {item.text}
+              </span>
+            )}
+          </div>
+        ))}
       </div>
     </div>
-  );
+
+    {/* Bottom Header Nav */}
+    <nav className="hidden md:block container mx-auto px-4 py-2">
+      <ul className="flex justify-center space-x-6">
+        <li><a href="#" className="hover:text-gray-600">TIMELESS COLLECTION</a></li>
+        <li><a href="#" className="hover:text-gray-600">BLOOMS</a></li>
+        <li><a href="#" className="hover:text-gray-600">BUNDLES</a></li>
+        <li><a href="#" className="hover:text-gray-600">SHOP</a></li>
+      </ul>
+    </nav>
+  </header>
+  )
 }
 
 function HeartIcon(props: any) {

@@ -15,10 +15,11 @@ export function ProductCarousel() {
       opts={{
         align: "start",
       }}
-      className="w-full container mt-16 overflow-hidden"
+      className="w-full container my-12 overflow-hidden"
+      // className="w-full container mt-16 overflow-hidden"
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {Array.from({ length: 4 }).map((_, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
             <div className="">
                <ProductCard/>

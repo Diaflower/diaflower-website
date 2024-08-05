@@ -4,13 +4,13 @@ import Belle from '../../public/Lovers.jpg'
 import Image from "next/image"
 export default function ProductCard() {
   return (
-    <div className="bg-background w-full border-l border-r border-b border-white hover:border-gray-300 px-3 group transition-colors duration-300 ease-in-out">
+    <div className="w-full border-l border-r border-b border-white hover:border-gray-300 px-3 group transition-colors duration-300 ease-in-out">
       <Image
         src= {Belle}
         alt="Product Image"
         // width={400}
         // height={500}
-        className="w-full h-[330px] object-cover"
+        className="w-full h-[230px] md:h-[300px] object-cover"
         // style={{ aspectRatio: "400/300", objectFit: "cover" }}
       />
       <div className="p-4 space-y-3 text-center">

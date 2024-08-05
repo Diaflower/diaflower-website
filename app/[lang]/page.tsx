@@ -114,12 +114,13 @@
 
 import {getTranslations} from 'next-intl/server';
 import Hero from '@/components/home/Hero';
+import InfoCard from '@/components/shared/cards/InfoCard';
 
 import LanguageAwareButton from '@/components/LanguageAwareButton';
 import Link from 'next/link';
 import ProductCard from '@/components/product/ProductCard';
 import { ProductCarousel } from '@/components/product/ProductCarousel';
-
+import sectionImage from '../../public/section.jpg'
 export default async function Home({
   params: {lang}
 }: {
@@ -139,6 +140,35 @@ export default async function Home({
       </div> */}
       <Hero/>
       <ProductCarousel/>
+      <div className='flex flex-col md:flex-row w-full md:container gap-8 md:px-4'>
+         <InfoCard
+         title='SUNSHINE JEWELS'
+         desc='Jewllery collection as delicious as a Parisian rendez-vous in the heart of summer'
+         link='Discover the selection'
+         href='/'
+         alt='section image'
+         img= {sectionImage}
+         />
+         <InfoCard
+         title='SUNSHINE JEWELS'
+         desc='Jewllery collection as delicious as a Parisian rendez-vous in the heart of summer'
+         link='Discover the selection'
+         href='/'
+         alt='section image'
+         img= {sectionImage}
+         />
+      </div>
+
+      <div className='flex w-full md:container'>
+       <InfoCard
+         title='SUNSHINE JEWELS'
+         desc='Jewllery collection as delicious as a Parisian rendez-vous in the heart of summer'
+         link='Discover the selection'
+         href='/'
+         alt='section image'
+         img= {sectionImage}
+         />
+      </div>
     </div>
   );
 }
