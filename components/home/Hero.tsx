@@ -1,4 +1,4 @@
-import HeroImage from '../../public/Banner-main.jpg'
+import HeroImage from '../../public/Banner-main-min.jpg'
 import InfoCard from '../shared/cards/InfoCard'
 
 export default function Hero() {

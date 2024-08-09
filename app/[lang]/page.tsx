@@ -2,7 +2,7 @@ import {getTranslations} from 'next-intl/server';
 import Hero from '@/components/home/Hero';
 import InfoCard from '@/components/shared/cards/InfoCard';
 import { ProductCarousel } from '@/components/product/ProductCarousel';
-import sectionImage from '../../public/section.jpg'
+import sectionImage from '../../public/section-min.jpg'
 
 
 

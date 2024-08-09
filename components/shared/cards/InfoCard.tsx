@@ -11,13 +11,18 @@ type Props = {
     href: string;
 }
 
+
 export default function InfoCard({title, desc, link, img, alt, href}: Props) {
     return (
         <div className="w-full">
             {img &&
                 <Image
+                    priority
                     src={img}
                     alt={alt}
+                    quality={85}
+                    width={1200} 
+                    height={500} 
                     className="w-full h-[500px] object-cover"
                 />
             }

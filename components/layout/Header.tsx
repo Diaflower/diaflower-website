@@ -1,12 +1,15 @@
 'use client'
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import Logo from "../shared/icons/Logo";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { MenuIcon, Heart, UserRound, ShoppingBag, MapPin } from "lucide-react";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { UserRound, ShoppingBag, Search, Menu } from "lucide-react";
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import CartSheet from "../shared/CartSheet";
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
@@ -15,112 +18,224 @@ export default function Header() {
   const locale = useLocale();
 
   const icons = [
-    { icon: <Heart className="w-5 h-5 text-[#1d1c1c]" />, text: 'Wishlist' },
+    { icon: <Search className="w-5 h-5 text-[#1d1c1c]" />, text: 'Search' },
     { icon: <UserRound className="w-5 h-5 text-[#1d1c1c]" />, text: 'Account' },
-    { icon: <MapPin className="w-5 h-5 text-[#1d1c1c]" />, text: 'Location' },
     { icon: <ShoppingBag className="w-5 h-5 text-[#1d1c1c]" />, text: 'View Cart', badge: true }
   ];
 
- 
+  const navItems = ['TIMELESS COLLECTION', 'BLOOMS', 'BUNDLES', 'SHOP'];
+
   const switchLocale = (newLocale:string) => {
-    // Only proceed if the new locale is different from the current one
     if (newLocale !== locale) {
-      // Remove the current locale from the pathname
       const newPathname = pathname.replace(`/${locale}`, '') || '/';
       router.push(`/${newLocale}${newPathname}`);
     }
   };
 
-  ///// u can just pass the local from layout component
-
-
   return (
     <header className="border-b w-full">
-      <div className="flex flex-col justify-center gap-8 w-full md:container my-6">
+      <div className="flex flex-col justify-center gap-4 md:gap-8 w-full md:container my-4 md:my-6">
         {/* Top Header Nav */}
         <div className="flex px-2 justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full">
-          {/* Left Nav */}
-          <div className="flex w-full">
-            <Sheet>
-              <SheetTrigger className="md:hidden">
-                <MenuIcon className="h-6 w-6" />
-              </SheetTrigger>
-              <SheetContent side="left">
-                {/* Mobile menu content */}
-              </SheetContent>
-            </Sheet>
-            <div className="hidden md:flex space-x-4">
-              
-            <div className="hidden md:flex space-x-4">
-   
-            <div className= {`flex space-x-2 ${locale === 'ar'? "flex-row-reverse ml-3":"mr-3"}`}>
-                <button 
-                  onClick={() => switchLocale('en')}
-                  className={`${locale === 'en' ? 'underline cursor-default' : 'opacity-70 hover:underline'}`}
-                  disabled={locale === 'en'}
-                >
-                  EN
-                </button>
-                <span>/</span>
-                <button 
-                  onClick={() => switchLocale('ar')}
-                  className={`${locale === 'ar' ? 'underline cursor-default' : 'opacity-70 hover:underline'}`}
-                  disabled={locale === 'ar'}
-                >
-                  العربية
-                </button>
-              </div>
-              <a href="#">CONTACT US</a>
-              <a href="#">SERVICES</a>
-            </div>
-              
-            </div>
+          {/* Left Nav (hidden on mobile) */}
+          <div className="hidden md:flex md:w-full space-x-4">
+            <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
+            <a href="#" className="hover:underline">CONTACT US</a>
+            <a href="#" className="hover:underline">SERVICES</a>
           </div>
 
           {/* Logo */}
-          <Logo />
+          <div className="md:justify-self-center">
+          <Link href={'/'}>
+            <Logo />
+            <VisuallyHidden.Root>Home</VisuallyHidden.Root>
+          </Link>
+        </div>
 
           {/* Right Nav */}
-          <div className="flex justify-end space-x-4 w-full">
+          <div className="flex justify-end gap-3 w-full">
             {icons.map((item, index) => (
-              <div
-                key={item.text}
-                className={`relative ${index < icons.length - 1 ? 'hidden md:block' : ''}`}
-                onMouseEnter={() => setHoveredIcon(index)}
-                onMouseLeave={() => setHoveredIcon(null)}
-              >
-                {item.icon}
-                {item.badge && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                    1
-                  </span>
-                )}
-                {hoveredIcon === index && (
-                  <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded mt-1 whitespace-nowrap">
-                    {item.text}
-                  </span>
-                )}
-              </div>
+              <IconWithTooltip key={item.text} item={item} index={index} hoveredIcon={hoveredIcon} setHoveredIcon={setHoveredIcon} />
             ))}
+            {/* Mobile menu icon */}
+            <Sheet>
+            <SheetTrigger className="md:hidden">
+              <Menu className="w-5 h-5 text-[#1d1c1c]" />
+            </SheetTrigger>
+            <SheetContent>
+              <VisuallyHidden.Root>
+                <SheetTitle>Menu</SheetTitle>
+                <SheetDescription>Navigate through the site options.</SheetDescription>
+              </VisuallyHidden.Root>
+              <MobileMenu navItems={navItems} locale={locale} switchLocale={switchLocale} />
+            </SheetContent>
+          </Sheet>
           </div>
         </div>
 
-      {/* Bottom Header Nav */}
+        {/* Bottom Header Nav */}
         <nav className="hidden md:flex justify-center">
           <ul className="flex justify-center space-x-6">
-            {['TIMELESS COLLECTION', 'BLOOMS', 'BUNDLES', 'SHOP'].map((item) => (
-              <li key={item}>
-                <a href="#" className="relative group pb-2">
-                  <span className="relative z-10 transition-all duration-300 ease-in-out group-hover:font-bold">
-                    {item}
-                  </span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-700 ease-in-out group-hover:w-full"></span>
-                </a>
-              </li>
+            {navItems.map((item) => (
+              <NavItem key={item} item={item} />
             ))}
           </ul>
         </nav>
       </div>
     </header>
   )
+}
+
+interface LanguageSwitcherProps {
+  locale: string;
+  switchLocale: (newLocale: string) => void;
+}
+function LanguageSwitcher({ locale, switchLocale }:LanguageSwitcherProps ) {
+  return (
+    <div className={`flex space-x-2 ${locale === 'ar' ? "flex-row-reverse ml-3" : ""}`}>
+      <button 
+        onClick={() => switchLocale('en')}
+        className={`${locale === 'en' ? 'underline cursor-default' : 'opacity-70 hover:underline'}`}
+        disabled={locale === 'en'}
+      >
+        EN
+      </button>
+      <span>/</span>
+      <button 
+        onClick={() => switchLocale('ar')}
+        className={`${locale === 'ar' ? 'underline cursor-default' : 'opacity-70 hover:underline'}`}
+        disabled={locale === 'ar'}
+      >
+        العربية
+      </button>
+    </div>
+  );
+}
+
+interface IconItem {
+  icon: JSX.Element;
+  text: string;
+  badge?: boolean;
+}
+
+
+interface IconWithTooltipProps {
+  item: IconItem;
+  index: number;
+  hoveredIcon: number | null;
+  setHoveredIcon: Dispatch<SetStateAction<number | null>>;
+}
+
+function IconWithTooltip({ item, index, hoveredIcon, setHoveredIcon }: IconWithTooltipProps) {
+  if (item.text === 'View Cart') {
+    return (
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            variant="ghost"
+            className="relative p-0"
+            onMouseEnter={() => setHoveredIcon(index)}
+            onMouseLeave={() => setHoveredIcon(null)}
+          >
+            {item.icon}
+            <span className="sr-only">View Cart</span>
+            {item.badge && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                1
+              </span>
+            )}
+            {hoveredIcon === index && (
+              <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded mt-1 whitespace-nowrap">
+                {item.text}
+              </span>
+            )}
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <CartSheet />
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      className="relative p-0"
+      onMouseEnter={() => setHoveredIcon(index)}
+      onMouseLeave={() => setHoveredIcon(null)}
+    >
+      {item.icon}
+      <span className="sr-only">{item.text}</span>
+      {hoveredIcon === index && (
+        <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded mt-1 whitespace-nowrap">
+          {item.text}
+        </span>
+      )}
+    </Button>
+  );
+}
+
+// function IconWithTooltip({ item, index, hoveredIcon, setHoveredIcon }:IconWithTooltipProps) {
+//   return (
+//     <div
+//       className="relative"
+//       onMouseEnter={() => setHoveredIcon(index)}
+//       onMouseLeave={() => setHoveredIcon(null)}
+//     >
+//       {item.icon}
+//       {item.badge && (
+//         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+//           1
+//         </span>
+//       )}
+//       {hoveredIcon === index && (
+//         <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded mt-1 whitespace-nowrap">
+//           {item.text}
+//         </span>
+//       )}
+//     </div>
+//   );
+// }
+
+interface NavItemProps {
+  item: string;
+}
+
+function NavItem({ item }:NavItemProps) {
+  return (
+    <li>
+      <a href="#" className="relative group pb-2">
+        <span className="relative z-10 transition-all duration-300 ease-in-out group-hover:font-bold">
+          {item}
+        </span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-700 ease-in-out group-hover:w-full"></span>
+      </a>
+    </li>
+  );
+}
+
+interface MobileMenuProps {
+  navItems: string[];
+  locale: string;
+  switchLocale: (newLocale: string) => void;
+}
+
+function MobileMenu({ navItems, locale, switchLocale }:MobileMenuProps) {
+  return (
+    <div className="py-4">
+      <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
+      <nav className="mt-4">
+        <ul className="space-y-2">
+          {navItems.map((item) => (
+            <li key={item}>
+              <a href="#" className="block py-2 hover:bg-gray-100">{item}</a>
+            </li>
+          ))}
+          <li><a href="#" className="block py-2 hover:bg-gray-100">CONTACT US</a></li>
+          <li><a href="#" className="block py-2 hover:bg-gray-100">SERVICES</a></li>
+        </ul>
+      </nav>
+    </div>
+  );
 }

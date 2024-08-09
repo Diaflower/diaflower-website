@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button"
-import Belle from '../../../public/Lovers.jpg'
+import Belle from '../../../public/LaBelle-min.jpg'
 import Image from "next/image"
 export default function ProductCard() {
   return (
@@ -8,6 +8,7 @@ export default function ProductCard() {
       <Image
         src= {Belle}
         alt="Product Image"
+        priority
         // width={400}
         // height={500}
         className="w-full h-[230px] md:h-[300px] object-cover"
