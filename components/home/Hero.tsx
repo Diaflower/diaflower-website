@@ -4,7 +4,7 @@ import InfoCard from '../shared/cards/InfoCard'
 export default function Hero() {
     return (
       
-        <section className="w-full md:container mx-auto relative mb-3">
+        <section className="w-full xl:container mx-auto relative mb-3">
           <InfoCard
          title='SUNSHINE JEWELS'
          desc='Jewllery collection as delicious as a Parisian rendez-vous in the heart of summer'

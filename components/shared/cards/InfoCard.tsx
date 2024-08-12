@@ -15,17 +15,19 @@ type Props = {
 export default function InfoCard({title, desc, link, img, alt, href}: Props) {
     return (
         <div className="w-full">
-            {img &&
+            <div className="relative w-full h-[300px] md:h-[450px] lg:h-[600px]">
+            {img && (
                 <Image
-                    priority
-                    src={img}
-                    alt={alt}
-                    quality={85}
-                    width={1200} 
-                    height={500} 
-                    className="w-full h-[500px] object-cover"
+                priority
+                src={img}
+                alt={alt}
+                quality={85}
+                fill
+                sizes="(max-width: 768px) 100vw, 100vw"
+                className="object-cover"
                 />
-            }
+            )}
+            </div>
             <div className="p-6 flex flex-col items-center text-center">
                 <h2 className="text-2xl font-bold mb-2">{title}</h2>
                 {desc &&

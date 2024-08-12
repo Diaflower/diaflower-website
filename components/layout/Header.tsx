@@ -10,6 +10,8 @@ import { UserRound, ShoppingBag, Search, Menu } from "lucide-react";
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import CartSheet from "../shared/CartSheet";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcherProps,IconWithTooltipProps,NavItemProps,MobileMenuProps } from "@/types/header";
+import MegaMenu from "./MegaMenu";
 
 export default function Header() {
   const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
@@ -23,7 +25,13 @@ export default function Header() {
     { icon: <ShoppingBag className="w-5 h-5 text-[#1d1c1c]" />, text: 'View Cart', badge: true }
   ];
 
-  const navItems = ['TIMELESS COLLECTION', 'BLOOMS', 'BUNDLES', 'SHOP'];
+  const navItems = [
+    { name: 'TIMELESS COLLECTION', href: '/timeless-collection' },
+    { name: 'BOUQUETS', href: '/bouquets' },
+    { name: 'BOXES', href: '/boxes' },
+    { name: 'LEATHER', href: '/leather' },
+    { name: 'VASES', href: '/vases' }
+  ];
 
   const switchLocale = (newLocale:string) => {
     if (newLocale !== locale) {
@@ -33,18 +41,17 @@ export default function Header() {
   };
 
   return (
-    <header className="border-b w-full">
+    <header className="border-b w-full relative">
       <div className="flex flex-col justify-center gap-4 md:gap-8 w-full md:container my-4 md:my-6">
-        {/* Top Header Nav */}
+         {/* Top Header Nav */}
         <div className="flex px-2 justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full">
           {/* Left Nav (hidden on mobile) */}
           <div className="hidden md:flex md:w-full space-x-4">
             <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
-            <a href="#" className="hover:underline">CONTACT US</a>
-            <a href="#" className="hover:underline">SERVICES</a>
+            <Link href="/contact" className="hover:underline">CONTACT US</Link>
+            {/* <Link href="/services" className="hover:underline">SERVICES</Link> */}
           </div>
 
-          {/* Logo */}
           <div className="md:justify-self-center">
           <Link href={'/'}>
             <Logo />
@@ -54,42 +61,91 @@ export default function Header() {
 
           {/* Right Nav */}
           <div className="flex justify-end gap-3 w-full">
-            {icons.map((item, index) => (
+          {icons.map((item, index) => (
               <IconWithTooltip key={item.text} item={item} index={index} hoveredIcon={hoveredIcon} setHoveredIcon={setHoveredIcon} />
             ))}
             {/* Mobile menu icon */}
             <Sheet>
-            <SheetTrigger className="md:hidden">
-              <Menu className="w-5 h-5 text-[#1d1c1c]" />
-            </SheetTrigger>
-            <SheetContent>
-              <VisuallyHidden.Root>
-                <SheetTitle>Menu</SheetTitle>
-                <SheetDescription>Navigate through the site options.</SheetDescription>
-              </VisuallyHidden.Root>
-              <MobileMenu navItems={navItems} locale={locale} switchLocale={switchLocale} />
-            </SheetContent>
-          </Sheet>
+              <SheetTrigger className="md:hidden">
+                <Menu className="w-5 h-5 text-[#1d1c1c]" />
+              </SheetTrigger>
+              <SheetContent>
+                <VisuallyHidden.Root>
+                  <SheetTitle>Menu</SheetTitle>
+                  <SheetDescription>Navigate through the site options.</SheetDescription>
+                </VisuallyHidden.Root>
+                <MobileMenu navItems={navItems} locale={locale} switchLocale={switchLocale} />
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
 
-        {/* Bottom Header Nav */}
+           {/* Bottom Header Nav */}
         <nav className="hidden md:flex justify-center">
           <ul className="flex justify-center space-x-6">
             {navItems.map((item) => (
-              <NavItem key={item} item={item} />
+              <NavItem key={item.name} item={item} />
             ))}
           </ul>
         </nav>
       </div>
     </header>
   )
+
+  // return (
+  //   <header className="border-b w-full">
+  //     <div className="flex flex-col justify-center gap-4 md:gap-8 w-full md:container my-4 md:my-6">
+  //       {/* Top Header Nav */}
+  //       <div className="flex px-2 justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full">
+  //         {/* Left Nav (hidden on mobile) */}
+  //         <div className="hidden md:flex md:w-full space-x-4">
+  //           <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
+  //           <Link href="/contact" className="hover:underline">CONTACT US</Link>
+  //           {/* <Link href="/services" className="hover:underline">SERVICES</Link> */}
+  //         </div>
+
+  //         <div className="md:justify-self-center">
+  //         <Link href={'/'}>
+  //           <Logo />
+  //           <VisuallyHidden.Root>Home</VisuallyHidden.Root>
+  //         </Link>
+  //       </div>
+
+  //         {/* Right Nav */}
+  //         <div className="flex justify-end gap-3 w-full">
+  //         {icons.map((item, index) => (
+  //             <IconWithTooltip key={item.text} item={item} index={index} hoveredIcon={hoveredIcon} setHoveredIcon={setHoveredIcon} />
+  //           ))}
+  //           {/* Mobile menu icon */}
+  //           <Sheet>
+  //             <SheetTrigger className="md:hidden">
+  //               <Menu className="w-5 h-5 text-[#1d1c1c]" />
+  //             </SheetTrigger>
+  //             <SheetContent>
+  //               <VisuallyHidden.Root>
+  //                 <SheetTitle>Menu</SheetTitle>
+  //                 <SheetDescription>Navigate through the site options.</SheetDescription>
+  //               </VisuallyHidden.Root>
+  //               <MobileMenu navItems={navItems} locale={locale} switchLocale={switchLocale} />
+  //             </SheetContent>
+  //           </Sheet>
+  //         </div>
+  //       </div>
+
+  //       {/* Bottom Header Nav */}
+  //       <nav className="hidden md:flex justify-center">
+  //         <ul className="flex justify-center space-x-6">
+  //           {navItems.map((item) => (
+  //             <NavItem key={item.name} item={item} />
+  //           ))}
+  //         </ul>
+  //       </nav>
+  //     </div>
+  //   </header>
+  // )
 }
 
-interface LanguageSwitcherProps {
-  locale: string;
-  switchLocale: (newLocale: string) => void;
-}
+
 function LanguageSwitcher({ locale, switchLocale }:LanguageSwitcherProps ) {
   return (
     <div className={`flex space-x-2 ${locale === 'ar' ? "flex-row-reverse ml-3" : ""}`}>
@@ -112,19 +168,6 @@ function LanguageSwitcher({ locale, switchLocale }:LanguageSwitcherProps ) {
   );
 }
 
-interface IconItem {
-  icon: JSX.Element;
-  text: string;
-  badge?: boolean;
-}
-
-
-interface IconWithTooltipProps {
-  item: IconItem;
-  index: number;
-  hoveredIcon: number | null;
-  setHoveredIcon: Dispatch<SetStateAction<number | null>>;
-}
 
 function IconWithTooltip({ item, index, hoveredIcon, setHoveredIcon }: IconWithTooltipProps) {
   if (item.text === 'View Cart') {
@@ -140,7 +183,7 @@ function IconWithTooltip({ item, index, hoveredIcon, setHoveredIcon }: IconWithT
             {item.icon}
             <span className="sr-only">View Cart</span>
             {item.badge && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              <span className="absolute top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 1
               </span>
             )}
@@ -176,64 +219,58 @@ function IconWithTooltip({ item, index, hoveredIcon, setHoveredIcon }: IconWithT
   );
 }
 
-// function IconWithTooltip({ item, index, hoveredIcon, setHoveredIcon }:IconWithTooltipProps) {
+
+
+// function NavItem({ item }: NavItemProps) {
 //   return (
-//     <div
-//       className="relative"
-//       onMouseEnter={() => setHoveredIcon(index)}
-//       onMouseLeave={() => setHoveredIcon(null)}
-//     >
-//       {item.icon}
-//       {item.badge && (
-//         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-//           1
+//     <li>
+//       <Link href={item.href} className="relative group pb-2">
+//         <span className="relative z-10 transition-all duration-300 ease-in-out group-hover:font-bold">
+//           {item.name}
 //         </span>
-//       )}
-//       {hoveredIcon === index && (
-//         <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded mt-1 whitespace-nowrap">
-//           {item.text}
-//         </span>
-//       )}
-//     </div>
+//         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-700 ease-in-out group-hover:w-full"></span>
+//       </Link>
+//     </li>
 //   );
 // }
 
-interface NavItemProps {
-  item: string;
-}
+function NavItem({ item }: NavItemProps) {
+  const [isHovered, setIsHovered] = useState(false);
 
-function NavItem({ item }:NavItemProps) {
   return (
-    <li>
-      <a href="#" className="relative group pb-2">
-        <span className="relative z-10 transition-all duration-300 ease-in-out group-hover:font-bold">
-          {item}
-        </span>
-        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-700 ease-in-out group-hover:w-full"></span>
-      </a>
+    <li
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative">
+        <Link href={item.href} className="group inline-block">
+          <span className="relative z-10 transition-all duration-300 ease-in-out group-hover:font-bold">
+            {item.name}
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
+          </span>
+        </Link>
+      </div>
+      {isHovered && (
+        <div className="absolute left-0 w-full" style={{ top: '100%' }}>
+          <MegaMenu item={item} />
+        </div>
+      )}
     </li>
   );
 }
-
-interface MobileMenuProps {
-  navItems: string[];
-  locale: string;
-  switchLocale: (newLocale: string) => void;
-}
-
-function MobileMenu({ navItems, locale, switchLocale }:MobileMenuProps) {
+function MobileMenu({ navItems, locale, switchLocale }: MobileMenuProps) {
   return (
     <div className="py-4">
       <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
       <nav className="mt-4">
         <ul className="space-y-2">
           {navItems.map((item) => (
-            <li key={item}>
-              <a href="#" className="block py-2 hover:bg-gray-100">{item}</a>
+            <li key={item.name}>
+              <Link href={item.href} className="block py-2 hover:bg-gray-100">{item.name}</Link>
             </li>
           ))}
-          <li><a href="#" className="block py-2 hover:bg-gray-100">CONTACT US</a></li>
-          <li><a href="#" className="block py-2 hover:bg-gray-100">SERVICES</a></li>
+          <li><Link href="/contact" className="block py-2 hover:bg-gray-100">CONTACT US</Link></li>
+          {/* <li><Link href="/services" className="block py-2 hover:bg-gray-100">SERVICES</Link></li> */}
         </ul>
       </nav>
     </div>
