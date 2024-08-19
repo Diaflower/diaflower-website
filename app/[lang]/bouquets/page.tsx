@@ -1,6 +1,8 @@
 import React from 'react'
 import Hero from '@/components/home/Hero'
 import { getTranslations } from 'next-intl/server';
+import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection';
+import CategoryProductsSection from '@/components/shared/CategoryProductsSection';
 
 const page = async ({
   params: {lang}
@@ -11,8 +13,10 @@ const page = async ({
   const t = await getTranslations({locale: lang, namespace: 'Metadata'});
   return (
     <main className='w-full'>
-      <Hero/>
-     
+      {/* <Hero/> */}
+      <CategoryHeaderSection/>
+      <CategoryProductsSection/>
+    
     </main>
   );
 }

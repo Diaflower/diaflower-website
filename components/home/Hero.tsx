@@ -6,6 +6,7 @@ export default function Hero() {
       
         <section className="w-full xl:container mx-auto relative mb-3">
           <InfoCard
+          location='homepage'
          title='SUNSHINE JEWELS'
          desc='Jewllery collection as delicious as a Parisian rendez-vous in the heart of summer'
          link='Discover the selection'

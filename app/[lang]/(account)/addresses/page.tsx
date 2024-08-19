@@ -1,9 +1,13 @@
-import React from 'react'
+import AddressesContent from '@/components/account/AddressesContent'
 
-const page = () => {
+
+
+export default function Page() {
+
+
   return (
-    <div>page</div>
+    <>
+    <AddressesContent/>
+    </>
   )
 }
-
-export default page
