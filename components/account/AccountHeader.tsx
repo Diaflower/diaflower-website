@@ -1,24 +1,30 @@
-// import { auth, currentUser } from "@clerk/nextjs";
+'use client'
 
-export async function AccountHeader() {
-//   const { userId } = auth();
-//   const user = await currentUser();
+import { useUser } from "@clerk/nextjs"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useTranslations } from 'next-intl'
+
+export function AccountHeader() {
+  const { user, isLoaded } = useUser()
+  const t = useTranslations('account')
 
   return (
-    <header className="bg-[#f9f9f9] py-8 px-4">
-      <div className="container mx-auto text-center">
-        <img src="/placeholder.svg?height=50&width=50" alt="Diaflower Logo" className="mx-auto mb-4" />
-        {/* {userId ? ( */}
+    <header className="bg-[#f9f9f9] py-12 md:py-16 px-4">
+      <div className="flex flex-col gap-5 container mx-auto text-center">
+        {!isLoaded ? (
           <>
-            {/* <h1 className="text-2xl font-semibold mb-2">WELCOME {user?.firstName?.toUpperCase()}</h1> */}
-            <h1 className="text-2xl font-semibold mb-2">WELCOME RAMI</h1>
-            <p className="text-sm text-gray-600">Welcome to your account.</p>
-            <p className="text-sm text-gray-600">You can manage your shopping experience at Diaflower Online Store.</p>
+            <Skeleton className="h-8 w-64 mx-auto" />
+            <Skeleton className="h-4 w-96 mx-auto" />
           </>
-        {/* ) : ( */}
-          {/* <h1 className="text-2xl font-semibold mb-2">Welcome to Cartier</h1> */}
-        {/* )} */}
+        ) : user ? (
+          <>
+            <h1 className="text-2xl font-semibold mb-2">{t('welcome', { name: user.firstName || t('user') })}</h1>
+            <p className="text-sm text-muted-foreground">{t('manageExperience')}</p>
+          </>
+        ) : (
+          <h1 className="text-2xl font-semibold mb-2">{t('welcomeGuest')}</h1>
+        )}
       </div>
     </header>
-  );
+  )
 }

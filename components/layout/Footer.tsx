@@ -1,31 +1,34 @@
 import Link from "next/link"
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
-import { ChevronDown, Facebook, Twitter, Instagram, } from "lucide-react"
+import { ChevronDown, Facebook, Twitter, Instagram } from "lucide-react"
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
-
+import { useTranslations } from 'next-intl';
+import { useRTLAwareStyle } from "@/util/rtl";
 
 export default function Footer() {
+  const t = useTranslations('common');
+  const rtlAwareStyle = useRTLAwareStyle('space-x-4', 'space-x-reverse space-x-4');
+
   const footerSections = [
     {
-      title: "Company",
-      links: ["About Us", "Our Team", "Careers", "News"]
+      title: t('footer.sections.company.title'),
+      links: ['about', 'team', 'careers', 'news'].map(key => t(`footer.sections.company.links.${key}`))
     },
     {
-      title: "Products",
-      links: ["Men", "Women", "Kids", "Accessories"]
+      title: t('footer.sections.products.title'),
+      links: ['men', 'women', 'kids', 'accessories'].map(key => t(`footer.sections.products.links.${key}`))
     },
     {
-      title: "Resources",
-      links: ["Blog", "Community", "Support", "FAQs"]
+      title: t('footer.sections.resources.title'),
+      links: ['blog', 'community', 'support', 'faqs'].map(key => t(`footer.sections.resources.links.${key}`))
     }
-  ]
+  ];
 
   const socialIcons = [
-    { Icon: Facebook, href: "#", name: "Facebook" },
-    { Icon: Twitter, href: "#", name: "Twitter" },
-    { Icon: Instagram, href: "#", name: "Instagram" },
-    { Icon: Facebook, href: "#", name: "Facebook" } // Consider changing this to a different icon
-  ]
+    { Icon: Facebook, href: "#", name: t('footer.socialMedia.facebook') },
+    { Icon: Twitter, href: "#", name: t('footer.socialMedia.twitter') },
+    { Icon: Instagram, href: "#", name: t('footer.socialMedia.instagram') }
+  ];
 
   return (
     <footer className="w-full bg-gray-800 py-12 text-gray-200">
@@ -35,7 +38,7 @@ export default function Footer() {
             <div key={index} className="space-y-2">
               <h3 className="text-lg font-semibold text-white hidden sm:block">{section.title}</h3>
               <div className="hidden sm:grid gap-1">
-                {section.links.map((link, linkIndex) => (
+                {section.links.map((link: string, linkIndex: number) => (
                   <Link key={linkIndex} href="#" className="text-gray-300 hover:text-white hover:underline" prefetch={false}>
                     {link}
                   </Link>
@@ -48,7 +51,7 @@ export default function Footer() {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <div className="grid gap-1 mt-2">
-                    {section.links.map((link, linkIndex) => (
+                    {section.links.map((link: string, linkIndex: number) => (
                       <Link key={linkIndex} href="#" className="text-gray-300 hover:text-white hover:underline" prefetch={false}>
                         {link}
                       </Link>
@@ -59,26 +62,26 @@ export default function Footer() {
             </div>
           ))}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-white">Follow Us</h3>
-            <div className="flex space-x-4">
-            {socialIcons.map(({ Icon, href, name }, index) => (
-              <Link 
-                key={index} 
-                href={href} 
-                className="text-gray-300 hover:text-white" 
-                prefetch={false}
-                aria-label={`${name} (opens in a new tab)`}
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Icon className="h-6 w-6" />
-                <VisuallyHidden.Root>{name}</VisuallyHidden.Root>
-              </Link>
-            ))}
-          </div>
+            <h3 className="text-lg font-semibold text-white">{t('footer.followUs')}</h3>
+            <div className={`flex ${rtlAwareStyle}`}>
+              {socialIcons.map(({ Icon, href, name }, index) => (
+                <Link 
+                  key={index} 
+                  href={href} 
+                  className="text-gray-300 hover:text-white" 
+                  prefetch={false}
+                  aria-label={`${name} (opens in a new tab)`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <Icon className="h-6 w-6" />
+                  <VisuallyHidden.Root>{name}</VisuallyHidden.Root>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="mt-12 text-center text-sm text-gray-400">&copy; 2024 Acme Inc. All rights reserved.</div>
+        <div className="mt-12 text-center text-sm text-gray-400">{t('footer.copyright')}</div>
       </div>
     </footer>
   )

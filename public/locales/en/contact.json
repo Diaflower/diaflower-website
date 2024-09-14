@@ -1,0 +1,40 @@
+{
+      "title": "Contact Us",
+      "description": "Our DiaFlower team is delighted to assist you with your orders, style advice, gift ideas, and more. Please select your preferred method of contact below.",
+      "imageAlt": "Contact us header image",
+      "sectionTitle": "How Can We Help You?",
+      "sectionDescription": "Choose your preferred method of contact below, and a Diaflower representative in the UAE will be happy to assist you.",
+      "options": {
+        "call": {
+          "title": "Call us",
+          "description": "General Enquiries",
+          "details": "10am - 10pm from Monday to Sunday",
+          "action": "Tel. 800-0321180"
+        },
+        "email": {
+          "title": "E-mail us",
+          "description": "A Diaflower staff will respond as soon as possible",
+          "action": "Send an e-mail"
+        },
+        "message": {
+          "title": "Message us",
+          "description": "A Diaflower Staff will assist you on WhatsApp",
+          "action": "Send a message"
+        },
+        "visit": {
+          "title": "Visit us",
+          "description": "Find your nearest Diaflower location in the UAE",
+          "action": "Find a shop"
+        },
+        "appointments": {
+          "title": "Appointments",
+          "description": "Join us for a personalized appointment at the boutique of your choice",
+          "action": "Request an appointment"
+        },
+        "faq": {
+          "title": "FAQ",
+          "description": "Find answers to commonly raised questions about our services in the UAE",
+          "action": "Explore FAQ"
+        }
+      }
+  }

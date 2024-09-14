@@ -1,0 +1,67 @@
+{
+ 
+    "header": {
+      "search": "ألبحث",
+      "account": "الحساب",
+      "viewCart": "السلة",
+      "contactUs": "تواصل معنا",
+      "home": "الرئيسية",
+      "menu": "القائمة",
+      "menuDescription": "التنقل حول صفحات الموقع"
+    },
+    "cart":{
+      "cart": "السلة",
+      "cartDescription": "عرض العناصر المتوفرة التي قمت بإضافتها إلى سلة التسوق الخاصة بك"
+    },
+    "nav": {
+      "timelessCollection": "تايملس",
+      "bouquets": "باقات ورد",
+      "boxes": "بوكسات",
+      "leather": "الجلد",
+      "vases": "مزهريات"
+    },
+    "lang": {
+      "en": "EN",
+      "ar": "العربية",
+      "name": "العربية"
+    },
+    "footer":{
+      "sections": {
+        "company": {
+          "title": "الشركة",
+          "links": {
+            "about": "من نحن",
+            "team": "فريقنا",
+            "careers": "وظائف",
+            "news": "أخبار"
+          }
+        },
+        "products": {
+          "title": "المنتجات",
+          "links": {
+            "men": "رجال",
+            "women": "نساء",
+            "kids": "أطفال",
+            "accessories": "إكسسوارات"
+          }
+        },
+        "resources": {
+          "title": "الموارد",
+          "links": {
+            "blog": "المدونة",
+            "community": "المجتمع",
+            "support": "الدعم",
+            "faqs": "الأسئلة الشائعة"
+          }
+        }
+      },
+      "followUs": "تابعنا",
+      "socialMedia": {
+        "facebook": "فيسبوك",
+        "twitter": "تويتر",
+        "instagram": "إنستغرام"
+      },
+      "copyright": "© 2024 ديافلاور. جميع الحقوق محفوظة."
+    }
+  
+}

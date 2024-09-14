@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/collapsible"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { SignOutButton } from "@clerk/nextjs"
+import { useTranslations } from 'next-intl'
+import { useRTLAwareStyle } from "@/util/rtl"
 
 type NavItem = {
   name: string;
@@ -18,16 +21,17 @@ type NavItem = {
 export default function NavMenu({ navItems }: { navItems: NavItem[] }) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-
+  const t = useTranslations('account')
+ 
   return (
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="md:hidden border rounded-md mb-4"
+      className={`md:hidden border rounded-md mb-4`}
     >
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full flex justify-between items-center p-4">
-          MY CARTIER
+          {t('myAccount')}
           {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </Button>
       </CollapsibleTrigger>
@@ -37,16 +41,18 @@ export default function NavMenu({ navItems }: { navItems: NavItem[] }) {
             <Link key={item.path} href={item.path} passHref>
               <Button 
                 variant="link" 
-                className={`w-full justify-start ${pathname === item.path ? 'text-red-600' : ''}`}
+                className={`w-full justify-start ${
+                  pathname.includes(item.path)? 'text-primary font-semibold' : 'text-muted-foreground'
+                }`}
               >
                 {item.name}
               </Button>
             </Link>
           ))}
         </nav>
-        <form action="/api/logout" method="POST">
-          <Button type="submit" variant="secondary" className="w-full mt-4">LOG OUT</Button>
-        </form>
+        <Button type="button" variant="secondary" className="w-full mt-4">
+          <SignOutButton redirectUrl="/">{t('signOut')}</SignOutButton>
+        </Button>
       </CollapsibleContent>
     </Collapsible>
   )

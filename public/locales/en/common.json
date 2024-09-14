@@ -1,0 +1,66 @@
+{
+    "header": {
+      "search": "Search",
+      "account": "Account",
+      "viewCart": "View Cart",
+      "contactUs": "CONTACT US",
+      "home": "Home",
+      "menu": "Menu",
+      "menuDescription": "Navigate through the site options."
+    },
+    "cart":{
+      "cart": "Cart",
+      "cartDescription": "View the available items you added to your cart"
+    },
+    "nav": {
+      "timelessCollection": "TIMELESS COLLECTION",
+      "bouquets": "BOUQUETS",
+      "boxes": "BOXES",
+      "leather": "LEATHER",
+      "vases": "VASES"
+    },
+    "lang": {
+      "en": "EN",
+      "ar": "العربية",
+      "name": "English"
+    },
+    "footer": {
+      "sections": {
+        "company": {
+          "title": "Company",
+          "links": {
+            "about": "About Us",
+            "team": "Our Team",
+            "careers": "Careers",
+            "news": "News"
+          }
+        },
+        "products": {
+          "title": "Products",
+          "links": {
+            "men": "Men",
+            "women": "Women",
+            "kids": "Kids",
+            "accessories": "Accessories"
+          }
+        },
+        "resources": {
+          "title": "Resources",
+          "links": {
+            "blog": "Blog",
+            "community": "Community",
+            "support": "Support",
+            "faqs": "FAQs"
+          }
+        }
+      },
+      "followUs": "Follow Us",
+      "socialMedia": {
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "instagram": "Instagram"
+      },
+      "copyright": "© 2024 DiaFlower. All rights reserved."
+    }
+  
+}
