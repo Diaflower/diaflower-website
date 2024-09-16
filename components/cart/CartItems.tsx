@@ -56,26 +56,26 @@ export function CartItems() {
                   <div className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded-md overflow-hidden`}>
                     <Image
                       src={item.variation.image?.url || '/placeholder.svg'}
-                      alt={item.variation.product?.name_en || t('productImage')}
+                      alt={item.variation.product?.name || t('productImage')}
                       width={80}
                       height={80}
                       className="object-cover object-center w-full h-full"
                     />
                   </div>
                   <div>
-                    <h3 className={`text-sm md:text-base font-medium text-gray-900 ${rtlText}`}>{item.variation.product?.name_en}</h3>
+                    <h3 className={`text-sm md:text-base font-medium text-gray-900 ${rtlText}`}>{item.variation.product?.name}</h3>
                     <p className="mt-1 text-xs md:text-sm text-gray-500">
-                      {item.variation.size?.name_en && `${t('size')}: ${item.variation.size.name_en}, `}
-                      {item.variation.infinityColor?.name_en && `${t('color')}: ${item.variation.infinityColor.name_en}, `}
-                      {item.variation.boxColor?.name_en && `${t('box')}: ${item.variation.boxColor.name_en}, `}
-                      {item.variation.wrappingColor?.name_en && `${t('wrapping')}: ${item.variation.wrappingColor.name_en}`}
+                      {item.variation.size?.name && `${t('size')}: ${item.variation.size.name}, `}
+                      {item.variation.infinityColor?.name && `${t('color')}: ${item.variation.infinityColor.name}, `}
+                      {item.variation.boxColor?.name && `${t('box')}: ${item.variation.boxColor.name}, `}
+                      {item.variation.wrappingColor?.name && `${t('wrapping')}: ${item.variation.wrappingColor.name}`}
                     </p>
                     {item.addons.length > 0 && (
                       <div className="mt-2">
                         <h4 className="text-xs md:text-sm font-medium text-gray-900">{t('addons')}:</h4>
                         {item.addons.map(addon => (
                           <div key={`${item.id}-${addon.id}`} className="text-xs md:text-sm text-gray-500">
-                            {addon.name_en} ({addon.addonType}) - {formatPrice((addon.price || 0) * (addon.quantity || 1))}
+                            {addon.name} ({addon.addonType}) - {formatPrice((addon.price || 0) * (addon.quantity || 1))}
                           </div>
                         ))}
                       </div>

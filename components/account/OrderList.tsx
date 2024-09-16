@@ -13,14 +13,12 @@ import { ResponsiveDialog } from '@/components/shared/ResponsiveDialog'
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { useTranslations } from 'next-intl'
-
 import { useRTLAwareStyle } from '@/util/rtl'
 
 export default function OrdersList({ lang }: { lang: string }) {
@@ -32,11 +30,11 @@ export default function OrdersList({ lang }: { lang: string }) {
   const rtlMargin = useRTLAwareStyle('mr-2', 'ml-2')
 
   const { data: orders, isLoading, isError } = useQuery<OrdersResponse>({
-    queryKey: ['orders', page],
+    queryKey: ['orders', page, lang],
     queryFn: async () => {
       const token = await getToken()
       if (!token) throw new Error('No authentication token available')
-      return fetchOrders(token, page)
+      return fetchOrders(token, page, 10, lang)
     },
     enabled: isLoaded && !!userId,
   })
@@ -75,8 +73,7 @@ export default function OrdersList({ lang }: { lang: string }) {
                     e.preventDefault();
                     if (page > 1) setPage(page - 1);
                   }}
-                >
-                </PaginationPrevious>
+                />
               </PaginationItem>
               {[...Array(orders.totalPages)].map((_, i) => (
                 <PaginationItem key={i}>
@@ -94,14 +91,13 @@ export default function OrdersList({ lang }: { lang: string }) {
               ))}
               <PaginationItem>
                 <PaginationNext 
-                  cont= {t('next')}
+                  cont={t('next')}
                   href="#" 
                   onClick={(e) => {
                     e.preventDefault();
                     if (page < orders.totalPages) setPage(page + 1);
                   }}
-                >
-                </PaginationNext>
+                />
               </PaginationItem>
             </PaginationContent>
           </Pagination>

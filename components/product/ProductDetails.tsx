@@ -2,10 +2,12 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import Image from 'next/image'
+import { Facebook, Instagram, Twitter, Mail, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from "@/components/ui/checkbox"
-import { Product, ProductVariation, ProductSize, Color, Addon, AddonVariation } from '@/types/product'
-import { Facebook, Instagram, Twitter, Mail, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Accordion,
   AccordionContent,
@@ -13,11 +15,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CartItemInput, useCartStore } from '@/store/cartStore'
-import { toast } from '@/hooks/use-toast'
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   Carousel,
   CarouselContent,
@@ -25,13 +22,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+// import { Product, ProductVariation, ProductSize, Color, Addon, AddonVariation } from '@/types/product'
+import { Product,ProductVariation,ProductSize,Color,Addon,AddonVariation } from '@/types/product'
+import { CartItemInput, useCartStore } from '@/store/cartStore'
+import { toast } from '@/hooks/use-toast'
 
 const parsePrice = (price: string | number): number => {
   if (typeof price === 'number') return price;
   return parseFloat(price) || 0;
 }
 
-export default function ProductDetails({ product }: { product: Product }) {
+export default function ProductDetails({ product, lang }: { product: Product, lang: 'en' | 'ar' }) {
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation>(
     product.variations.find(v => v.isDefault) || product.variations[0]
   )
@@ -40,7 +41,6 @@ export default function ProductDetails({ product }: { product: Product }) {
   const { addItem, addAddonToItem } = useCartStore()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  // console.log("prorddd",product)
   useEffect(() => {
     const variation = product.variations[currentImageIndex]
     if (variation) {
@@ -50,7 +50,6 @@ export default function ProductDetails({ product }: { product: Product }) {
 
   const handleVariationChange = (variation: ProductVariation) => {
     setSelectedVariation(variation)
-    // Update the main image index
     const index = product.variations.findIndex(v => v.id === variation.id)
     if (index !== -1) {
       setCurrentImageIndex(index)
@@ -75,15 +74,14 @@ export default function ProductDetails({ product }: { product: Product }) {
         ...selectedVariation,
         product: {
           id: product.id,
-          name_en: product.name_en,
-          name_ar: product.name_ar,
+          name: product.name,
         },
       },
       quantity: quantity,
       addons: withAddons ? Object.values(selectedAddons).map(addon => ({
         ...addon,
         addonType: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.addonType || '',
-        name_en: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.name_en || '',
+        name: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.name || '',
       })) : [],
     };
 
@@ -91,13 +89,13 @@ export default function ProductDetails({ product }: { product: Product }) {
       addAddonToItem(cartItem);
       toast({
         title: "Product and addons added to cart",
-        description: `${product.name_en} with selected addons added to your cart.`,
+        description: `${product.name} with selected addons added to your cart.`,
       });
     } else {
       addItem(cartItem);
       toast({
         title: "Added to cart",
-        description: `${quantity} x ${product.name_en} added to your cart.`,
+        description: `${quantity} x ${product.name} added to your cart.`,
       });
     }
   }
@@ -108,7 +106,7 @@ export default function ProductDetails({ product }: { product: Product }) {
       if (option) {
         const isDuplicate = acc.some(item => 
           key === 'size' 
-            ? (item as ProductSize).name_en === (option as ProductSize).name_en
+            ? (item as ProductSize).name === (option as ProductSize).name
             : item.id === option.id
         )
         if (!isDuplicate) {
@@ -130,7 +128,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           {uniqueOptions.map((option) => (
             <div key={option.id} className="flex items-center space-x-2">
               <RadioGroupItem value={option.id.toString()} id={`size-${option.id}`} />
-              <Label htmlFor={`size-${option.id}`}>{(option as ProductSize).name_en}</Label>
+              <Label htmlFor={`size-${option.id}`}>{(option as ProductSize).name}</Label>
             </div>
           ))}
         </RadioGroup>
@@ -148,11 +146,11 @@ export default function ProductDetails({ product }: { product: Product }) {
                   const newVariation = product.variations.find(v => v[key]?.id === colorOption.id)
                   if (newVariation) handleVariationChange(newVariation)
                 }}
-                aria-label={`Select ${key} ${colorOption.name_en}`}
+                aria-label={`Select ${key} ${colorOption.name}`}
               >
                 <Image
                   src={colorOption.image?.url || '/placeholder.svg?height=40&width=40'}
-                  alt={colorOption.name_en}
+                  alt={colorOption.name}
                   width={40}
                   height={40}
                   className="w-full h-full object-cover rounded-full"
@@ -179,19 +177,17 @@ export default function ProductDetails({ product }: { product: Product }) {
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">
-          {/* Main image */}
           <div className="aspect-square relative overflow-hidden rounded-lg">
             <Image
               src={selectedVariation.image?.url || product.mainImage.url}
-              alt={selectedVariation.image?.altText_en || product.mainImage.altText_en || product.name_en}
-             fill
+              alt={selectedVariation.image?.altText || product.mainImage.altText || product.name}
+              fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
               priority
             />
           </div>
           
-          {/* Smaller carousel */}
           <div className="relative">
             <Carousel
               opts={{
@@ -212,7 +208,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                       >
                         <Image
                           src={variation.image?.url || product.mainImage.url}
-                          alt={variation.image?.altText_en || product.mainImage.altText_en || product.name_en}
+                          alt={variation.image?.altText || product.mainImage.altText || product.name}
                           fill
                           className="object-cover"
                         />
@@ -228,7 +224,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
         
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold">{product.name_en}</h1>
+          <h1 className="text-3xl font-bold">{product.name}</h1>
           <div className="flex items-center justify-between">
             <p className="text-2xl font-semibold" aria-live="polite">
               AED {parsePrice(selectedVariation.price).toFixed(2)}
@@ -265,7 +261,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               </div>
             </div>
           </div>
-          <p className='text-sm text-gray-600'>{product.shortDescription_en}</p>
+          <p className='text-sm text-gray-600'>{product.shortDescription}</p>
           <div className="space-y-4">
             {product.productType === 'LONG_LIFE' && (
               <>
@@ -344,7 +340,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                 <AccordionTrigger>Flower Delivery Info</AccordionTrigger>
                 <AccordionContent>
                   Our flower delivery service is available in Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Umm Al Quwain and Fujairah.
-                  When you order flowers online, we will ensure that you receive your flowers within the delivery time slot you've selected.
+                  When you order flowers online, we will ensure that you receive your flowers within the delivery time slot you&apos;ve selected.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="disclaimer">
@@ -364,7 +360,6 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
       </div>
   
-      {/* Enhance Your Order Section */}
       {addonTypes.length > 0 && (
         <div className="mt-12 bg-gray-50 p-6 rounded-lg">
           <h2 className="text-2xl font-semibold mb-6">Enhance Your Order</h2>
@@ -394,15 +389,15 @@ export default function ProductDetails({ product }: { product: Product }) {
                             <div className="relative aspect-square w-full overflow-hidden rounded-md">
                               <Image
                                 src={selectedVariation?.image?.url || defaultImage || '/placeholder.svg?height=200&width=200'}
-                                alt={addon.name_en}
+                                alt={addon.name}
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 className="object-cover"
                               />
                             </div>
                             <div>
-                              <h3 className="font-semibold">{addon.name_en}</h3>
-                              <p className="text-sm text-gray-600 line-clamp-2">{addon.description_en}</p>
+                              <h3 className="font-semibold">{addon.name}</h3>
+                              <p className="text-sm text-gray-600 line-clamp-2">{addon.description}</p>
                             </div>
                             {addon.addonVariations.length > 0 ? (
                               <select
@@ -416,7 +411,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                                 <option value="">Select option</option>
                                 {addon.addonVariations.map(variation => (
                                   <option key={variation.id} value={variation.id}>
-                                    {variation.size?.name_en} - AED {parsePrice(variation.price).toFixed(2)}
+                                    {variation.size?.name} - AED {parsePrice(variation.price).toFixed(2)}
                                   </option>
                                 ))}
                               </select>

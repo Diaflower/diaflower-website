@@ -4,6 +4,7 @@ import { Order, OrderItem } from "@/types/order";
 import React from "react";
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from "@/util/rtl";
+import Image from 'next/image'
 
 interface OrderDetailsProps {
   order: Order;
@@ -14,6 +15,9 @@ export default function OrderDetails({ order, lang }: OrderDetailsProps) {
   const t = useTranslations('account')
   const rtlTextAlign = useRTLAwareStyle('text-left', 'text-right')
   const rtlPadding = useRTLAwareStyle('pl-4', 'pr-4')
+  const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
+  const rtlDirection2 = useRTLAwareStyle('', 'w-full flex flex-row-reverse justify-between items-center')
+  const rtlTable = useRTLAwareStyle('','flex flex-col')
 
   return (
     <div className="space-y-6">
@@ -28,9 +32,9 @@ export default function OrderDetails({ order, lang }: OrderDetailsProps) {
       </div>
       <div>
         <h4 className={`font-semibold mb-2 ${rtlTextAlign}`}>{t('items')}</h4>
-        <Table>
+        <Table className={rtlTable}>
           <TableHeader>
-            <TableRow>
+            <TableRow className={rtlDirection2}>
               <TableHead className={rtlTextAlign}>{t('product')}</TableHead>
               <TableHead className={rtlTextAlign}>{t('quantity')}</TableHead>
               <TableHead className={rtlTextAlign}>{t('price')}</TableHead>
@@ -39,20 +43,41 @@ export default function OrderDetails({ order, lang }: OrderDetailsProps) {
           <TableBody>
             {order.items.map((item: OrderItem) => (
               <React.Fragment key={item.id}>
-                <TableRow>
-                  <TableCell className={rtlTextAlign}>{item.productId}</TableCell>
+                <TableRow className={rtlDirection2}>
+                  <TableCell className={rtlTextAlign}>
+                    <div className={`flex ${rtlDirection2} items-center space-x-2`}>
+                      {item.product.mainImage && (
+                        <Image
+                          src={item.product.mainImage.url}
+                          alt={item.product.mainImage.altText || item.product.name}
+                          width={50}
+                          height={50}
+                          className="rounded-md"
+                        />
+                      )}
+                      <div>
+                        <p className="font-medium">{item.product.name}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {item.productVariation.size && `${t('size')}: ${item.productVariation.size.name}`}
+                          {item.productVariation.infinityColor && `, ${t('infinityColor')}: ${item.productVariation.infinityColor.name}`}
+                          {item.productVariation.boxColor && `, ${t('boxColor')}: ${item.productVariation.boxColor.name}`}
+                          {item.productVariation.wrappingColor && `, ${t('wrappingColor')}: ${item.productVariation.wrappingColor.name}`}
+                        </p>
+                      </div>
+                    </div>
+                  </TableCell>
                   <TableCell className={rtlTextAlign}>{item.quantity}</TableCell>
                   <TableCell className={rtlTextAlign}>{t('currency', { amount: item.price })}</TableCell>
                 </TableRow>
                 {item.addons && item.addons.length > 0 && (
-                  <TableRow>
+                  <TableRow className={rtlDirection}>
                     <TableCell colSpan={3}>
                       <div className={`${rtlPadding} text-sm text-muted-foreground ${rtlTextAlign}`}>
                         <strong>{t('addons')}:</strong>
                         <ul className={rtlPadding}>
                           {item.addons.map((addon) => (
                             <li key={addon.id}>
-                              {addon.addonId} - {t('quantity')}: {addon.quantity}, {t('price')}: {t('currency', { amount: addon.price })}
+                              {addon.addon.name} - {t('quantity')}: {addon.quantity}, {t('price')}: {t('currency', { amount: addon.price })}
                             </li>
                           ))}
                         </ul>
@@ -72,19 +97,19 @@ export default function OrderDetails({ order, lang }: OrderDetailsProps) {
         <p>{order.shippingAddress.country} {order.shippingAddress.postalCode}</p>
       </div>
       <div className={`flex flex-col justify-between ${rtlTextAlign}`}>
-        <div className="flex justify-between">
+        <div className={`flex justify-between ${rtlDirection}`}>
           <h4 className="font-semibold">{t('subtotal')}</h4>
           <p>{t('currency', { amount: order.subtotal })}</p>
         </div>
-        <div className="flex justify-between">
+        <div className={`flex justify-between ${rtlDirection}`}>
           <h4 className="font-semibold">{t('shipping')}</h4>
           <p>{t('currency', { amount: order.shippingCost })}</p>
         </div>
-        <div className="flex justify-between">
+        <div className={`flex justify-between ${rtlDirection}`}>
           <h4 className="font-semibold">{t('tax')}</h4>
           <p>{t('currency', { amount: order.taxInfo })}</p>
         </div>
-        <div className="flex justify-between">
+        <div className={`flex justify-between ${rtlDirection}`}>
           <h4 className="font-semibold">{t('total')}</h4>
           <p>{t('currency', { amount: order.total })}</p>
         </div>

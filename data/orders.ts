@@ -67,15 +67,35 @@ export const updateOrderStatus = async (paymentIntentId: string) => {
 
 // New functions for order history page
 
-export const fetchOrders = async (token: string, page: number = 1, pageSize: number = 10) => {
+// export const fetchOrders = async (token: string, page: number = 1, pageSize: number = 10) => {
+//   try {
+//     const response = await axios.get(`${API_BASE_URL}/orders`, {
+//       headers: {
+//         'Authorization': `Bearer ${token}`
+//       },
+//       params: {
+//         page,
+//         pageSize
+//       }
+//     });
+//     console.log("response:",response)
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching orders:', error);
+//     throw error;
+//   }
+// };
+
+export const fetchOrders = async (token: string, page: number = 1, pageSize: number = 10, lang: string) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/orders`, {
+    const response = await axios.get(`${API_BASE_URL}/orders/customer`, {
       headers: {
         'Authorization': `Bearer ${token}`
       },
       params: {
         page,
-        pageSize
+        pageSize,
+        lang
       }
     });
     return response.data;
@@ -85,11 +105,29 @@ export const fetchOrders = async (token: string, page: number = 1, pageSize: num
   }
 };
 
-export const fetchOrderById = async (token: string, orderId: string) => {
+// export const fetchOrderById = async (token: string, orderId: string) => {
+//   try {
+//     const response = await axios.get(`${API_BASE_URL}/orders/${orderId}`, {
+//       headers: {
+//         'Authorization': `Bearer ${token}`
+//       }
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching order:', error);
+//     throw error;
+//   }
+// };
+
+
+export const fetchOrderById = async (token: string, orderId: string, lang: string) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/orders/${orderId}`, {
+    const response = await axios.get(`${API_BASE_URL}/orders/customer/${orderId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
+      },
+      params: {
+        lang
       }
     });
     return response.data;

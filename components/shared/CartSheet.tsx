@@ -53,7 +53,7 @@ export default function CartSheet() {
               <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-md border">
                 <Image
                   src={item.variation.image?.url || '/placeholder.svg'}
-                  alt={item.variation.product?.name_en || t('productImage')}
+                  alt={item.variation.product?.name || t('productImage')}
                   width={96}
                   height={96}
                   className="object-cover object-center w-full h-full"
@@ -62,11 +62,11 @@ export default function CartSheet() {
               <div className={`${rtlMargin} flex-1 flex flex-col ${rtlAlign}`}>
                 <div>
                   <div className={`${rtlDirection} flex justify-between text-base font-medium`}>
-                    <h3>{item.variation.product?.name_en}</h3>
+                    <h3>{item.variation.product?.name}</h3>
                     <p>{formatPrice(item.variation.price * item.quantity)}</p>
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {item.variation.size?.name_en} - {item.variation.infinityColor?.name_en}
+                    {item.variation.size?.name} - {item.variation.infinityColor?.name}
                   </p>
                 </div>
                 <div className="flex-1 flex items-end justify-between text-sm">
@@ -108,7 +108,7 @@ export default function CartSheet() {
                 <h4 className="text-sm font-medium mb-2">{t('addons')}:</h4>
                 {item.addons.map((addon) => (
                   <div key={addon.id} className="flex justify-between text-sm mb-1">
-                    <span>{addon.name_en} ({addon.addonType})</span>
+                    <span>{addon.name} ({addon.addonType})</span>
                     <span>{formatPrice((addon.price || 0) * (addon.quantity || 1))}</span>
                   </div>
                 ))}

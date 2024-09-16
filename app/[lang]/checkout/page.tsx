@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import Checkout from '@/components/checkout/Checkout'
-import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {

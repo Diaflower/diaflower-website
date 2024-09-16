@@ -8,9 +8,24 @@ const api = axios.create({
   timeout: 5000,
 });
 
-export async function getProductBySlug(slug: string): Promise<Product | null> {
+// export async function getProductBySlug(slug: string): Promise<Product | null> {
+//   try {
+//     const response = await api.get<Product>(`/products/getBySlug/${slug}`);
+//     return response.data;
+//   } catch (error) {
+//     if (axios.isAxiosError(error)) {
+//       console.error('Axios error fetching product:', error.message);
+//       console.error('Error details:', error.response?.data);
+//     } else {
+//       console.error('Unknown error fetching product:', error);
+//     }
+//     return null;
+//   }
+// }
+
+export async function getProductBySlug(slug: string, lang: 'en' | 'ar' = 'en'): Promise<Product | null> {
   try {
-    const response = await api.get<Product>(`/products/getBySlug/${slug}`);
+    const response = await api.get<Product>(`/products/getBySlug/${slug}?lang=${lang}`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

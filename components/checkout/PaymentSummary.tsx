@@ -28,6 +28,7 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   const [isExpanded, setIsExpanded] = useState(false)
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
 
+  console.log("items:",items)
   const subtotal = getTotalPrice()
   const tax = subtotal * 0.05 // 5% tax
   const [shippingCost, setShippingCost] = useState<number | null>(null)
@@ -108,23 +109,23 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
               <div className="relative w-16 h-16 flex-shrink-0">
                 <Image
                   src={item.variation.image?.url || '/placeholder.svg'}
-                  alt={item.variation.product.name_en}
+                  alt={item.variation.product.name}
                   fill
                   className="object-cover rounded"
                 />
               </div>
               <div className="flex-grow">
-                <h3 className="font-semibold">{item.variation.product.name_en}</h3>
+                <h3 className="font-semibold">{item.variation.product.name}</h3>
                 <p className="text-sm text-muted-foreground">
                   {/* {item.variation.product.name_en && `${t('variant')}:`} */}
-                  {item.variation.size && `${t('size')}: ${item.variation.size.name_en}`}
-                  {item.variation.boxColor && `, ${t('box')}: ${item.variation.boxColor.name_en}`}
-                  {item.variation.infinityColor && `, ${t('infinity')}: ${item.variation.infinityColor.name_en}`}
+                  {item.variation.size && `${t('size')}: ${item.variation.size.name}`}
+                  {item.variation.boxColor && `, ${t('box')}: ${item.variation.boxColor.name}`}
+                  {item.variation.infinityColor && `, ${t('infinity')}: ${item.variation.infinityColor.name}`}
                   {item.variation.wrappingColor && `, ${t('wrapping')}: ${item.variation.wrappingColor}`}
                 </p>
                 {item.addons.length > 0 && (
                   <div className="text-sm text-muted-foreground">
-                    {t('addons')}: {item.addons.map(addon => `${addon.name_en} (${formatCurrency(+addon.price)})`).join(', ')}
+                    {t('addons')}: {item.addons.map(addon => `${addon.name} (${formatCurrency(+addon.price)})`).join(', ')}
                   </div>
                 )}
                 <div className="flex justify-between items-center mt-1">

@@ -15,7 +15,7 @@ export default async function ProfilePage({ params: { lang } }: { params: { lang
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">{t('myProfile')}</h1>
+      <h1 className="text-3xl font-semibold">{t('myProfile')}</h1>
       <p className="text-muted-foreground">
         {t('profilePageIntro')}
       </p>

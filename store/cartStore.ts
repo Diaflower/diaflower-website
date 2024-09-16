@@ -4,7 +4,7 @@ import { ProductVariation, AddonVariation } from '@/types/product';
 
 interface CartAddon extends AddonVariation {
   addonType: string;
-  name_en: string;
+  name: string;
 }
 
 interface CartItem {
