@@ -2,33 +2,6 @@ export type ProductStatus = 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
 
 export type ProductType = 'LONG_LIFE' | 'BOUQUET' | 'ARRANGEMENT' | 'ACRYLIC_BOX'
 
-// export type Product = {
-//   id: number
-//   code: string | null
-//   name_en: string
-//   name_ar: string
-//   slug: string
-//   shortDescription_en: string
-//   shortDescription_ar: string
-//   longDescription_en: string
-//   longDescription_ar: string
-//   metaTitle_en: string | null
-//   metaTitle_ar: string | null
-//   metaDescription_en: string | null
-//   metaDescription_ar: string | null
-//   featured: boolean
-//   status: ProductStatus
-//   productType: ProductType
-//   categoryId: number
-//   category: Category
-//   mainImage: ProductImage
-//   variations: ProductVariation[]
-//   tags: ProductTag[]
-//   addons: Addon[]
-//   createdAt: string
-//   updatedAt: string
-// }
-
 export type Product = {
   id: number
   code: string | null
@@ -51,6 +24,17 @@ export type Product = {
   updatedAt: string
 }
 
+export type SimpleProduct = {
+  id: number;
+  name: string;
+  image: {
+    url: string;
+    altText: string;
+  };
+  price: number;
+}
+
+
 
 export type ProductVariation = {
   id: number
@@ -69,6 +53,7 @@ export type ProductVariation = {
   product: {
     id: number
     name: string
+    slug:string
 
   }
 }
@@ -85,15 +70,7 @@ export type Color = {
   image: ColorImage | null
 }
 
-// export type ProductImage = {
-//   id: number
-//   url: string
-//   thumbnail: string | null
-//   altText_en: string | null
-//   altText_ar: string | null
-//   caption_en: string | null
-//   caption_ar: string | null
-// }
+
 
 export type ProductImage = {
   id: number
@@ -104,13 +81,6 @@ export type ProductImage = {
 }
 
 
-// export type ColorImage = {
-//   id: number
-//   url: string
-//   thumbnail: string | null
-//   altText_en: string | null
-//   altText_ar: string | null
-// }
 
 export type ColorImage = {
   id: number
@@ -118,18 +88,6 @@ export type ColorImage = {
   thumbnail: string | null
   altText: string | null
 }
-
-// export type Category = {
-//   id: number
-//   name_en: string
-//   name_ar: string
-// }
-
-// export type ProductTag = {
-//   id: number
-//   name_en: string
-//   name_ar: string
-// }
 
 export type Category = {
   id: number
@@ -143,16 +101,7 @@ export type ProductTag = {
 
 export type AddonType = 'BALOONS' | 'CHOCOLATES' | 'CAKES'
 
-// export type Addon = {
-//   id: number
-//   addonType: AddonType
-//   name_en: string
-//   name_ar: string
-//   description_en: string | null
-//   description_ar: string | null
-//   addonVariations: AddonVariation[]
-//   mainImage: AddonImage | null
-// }
+
 
 export type Addon = {
   id: number
@@ -175,21 +124,7 @@ export type AddonVariation = {
   quantity?: number  // Add this line
 }
 
-// export type AddonSize = {
-//   id: number
-//   name_en: string
-//   name_ar: string
-// }
 
-// export type AddonImage = {
-//   id: number
-//   url: string
-//   thumbnail: string | null
-//   altText_en: string | null
-//   altText_ar: string | null
-//   caption_en: string | null
-//   caption_ar: string | null
-// }
 
 
 export type AddonImage = {

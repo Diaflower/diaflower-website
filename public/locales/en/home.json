@@ -1,28 +1,43 @@
 {
-    "infoCards": {
-      "card1": {
-        "title": "SUNSHINE JEWELS",
-        "description": "Jewellery collection as delicious as a Parisian rendez-vous in the heart of summer",
-        "link": "Discover the selection",
-        "alt": "Sunshine Jewels collection featuring bright, summer-inspired jewelry"
-      },
-      "card2": {
-        "title": "MOONLIGHT GEMS",
-        "description": "Elegant jewellery inspired by the soft glow of moonlight on a clear night",
-        "link": "Explore the collection",
-        "alt": "Moonlight Gems collection showcasing elegant, night-inspired jewelry pieces"
-      },
-      "card3": {
-        "title": "FLORAL DELIGHTS",
-        "description": "Exquisite pieces that capture the beauty and delicacy of nature's finest blooms",
-        "link": "View the range",
-        "alt": "Floral Delights collection displaying intricate flower-inspired jewelry designs"
-      },
-      "card4": {
-        "title": "TIMELESS CLASSICS",
-        "description": "Sophisticated jewellery that stands the test of time, perfect for any occasion",
-        "link": "Browse classics",
-        "alt": "Timeless Classics collection featuring sophisticated, versatile jewelry pieces"
-      }
-    }
-  }
+  "card1": {
+    "title": "Crystal Encased Roses",
+    "description": "Timeless beauty captured in crystal. Our long-life roses, preserved for up to 5 years, are elegantly displayed in clear crystal cases. Choose from single, duo, or heart-shaped rose arrangements for a truly magical gift.",
+    "alt": "Long-lasting roses encased in crystal"
+  },
+  "card2": {
+    "title": "Wooden Box Rose Collections",
+    "description": "Luxury meets longevity. Our wooden boxes with acrylic tops showcase 9, 16, or 25 exquisite long-life roses. Each box features a secret drawer filled with delectable chocolates for an extra sweet surprise.",
+    "alt": "Long-lasting roses in wooden boxes with chocolate drawers"
+  },
+  "card3": {
+    "title": "Acrylic Box Rose Designs",
+    "description": "Modern artistry meets floral preservation. Our acrylic boxes feature stunning long-life roses arranged in creative designs like hearts and teddy bears. A contemporary twist on classic flower gifting.",
+    "alt": "Long-lasting roses in designer acrylic boxes"
+  },
+  "card4": {
+    "title": "Fresh Flower Bouquets",
+    "description": "Vibrant and varied, our fresh flower bouquets burst with color and fragrance. Each arrangement is a unique blend of seasonal blooms, perfect for any occasion or to brighten someone's day.",
+    "alt": "Fresh, colorful flower bouquets"
+  },
+  "card5": {
+    "title": "Box Flower Arrangements",
+    "description": "Elegance in every shape. Choose from round, square, or rectangular boxes, each filled with a carefully curated selection of fresh flowers. A sophisticated gift that's sure to impress.",
+    "alt": "Fresh flowers arranged in stylish boxes"
+  },
+  "card6": {
+    "title": "Premium Acrylic Flower Displays",
+    "description": "Showcase nature's beauty. Our premium arrangements feature select fresh flowers displayed in clear acrylic boxes, allowing for a 360-degree view of these stunning botanical creations.",
+    "alt": "Premium fresh flowers in clear acrylic boxes"
+  },
+  "card7": {
+    "title": "Leather Bag Floral Ensembles",
+    "description": "Fashion meets floristry. Our exclusive leather bag designs come filled with an exquisite arrangement of fresh flowers. A truly unique gift that combines style and natural beauty.",
+    "alt": "Fresh flower arrangements in designer leather bags"
+  },
+  "card8": {
+    "title": "Vase Flower Collections",
+    "description": "Timeless elegance in full bloom. Our vase collections feature a diverse mix of fresh flowers, expertly arranged to create stunning centerpieces that will enhance any space.",
+    "alt": "Fresh flower arrangements in elegant vases"
+  },
+  "link":"Discover The Collection"
+}

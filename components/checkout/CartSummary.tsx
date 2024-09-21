@@ -60,15 +60,15 @@ export function CartSummary() {
               <div className="relative w-16 h-16 flex-shrink-0">
                 <Image
                   src={item.variation.image?.url || '/placeholder.svg'}
-                  alt={item.variation.product.name_en}
+                  alt={item.variation.product.name}
                   fill
                   className="object-cover rounded"
                 />
               </div>
               <div className="flex-grow">
-                <h3 className="font-semibold">{item.variation.product.name_en}</h3>
+                <h3 className="font-semibold">{item.variation.product.name}</h3>
                 <p className="text-sm text-muted-foreground">
-                  {item.variation.product.name_en && `Variant: ${item.variation.product.name_en}`}
+                  {item.variation.product.name && `Variant: ${item.variation.product.name}`}
                   {item.variation.size && `, Size: ${item.variation.size}`}
                   {item.variation.boxColor && `, Box: ${item.variation.boxColor}`}
                   {item.variation.infinityColor && `, Infinity: ${item.variation.infinityColor}`}
@@ -76,7 +76,7 @@ export function CartSummary() {
                 </p>
                 {item.addons.length > 0 && (
                   <div className="text-sm text-muted-foreground">
-                    Addons: {item.addons.map(addon => addon.name_en).join(', ')}
+                    Addons: {item.addons.map(addon => addon.name).join(', ')}
                   </div>
                 )}
                 <div className="flex justify-between items-center mt-1">

@@ -1,3 +1,5 @@
+// store/cartStore.ts
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { ProductVariation, AddonVariation } from '@/types/product';
@@ -5,15 +7,18 @@ import { ProductVariation, AddonVariation } from '@/types/product';
 interface CartAddon extends AddonVariation {
   addonType: string;
   name: string;
+  variationId: number;
 }
 
-interface CartItem {
+export interface CartItem {
   id: string;
   productId: number;
+  productSlug: string;
   variationId: number;
   variation: ProductVariation;
   quantity: number;
   addons: CartAddon[];
+  lang: 'en' | 'ar';
 }
 
 export type CartItemInput = Omit<CartItem, 'id'>;
@@ -35,12 +40,21 @@ export const useCartStore = create(
       items: [],
       addItem: (item: CartItemInput) => set((state) => {
         const existingItem = state.items.find(
-          (i) => i.productId === item.productId && i.variationId === item.variationId
+          (i) => 
+            i.productId === item.productId && 
+            i.variationId === item.variationId
+          // Removed the language check
         );
         if (existingItem) {
           return {
             items: state.items.map((i) =>
-              i.id === existingItem.id ? { ...i, quantity: i.quantity + item.quantity } : i
+              i.id === existingItem.id 
+                ? { 
+                    ...i, 
+                    quantity: i.quantity + item.quantity,
+                    lang: item.lang // Update the language to the most recent one
+                  } 
+                : i
             ),
           };
         }
@@ -49,7 +63,10 @@ export const useCartStore = create(
       }),
       addAddonToItem: (item: CartItemInput) => set((state) => {
         const existingItemIndex = state.items.findIndex(
-          (i) => i.productId === item.productId && i.variationId === item.variationId
+          (i) => 
+            i.productId === item.productId && 
+            i.variationId === item.variationId
+          // Removed the language check
         );
         
         if (existingItemIndex === -1) {
@@ -58,10 +75,12 @@ export const useCartStore = create(
           return { items: [...state.items, newItem] };
         }
 
-        // Item exists, update addons
+        // Item exists, update addons and language
         const updatedItems = [...state.items];
         const existingItem = updatedItems[existingItemIndex];
         
+        existingItem.lang = item.lang; // Update the language
+
         item.addons.forEach((newAddon) => {
           const existingAddonIndex = existingItem.addons.findIndex((a) => a.id === newAddon.id);
           if (existingAddonIndex !== -1) {

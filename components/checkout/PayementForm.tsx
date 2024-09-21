@@ -10,9 +10,12 @@ import { useTranslations } from 'next-intl'
 
 interface PaymentFormProps {
   clientSecret: string
+  shippingData: any
+  items: any[]
+  paymentMethod: 'ONLINE'
 }
 
-export function PaymentForm({ clientSecret }: PaymentFormProps) {
+export function PaymentForm({ clientSecret, shippingData, items, paymentMethod }: PaymentFormProps) {
   const t = useTranslations('checkout')
   const stripe = useStripe()
   const elements = useElements()
@@ -21,32 +24,31 @@ export function PaymentForm({ clientSecret }: PaymentFormProps) {
   const router = useRouter()
 
   useEffect(() => {
-    if (!stripe || !elements) {
+    if (!stripe) {
       return
     }
 
-    const fetchPaymentIntentStatus = async () => {
-      const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret)
-      if (paymentIntent) {
-        switch (paymentIntent.status) {
-          case "succeeded":
-            setError(t('paymentSucceeded'))
-            break
-          case "processing":
-            setError(t('paymentProcessing'))
-            break
-          case "requires_payment_method":
-            setError(null) // Clear any previous errors
-            break
-          default:
-            setError(t('paymentError'))
-            break
-        }
-      }
+    if (!clientSecret) {
+      return
     }
 
-    fetchPaymentIntentStatus()
-  }, [stripe, elements, clientSecret, t])
+    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      switch (paymentIntent?.status) {
+        case "succeeded":
+          setError(t('paymentSucceeded'))
+          break
+        case "processing":
+          setError(t('paymentProcessing'))
+          break
+        case "requires_payment_method":
+          setError(null)
+          break
+        default:
+          setError(t('paymentError'))
+          break
+      }
+    })
+  }, [stripe, clientSecret, t])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()

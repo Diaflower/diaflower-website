@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { updateOrderStatus } from '@/data/orders'
+import { updateOrderStatus, fetchOrderById } from '@/data/orders'
 import { useCartStore } from '@/store/cartStore'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Loader2, CheckCircle, Flower, AlertTriangle } from "lucide-react"
 import Link from 'next/link'
+import { useAuth } from '@clerk/nextjs'
+import { useTranslations } from 'next-intl'
+import { useParams } from 'next/navigation'
 
 interface OrderDetails {
   id: string;
@@ -16,8 +19,7 @@ interface OrderDetails {
     quantity: number;
     price: string;
     product: {
-      name_en: string;
-      name_ar: string;
+      name: string; // This will be either name_en or name_ar based on the language
     };
   }>;
   shippingAddress: {
@@ -35,32 +37,44 @@ export default function OrderSuccessPage() {
   const [error, setError] = useState<string | null>(null)
   const searchParams = useSearchParams()
   const paymentIntentId = searchParams.get('payment_intent')
+  const orderId = searchParams.get('orderId')
   const { clearCart } = useCartStore()
+  const { getToken } = useAuth()
+  const params = useParams()
+  const lang = params.lang as string
+  const t = useTranslations('checkout')
 
   useEffect(() => {
-    if (paymentIntentId) {
-      updateOrderStatus(paymentIntentId)
-        .then((response) => {
-          setIsLoading(false)
+    const fetchOrderDetails = async () => {
+      try {
+        if (paymentIntentId) {
+          const response = await updateOrderStatus(paymentIntentId)
           if (response.order) {
             setOrderDetails(response.order)
             clearCart()
           } else if (response.message === "Order already paid, no update necessary") {
-            setError("This order has already been processed. If you haven't received a confirmation email, please contact our support.")
+            setError(t('orderAlreadyProcessed'))
           } else {
-            setError("Unable to retrieve order details. Please contact our support.")
+            setError(t('unableToRetrieveOrderDetails'))
           }
-        })
-        .catch((error: any) => {
-          console.error('Error updating order status:', error)
-          setIsLoading(false)
-          setError("An error occurred while processing your order. Please contact our support.")
-        })
-    } else {
-      setIsLoading(false)
-      setError("No payment information found. Please try placing your order again.")
+        } else if (orderId) {
+          const token = await getToken()
+          const order = await fetchOrderById(token ?? '', orderId, lang)
+          setOrderDetails(order)
+          clearCart()
+        } else {
+          setError(t('noOrderInformation'))
+        }
+      } catch (error) {
+        console.error('Error fetching order details:', error)
+        setError(t('errorProcessingOrder'))
+      } finally {
+        setIsLoading(false)
+      }
     }
-  }, [paymentIntentId, clearCart])
+
+    fetchOrderDetails()
+  }, [paymentIntentId, orderId, clearCart, getToken, lang, t])
 
   if (isLoading) {
     return (
@@ -77,10 +91,10 @@ export default function OrderSuccessPage() {
           <CardContent className="pt-6">
             <div className="text-center">
               <AlertTriangle className="mx-auto h-12 w-12 text-yellow-500" />
-              <h2 className="mt-4 text-2xl font-semibold text-gray-900">Order Processing Issue</h2>
+              <h2 className="mt-4 text-2xl font-semibold text-gray-900">{t('orderProcessingIssue')}</h2>
               <p className="mt-2 text-gray-600">{error}</p>
               <Button asChild className="mt-6 bg-rose-600 hover:bg-rose-700">
-                <Link href="/">Return to Shop</Link>
+                <Link href={`/${lang}`}>{t('returnToShop')}</Link>
               </Button>
             </div>
           </CardContent>
@@ -96,10 +110,10 @@ export default function OrderSuccessPage() {
           <CardContent className="pt-6">
             <div className="text-center">
               <AlertTriangle className="mx-auto h-12 w-12 text-yellow-500" />
-              <h2 className="mt-4 text-2xl font-semibold text-gray-900">Order Details Unavailable</h2>
-              <p className="mt-2 text-gray-600">We couldn't retrieve your order details. Please contact our support team for assistance.</p>
+              <h2 className="mt-4 text-2xl font-semibold text-gray-900">{t('orderDetailsUnavailable')}</h2>
+              <p className="mt-2 text-gray-600">{t('couldntRetrieveOrderDetails')}</p>
               <Button asChild className="mt-6 bg-rose-600 hover:bg-rose-700">
-                <Link href="/">Continue Shopping</Link>
+                <Link href={`/${lang}`}>{t('continueShopping')}</Link>
               </Button>
             </div>
           </CardContent>
@@ -114,41 +128,41 @@ export default function OrderSuccessPage() {
         <CardContent className="pt-6">
           <div className="text-center mb-8">
             <CheckCircle className="mx-auto h-12 w-12 text-green-600" />
-            <h2 className="mt-4 text-3xl font-extrabold text-gray-900">Thank You for Your Order!</h2>
-            <p className="mt-2 text-xl text-gray-600">Your beautiful flowers are on their way.</p>
+            <h2 className="mt-4 text-3xl font-extrabold text-gray-900">{t('thankYouForYourOrder')}</h2>
+            <p className="mt-2 text-xl text-gray-600">{t('flowersOnTheWay')}</p>
           </div>
           
           <div className="border-t border-gray-200 pt-6">
-            <h3 className="text-lg font-medium text-gray-900">Order Details</h3>
+            <h3 className="text-lg font-medium text-gray-900">{t('orderDetails')}</h3>
             <dl className="mt-4 space-y-4">
               <div className="flex justify-between">
-                <dt className="text-sm font-medium text-gray-600">Order Number:</dt>
+                <dt className="text-sm font-medium text-gray-600">{t('orderNumber')}</dt>
                 <dd className="text-sm text-gray-900">{orderDetails.id}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-sm font-medium text-gray-600">Total Amount:</dt>
+                <dt className="text-sm font-medium text-gray-600">{t('totalAmount')}</dt>
                 <dd className="text-sm text-gray-900">AED {orderDetails.total}</dd>
               </div>
             </dl>
           </div>
           
           <div className="border-t border-gray-200 mt-6 pt-6">
-          <h3 className="text-lg font-medium text-gray-900">Items Ordered</h3>
-          <ul className="mt-4 space-y-3">
-            {orderDetails.items.map((item, index) => (
-              <li key={index} className="flex justify-between">
-                <div className="flex items-center">
-                  <Flower className="h-5 w-5 text-rose-500 mr-2" />
-                  <span className="text-sm text-gray-900">{item.product.name_en} x {item.quantity}</span>
-                </div>
-                <span className="text-sm text-gray-600">AED {item.price}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+            <h3 className="text-lg font-medium text-gray-900">{t('itemsOrdered')}</h3>
+            <ul className="mt-4 space-y-3">
+              {orderDetails.items.map((item, index) => (
+                <li key={index} className="flex justify-between">
+                  <div className="flex items-center">
+                    <Flower className="h-5 w-5 text-rose-500 mr-2" />
+                    <span className="text-sm text-gray-900">{item.product.name} x {item.quantity}</span>
+                  </div>
+                  <span className="text-sm text-gray-600">AED {item.price}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
           
           <div className="border-t border-gray-200 mt-6 pt-6">
-            <h3 className="text-lg font-medium text-gray-900">Shipping Address</h3>
+            <h3 className="text-lg font-medium text-gray-900">{t('shippingAddress')}</h3>
             <address className="mt-4 text-sm text-gray-600 not-italic">
               {orderDetails.shippingAddress.firstName} {orderDetails.shippingAddress.lastName}<br />
               {orderDetails.shippingAddress.addressLine1}<br />
@@ -158,10 +172,10 @@ export default function OrderSuccessPage() {
           
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600 mb-4">
-              We've sent a confirmation email with all the details to your registered email address.
+              {t('confirmationEmailSent')}
             </p>
             <Button asChild className="bg-rose-600 hover:bg-rose-700">
-              <Link href="/">Continue Shopping</Link>
+              <Link href={`/${lang}`}>{t('continueShopping')}</Link>
             </Button>
           </div>
         </CardContent>

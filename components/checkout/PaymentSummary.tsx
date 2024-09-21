@@ -12,6 +12,8 @@ import axios from 'axios'
 import { toast } from '@/hooks/use-toast'
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
+import { CartItems } from '../cart/CartItems'
+import { CartContent } from '../shared/CartContent'
 
 interface PaymentSummaryProps {
   emirate: string
@@ -104,39 +106,7 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
 
       <CardContent className={`space-y-4 ${isExpanded ? 'block' : 'hidden md:block'}`}>
         <div className="space-y-4">
-          {items.map((item) => (
-            <div key={item.id} className="flex space-x-4">
-              <div className="relative w-16 h-16 flex-shrink-0">
-                <Image
-                  src={item.variation.image?.url || '/placeholder.svg'}
-                  alt={item.variation.product.name}
-                  fill
-                  className="object-cover rounded"
-                />
-              </div>
-              <div className="flex-grow">
-                <h3 className="font-semibold">{item.variation.product.name}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {/* {item.variation.product.name_en && `${t('variant')}:`} */}
-                  {item.variation.size && `${t('size')}: ${item.variation.size.name}`}
-                  {item.variation.boxColor && `, ${t('box')}: ${item.variation.boxColor.name}`}
-                  {item.variation.infinityColor && `, ${t('infinity')}: ${item.variation.infinityColor.name}`}
-                  {item.variation.wrappingColor && `, ${t('wrapping')}: ${item.variation.wrappingColor}`}
-                </p>
-                {item.addons.length > 0 && (
-                  <div className="text-sm text-muted-foreground">
-                    {t('addons')}: {item.addons.map(addon => `${addon.name} (${formatCurrency(+addon.price)})`).join(', ')}
-                  </div>
-                )}
-                <div className="flex justify-between items-center mt-1">
-                  <span className="text-sm">{t('quantity')}: {item.quantity}</span>
-                  <span className="font-semibold">
-                    {formatCurrency(item.variation.price * item.quantity)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
+          <CartContent variant='summary' />
         </div>
         
         <Separator />

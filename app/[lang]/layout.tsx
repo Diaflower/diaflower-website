@@ -40,6 +40,8 @@ export default async function LocaleLayout({
     account: (await import(`../../public/locales/${lang}/account.json`)).default,
     checkout: (await import(`../../public/locales/${lang}/checkout.json`)).default,
     cart: (await import(`../../public/locales/${lang}/cart.json`)).default,
+    categories: (await import(`../../public/locales/${lang}/categories.json`)).default,
+    product: (await import(`../../public/locales/${lang}/product.json`)).default,
   };
 
   const clerkPubkey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY

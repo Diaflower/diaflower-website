@@ -1,9 +1,8 @@
 import { useTranslations } from 'next-intl';
 import Hero from '@/components/home/Hero';
 import InfoCard from '@/components/shared/cards/InfoCard';
-import { ProductCarousel } from '@/components/product/ProductCarousel';
 import sectionImage from '../../public/section-min.jpg'
-import CategorySection from '@/components/shared/CategorySection';
+
 
 export default function Home({
   params: { lang }
@@ -15,53 +14,84 @@ export default function Home({
   return (
     <main className='w-full'>
       <Hero />
-      <ProductCarousel />
-      <section className='flex flex-col my-3 md:flex-row w-full md:container md:gap-8'>
+      <section className='flex w-full md:container my-3 gap-3'>
         <InfoCard
-          location='homepage'
-          title={t('infoCards.card1.title')}
-          desc={t('infoCards.card1.description')}
-          link={t('infoCards.card1.link')}
+          title={t('card1.title')}
+          desc={t('card1.description')}
           href='/'
-          alt={t('infoCards.card1.alt')}
+          alt={t('card1.alt')}
           img={sectionImage}
         />
         <InfoCard
-          location='homepage'
-          title={t('infoCards.card2.title')}
-          desc={t('infoCards.card2.description')}
-          link={t('infoCards.card2.link')}
-          href='/'
-          alt={t('infoCards.card2.alt')}
-          img={sectionImage}
+           title={t('card2.title')}
+           desc={t('card2.description')}
+           href='/'
+           alt={t('card2.alt')}
+           img={sectionImage}
         />
       </section>
 
-      <section className='flex w-full md:container my-3'>
-        <InfoCard
-          location='homepage'
-          title={t('infoCards.card3.title')}
-          desc={t('infoCards.card3.description')}
-          link={t('infoCards.card3.link')}
-          href='/'
-          alt={t('infoCards.card3.alt')}
-          img={sectionImage}
-        />
-      </section>
 
       <section className='flex w-full md:container my-3'>
         <InfoCard
-          location='homepage'
-          title={t('infoCards.card4.title')}
-          desc={t('infoCards.card4.description')}
-          link={t('infoCards.card4.link')}
+          title={t('card3.title')}
+          desc={t('card3.description')}
           href='/'
-          alt={t('infoCards.card4.alt')}
+          alt={t('card3.alt')}
           img={sectionImage}
         />
       </section>
-      
-      <CategorySection />
+     
+      <section className='flex w-full md:container my-3 gap-3'>
+        <InfoCard
+            title={t('card4.title')}
+            desc={t('card4.description')}
+            href='/'
+            alt={t('card4.alt')}
+            img={sectionImage}
+        />
+        <InfoCard
+            title={t('card5.title')}
+            desc={t('card5.description')}
+            href='/'
+            alt={t('card5.alt')}
+            img={sectionImage}
+        />
+      </section>
+
+      {/* <section className='flex w-full md:container my-3'>
+        <InfoCard
+           title={t('card6.title')}
+           desc={t('card6.description')}
+           href='/'
+           alt={t('card6.alt')}
+           img={sectionImage}
+        />
+      </section> */}
+
+      <section className='flex w-full md:container my-3 gap-3'>
+        <InfoCard
+           title={t('card7.title')}
+           desc={t('card7.description')}
+           href='/'
+           alt={t('card7.alt')}
+           img={sectionImage}
+        />
+        <InfoCard
+           title={t('card7.title')}
+           desc={t('card7.description')}
+           href='/'
+           alt={t('card7.alt')}
+           img={sectionImage}
+        />
+        <InfoCard
+            title={t('card8.title')}
+            desc={t('card8.description')}
+            href='/'
+            alt={t('card8.alt')}
+            img={sectionImage}
+        />
+      </section>
     </main>
   );
 }
