@@ -24,7 +24,7 @@ const ContactOption: React.FC<ContactOptionProps> = ({ icon, title, description,
 
   return (
     <Card>
-      <CardContent className={`flex flex-col h-full min-h-[200px] p-4 ${rtlStyle}`}>
+      <CardContent className={`flex flex-col h-full min-h-[150px] p-4 ${rtlStyle}`}>
         <div className={`flex items-center mb-4 ${rtlStyle}`}>
           <div className={`${iconMargin} ${iconRotation}`}>{icon}</div>
           <h3 className="text-lg font-semibold uppercase">{title}</h3>
@@ -98,12 +98,10 @@ const ContactUs: React.FC = () => {
   return (
     <div className={rtlStyle}>
       <CategoryHeaderSection
-        title={t('title')}
-        desc={t('description')}
-        image={contactImage}
-        alt={t('imageAlt')}
+         category="contactUs"
+        imageSrc={contactImage}      
       />
-      <section className="contact-options py-12">
+      <section className="contact-options py-1 md:py-12">
         <div className="max-w-6xl mx-auto px-6 space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-2xl font-semibold tracking-tight">{t('sectionTitle')}</h2>

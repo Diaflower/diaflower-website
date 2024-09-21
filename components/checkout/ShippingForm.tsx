@@ -23,6 +23,7 @@ import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
+import { Skeleton } from '../ui/skeleton'
 
 const formSchema = z.object({
   customerName: z.string().min(2, 'Name is required'),
@@ -43,13 +44,11 @@ const formSchema = z.object({
 })
 
 interface ShippingFormProps {
-  onClientSecretReady: (clientSecret: string) => void
+  onComplete: (shippingData: z.infer<typeof formSchema>) => void
   onEmirateChange: (emirate: string) => void
-  couponCode: string | null
-  couponDiscount: number
 }
 
-export function ShippingForm({ onClientSecretReady, onEmirateChange, couponCode, couponDiscount }: ShippingFormProps) {
+export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps) {
   const t = useTranslations('checkout')
   const [isLoading, setIsLoading] = useState(false)
   const { createPaymentIntent } = useCheckout()
@@ -107,26 +106,9 @@ export function ShippingForm({ onClientSecretReady, onEmirateChange, couponCode,
     setIsLoading(true)
 
     try {
-      const orderData: Partial<CreateOrderDTO> = {
-        items: items.map(item => ({
-          productId: item.productId,
-          productVariationId: item.variationId,
-          quantity: item.quantity,
-          price: item.variation.price.toString(),
-          addons: item.addons.map(addon => ({
-            addonId: addon.id,
-            addonVariationId: addon.id,
-            quantity: addon.quantity || 1,
-            price: addon.price.toString(),
-          })),
-        })),
-        ...data,
-        couponCode: couponCode || undefined,
-      }
-      const { clientSecret } = await createPaymentIntent(orderData)
-      onClientSecretReady(clientSecret)
+      onComplete(data)
     } catch (error) {
-      console.error(t('errorCreatingPaymentIntent'), error)
+      console.error(t('errorProcessingShippingInfo'), error)
     }
 
     setIsLoading(false)
@@ -147,7 +129,22 @@ export function ShippingForm({ onClientSecretReady, onEmirateChange, couponCode,
   }
 
   if (isUserDataLoading) {
-    return <div>{t('loadingUserData')}</div>
+    return (
+      <Card className="w-full">
+        <CardContent className="space-y-8">
+          <Skeleton className="h-12 w-full" />
+          <div className="space-y-4">
+            <Skeleton className="h-8 w-1/4" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+          </div>
+          <Skeleton className="h-40 w-full" />
+          <Skeleton className="h-10 w-full" />
+        </CardContent>
+      </Card>
+    )
   }
 
   return (

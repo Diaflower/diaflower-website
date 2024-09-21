@@ -1,28 +1,43 @@
 {
-    "infoCards": {
-      "card1": {
-        "title": "العب",
-        "description": "Jewellery collection as delicious as a Parisian rendez-vous in the heart of summer",
-        "link": "Discover the selection",
-        "alt": "Sunshine Jewels collection featuring bright, summer-inspired jewelry"
-      },
-      "card2": {
-        "title": "MOONLIGHT GEMS",
-        "description": "Elegant jewellery inspired by the soft glow of moonlight on a clear night",
-        "link": "Explore the collection",
-        "alt": "Moonlight Gems collection showcasing elegant, night-inspired jewelry pieces"
-      },
-      "card3": {
-        "title": "FLORAL DELIGHTS",
-        "description": "Exquisite pieces that capture the beauty and delicacy of nature's finest blooms",
-        "link": "View the range",
-        "alt": "Floral Delights collection displaying intricate flower-inspired jewelry designs"
-      },
-      "card4": {
-        "title": "TIMELESS CLASSICS",
-        "description": "Sophisticated jewellery that stands the test of time, perfect for any occasion",
-        "link": "Browse classics",
-        "alt": "Timeless Classics collection featuring sophisticated, versatile jewelry pieces"
-      }
-    }
-  }
+  "card1": {
+    "title": "ورود محفوظة في الكريستال",
+    "description": "جمال خالد محفوظ في الكريستال. وردنا طويلة العمر، المحفوظة لمدة تصل إلى 5 سنوات، معروضة بأناقة في علب كريستال شفافة. اختر من بين ترتيبات الورود الفردية أو الثنائية أو على شكل قلب لهدية سحرية حقًا.",
+    "alt": "ورود طويلة العمر محفوظة في الكريستال"
+  },
+  "card2": {
+    "title": "مجموعات الورود في صناديق خشبية",
+    "description": "الفخامة تلتقي بطول العمر. تعرض صناديقنا الخشبية ذات الأغطية الأكريليك 9 أو 16 أو 25 وردة رائعة طويلة العمر. يحتوي كل صندوق على درج سري مليء بالشوكولاتة اللذيذة لمفاجأة حلوة إضافية.",
+    "alt": "ورود طويلة العمر في صناديق خشبية مع أدراج شوكولاتة"
+  },
+  "card3": {
+    "title": "تصاميم الورود في صناديق أكريليك",
+    "description": "الفن الحديث يلتقي بحفظ الزهور. تتميز صناديق الأكريليك لدينا بورود رائعة طويلة العمر مرتبة في تصاميم إبداعية مثل القلوب والدببة. لمسة عصرية على هدايا الزهور الكلاسيكية.",
+    "alt": "ورود طويلة العمر في صناديق أكريليك مصممة"
+  },
+  "card4": {
+    "title": "باقات الزهور الطازجة",
+    "description": "نابضة بالحياة ومتنوعة، باقات زهورنا الطازجة تتفجر بالألوان والعطور. كل ترتيب هو مزيج فريد من زهور الموسم، مثالي لأي مناسبة أو لإسعاد يوم شخص ما.",
+    "alt": "باقات زهور طازجة وملونة"
+  },
+  "card5": {
+    "title": "ترتيبات الزهور في الصناديق",
+    "description": "الأناقة في كل شكل. اختر من بين الصناديق المستديرة أو المربعة أو المستطيلة، كل منها مليء بمجموعة مختارة بعناية من الزهور الطازجة. هدية راقية ستبهر بالتأكيد.",
+    "alt": "زهور طازجة مرتبة في صناديق أنيقة"
+  },
+  "card6": {
+    "title": "عروض الزهور الفاخرة في الأكريليك",
+    "description": "عرض جمال الطبيعة. تتميز ترتيباتنا الفاخرة بزهور طازجة مختارة معروضة في صناديق أكريليك شفافة، مما يسمح برؤية 360 درجة لهذه الإبداعات النباتية المذهلة.",
+    "alt": "زهور طازجة فاخرة في صناديق أكريليك شفافة"
+  },
+  "card7": {
+    "title": "مجموعات الزهور في حقائب جلدية",
+    "description": "الموضة تلتقي بفن تنسيق الزهور. تأتي تصاميم حقائبنا الجلدية الحصرية مليئة بترتيب رائع من الزهور الطازجة. هدية فريدة حقًا تجمع بين الأناقة والجمال الطبيعي.",
+    "alt": "ترتيبات الزهور الطازجة في حقائب جلدية مصممة"
+  },
+  "card8": {
+    "title": "مجموعات الزهور في المزهريات",
+    "description": "أناقة خالدة في أوج ازدهارها. تتميز مجموعات المزهريات لدينا بمزيج متنوع من الزهور الطازجة، مرتبة بخبرة لإنشاء قطع مركزية مذهلة ستعزز أي مساحة.",
+    "alt": "ترتيبات الزهور الطازجة في مزهريات أنيقة"
+  },
+  "link":"استكشف المجموعة"
+}

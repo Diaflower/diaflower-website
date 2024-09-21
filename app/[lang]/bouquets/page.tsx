@@ -1,24 +1,34 @@
 import React from 'react'
-import Hero from '@/components/home/Hero'
-import { getTranslations } from 'next-intl/server';
-import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection';
-import CategoryProductsSection from '@/components/shared/CategoryProductsSection';
-
-const page = async ({
-  params: {lang}
-}: {
-  params: {lang: string};
-}) => {
-
-  const t = await getTranslations({locale: lang, namespace: 'Metadata'});
-  return (
-    <main className='w-full'>
-      {/* <Hero/> */}
-      <CategoryHeaderSection/>
-      <CategoryProductsSection/>
-    
-    </main>
-  );
+import { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
+import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
+import CategoryProductsSection from '@/components/shared/CategoryProductsSection'
+import HeroImage from '../../../public/Banner-main-min.jpg'
+import ProductList from '@/components/shared/ProductList'
+type Props = {
+  params: { lang: string }
 }
 
-export default page
+export async function generateMetadata({ params: { lang } }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: lang, namespace: 'metadata' })
+
+  return {
+    title: t('bouquetsTitle'),
+    description: t('bouquetsDescription'),
+  }
+}
+
+const BouquetsPage = async ({ params: { lang } }: Props) => {
+  return (
+    <main className='w-full'>
+      <CategoryHeaderSection 
+        category="bouquets"
+        imageSrc={HeroImage}
+      />
+      {/* <CategoryProductsSection /> */}
+      {/* <ProductList lang={lang as 'en' || 'ar'} tagName='' /> */}
+    </main>
+  )
+}
+
+export default BouquetsPage

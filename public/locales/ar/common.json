@@ -13,13 +13,29 @@
       "cart": "السلة",
       "cartDescription": "عرض العناصر المتوفرة التي قمت بإضافتها إلى سلة التسوق الخاصة بك"
     },
-    "nav": {
-      "timelessCollection": "تايملس",
-      "bouquets": "باقات ورد",
-      "boxes": "بوكسات",
-      "leather": "الجلد",
-      "vases": "مزهريات"
-    },
+   "nav": {
+    "timelessCollection": "مجموعة تايملس",
+    "bouquets": "باقات ورد",
+    "boxes": "بوكسات",
+    "leather": "الجلد",
+    "vases": "مزهريات",
+    "timelessCrystal": "كريستال",
+    "timelessWood": "خشب",
+    "timelessAcrylic": "أكريليك",
+    "boxArrangements": "ترتيبات الصناديق",
+    "premiumArrangements": "ترتيبات فاخرة",
+    "timelessCrystalDesc": "ورود أنيقة محفوظة في الكريستال",
+    "timelessWoodDesc": "ورود طويلة الأمد في صناديق خشبية",
+    "timelessAcrylicDesc": "تصاميم أكريليك عصرية مع ورود محفوظة",
+    "boxArrangementsDesc": "زهور طازجة في صناديق أنيقة",
+    "premiumArrangementsDesc": "ترتيبات زهور فاخرة في الأكريليك",
+    "timelesscrystalImageAlt": "ورود محفوظة في الكريستال",
+    "timelesswoodImageAlt": "صندوق خشبي مع ورود محفوظة",
+    "timelessacrylicImageAlt": "صندوق أكريليك مع ورود محفوظة",
+    "boxarrangementsImageAlt": "ترتيب صندوق مع زهور طازجة",
+    "premiumarrangementsImageAlt": "ترتيب فاخر في صندوق أكريليك",
+    "learnMore": "لمعرفة المزيد"
+  },
     "lang": {
       "en": "EN",
       "ar": "العربية",

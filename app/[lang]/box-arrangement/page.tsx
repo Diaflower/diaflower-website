@@ -12,16 +12,16 @@ export async function generateMetadata({ params: { lang } }: Props): Promise<Met
   const t = await getTranslations({ locale: lang, namespace: 'metadata' })
 
   return {
-    title: t('vasesTitle'),
-    description: t('vasesDescription'),
+    title: t('boxArrangementTitle'),
+    description: t('boxArrangementDescription'),
   }
 }
 
-const VasesPage = async ({ params: { lang } }: Props) => {
+const BoxArrangementPage = async ({ params: { lang } }: Props) => {
   return (
     <main className='w-full'>
       <CategoryHeaderSection 
-        category="vases"
+        category="boxArrangement"
         imageSrc={HeroImage}
       />
       <CategoryProductsSection />
@@ -29,4 +29,4 @@ const VasesPage = async ({ params: { lang } }: Props) => {
   )
 }
 
-export default VasesPage
+export default BoxArrangementPage

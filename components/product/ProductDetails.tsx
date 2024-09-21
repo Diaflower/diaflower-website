@@ -22,17 +22,19 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-// import { Product, ProductVariation, ProductSize, Color, Addon, AddonVariation } from '@/types/product'
-import { Product,ProductVariation,ProductSize,Color,Addon,AddonVariation } from '@/types/product'
+import { Product, ProductVariation, ProductSize, Color, Addon, AddonVariation } from '@/types/product'
 import { CartItemInput, useCartStore } from '@/store/cartStore'
 import { toast } from '@/hooks/use-toast'
+import { useRTLAwareStyle } from '@/util/rtl'
+import { useTranslations } from 'next-intl'
 
 const parsePrice = (price: string | number): number => {
   if (typeof price === 'number') return price;
   return parseFloat(price) || 0;
 }
 
-export default function ProductDetails({ product, lang }: { product: Product, lang: 'en' | 'ar' }) {
+export default function ProductDetails({ product, lang}: { product: Product, lang: 'en' | 'ar'}) {
+  const t = useTranslations('product');
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation>(
     product.variations.find(v => v.isDefault) || product.variations[0]
   )
@@ -40,6 +42,8 @@ export default function ProductDetails({ product, lang }: { product: Product, la
   const [selectedAddons, setSelectedAddons] = useState<Record<number, AddonVariation>>({})
   const { addItem, addAddonToItem } = useCartStore()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
+  const rtlText = useRTLAwareStyle('', 'text-right')
 
   useEffect(() => {
     const variation = product.variations[currentImageIndex]
@@ -68,6 +72,8 @@ export default function ProductDetails({ product, lang }: { product: Product, la
 
   const handleAddToCart = (withAddons: boolean) => {
     const cartItem: CartItemInput = {
+      lang: lang,
+      productSlug: product.slug,
       productId: product.id,
       variationId: selectedVariation.id,
       variation: {
@@ -75,6 +81,7 @@ export default function ProductDetails({ product, lang }: { product: Product, la
         product: {
           id: product.id,
           name: product.name,
+          slug: product.slug,
         },
       },
       quantity: quantity,
@@ -88,14 +95,14 @@ export default function ProductDetails({ product, lang }: { product: Product, la
     if (withAddons) {
       addAddonToItem(cartItem);
       toast({
-        title: "Product and addons added to cart",
-        description: `${product.name} with selected addons added to your cart.`,
+        title: t('addedToCartWithAddons'),
+        description: t('addedToCartWithAddonsDescription', { name: product.name }),
       });
     } else {
       addItem(cartItem);
       toast({
-        title: "Added to cart",
-        description: `${quantity} x ${product.name} added to your cart.`,
+        title: t('addedToCart'),
+        description: t('addedToCartDescription', { quantity, name: product.name }),
       });
     }
   }
@@ -123,10 +130,10 @@ export default function ProductDetails({ product, lang }: { product: Product, la
             const newVariation = product.variations.find(v => v[key]?.id.toString() === value)
             if (newVariation) handleVariationChange(newVariation)
           }}
-          className="flex flex-wrap gap-2"
+          className={`flex flex-wrap ${rtlDirection} gap-2`}
         >
           {uniqueOptions.map((option) => (
-            <div key={option.id} className="flex items-center space-x-2">
+            <div key={option.id} className="flex items-center space-x-2 gap-1 rtl:space-x-reverse">
               <RadioGroupItem value={option.id.toString()} id={`size-${option.id}`} />
               <Label htmlFor={`size-${option.id}`}>{(option as ProductSize).name}</Label>
             </div>
@@ -146,7 +153,7 @@ export default function ProductDetails({ product, lang }: { product: Product, la
                   const newVariation = product.variations.find(v => v[key]?.id === colorOption.id)
                   if (newVariation) handleVariationChange(newVariation)
                 }}
-                aria-label={`Select ${key} ${colorOption.name}`}
+                aria-label={t(`select${key.charAt(0).toUpperCase() + key.slice(1)}`, { color: colorOption.name })}
               >
                 <Image
                   src={colorOption.image?.url || '/placeholder.svg?height=40&width=40'}
@@ -175,7 +182,7 @@ export default function ProductDetails({ product, lang }: { product: Product, la
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className={`grid md:grid-cols-2 gap-8 ${rtlDirection}`}>
         <div className="space-y-4">
           <div className="aspect-square relative overflow-hidden rounded-lg">
             <Image
@@ -227,24 +234,24 @@ export default function ProductDetails({ product, lang }: { product: Product, la
           <h1 className="text-3xl font-bold">{product.name}</h1>
           <div className="flex items-center justify-between">
             <p className="text-2xl font-semibold" aria-live="polite">
-              AED {parsePrice(selectedVariation.price).toFixed(2)}
+              {t('currency', { amount: parsePrice(selectedVariation.price).toFixed(2) })}
               {selectedVariation.previousPrice && (
                 <span className="ml-2 text-sm line-through text-gray-500">
-                  Was AED {parsePrice(selectedVariation.previousPrice).toFixed(2)}
+                  {t('wasCurrency', { amount: parsePrice(selectedVariation.previousPrice).toFixed(2) })}
                 </span>
               )}
             </p>
-            <div className="flex items-center space-x-2">
-              <Button variant="outline" size="icon">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              {/* <Button variant="outline" size="icon">
                 <Heart className="h-4 w-4" />
-              </Button>
+              </Button> */}
               <div className="flex items-center border border-gray-300 rounded-md">
                 <Button 
                   variant="ghost"
                   size="icon"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   className="h-8 w-8"
-                  aria-label="Decrease quantity"
+                  aria-label={t('decreaseQuantity')}
                 >
                   <Minus className="w-4 h-4" />
                 </Button>
@@ -254,7 +261,7 @@ export default function ProductDetails({ product, lang }: { product: Product, la
                   size="icon"
                   onClick={() => setQuantity(quantity + 1)}
                   className="h-8 w-8"
-                  aria-label="Increase quantity"
+                  aria-label={t('increaseQuantity')}
                 >
                   <Plus className="w-4 h-4" />
                 </Button>
@@ -266,15 +273,15 @@ export default function ProductDetails({ product, lang }: { product: Product, la
             {product.productType === 'LONG_LIFE' && (
               <>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Size</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
                   {renderOptions('size')}
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Infinity Color</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('infinityColor')}</h2>
                   {renderOptions('infinityColor')}
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Box Color</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('boxColor')}</h2>
                   {renderOptions('boxColor')}
                 </div>
               </>
@@ -282,11 +289,11 @@ export default function ProductDetails({ product, lang }: { product: Product, la
             {product.productType === 'BOUQUET' && (
               <>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Size</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
                   {renderOptions('size')}
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Wrapping Color</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('wrappingColor')}</h2>
                   {renderOptions('wrappingColor')}
                 </div>
               </>
@@ -294,33 +301,33 @@ export default function ProductDetails({ product, lang }: { product: Product, la
             {product.productType === 'ARRANGEMENT' && (
               <>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Size</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
                   {renderOptions('size')}
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">Box Color</h2>
+                  <h2 className="text-sm font-semibold uppercase">{t('boxColor')}</h2>
                   {renderOptions('boxColor')}
                 </div>
               </>
             )}
             {product.productType === 'ACRYLIC_BOX' && (
               <div className="space-y-2">
-                <h2 className="text-sm font-semibold uppercase">Size</h2>
+                <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
                 {renderOptions('size')}
               </div>
             )}
           </div>
           <Button 
-            className="w-full bg-primary hover:bg-primary/90 text-white rounded-md flex items-center justify-center space-x-2 py-6"
+            className="w-full bg-primary hover:bg-primary/90 text-white rounded-md flex items-center justify-center space-x-2 rtl:space-x-reverse py-6"
             onClick={() => handleAddToCart(false)}
           >
             <ShoppingCart className="w-5 h-5" />
-            <span>ADD TO CART</span>
+            <span>{t('addToCart')}</span>
           </Button> 
           <div className="space-y-4 pt-4 border-t border-gray-200">
             <div>
-              <h3 className="text-sm font-semibold text-gray-500 mb-2">SHARE WITH A FRIEND</h3>
-              <div className="flex space-x-4">
+              <h3 className="text-sm font-semibold text-gray-500 mb-2">{t('shareWithFriend')}</h3>
+              <div className="flex space-x-4 rtl:space-x-reverse">
                 <Button variant="outline" size="icon">
                   <Facebook className="w-4 h-4" />
                 </Button>
@@ -337,22 +344,21 @@ export default function ProductDetails({ product, lang }: { product: Product, la
             </div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="flowerDeliveryInfo">
-                <AccordionTrigger>Flower Delivery Info</AccordionTrigger>
+                <AccordionTrigger>{t('flowerDeliveryInfo')}</AccordionTrigger>
                 <AccordionContent>
-                  Our flower delivery service is available in Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Umm Al Quwain and Fujairah.
-                  When you order flowers online, we will ensure that you receive your flowers within the delivery time slot you&apos;ve selected.
+                  {t('flowerDeliveryInfoContent')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="disclaimer">
-                <AccordionTrigger>Disclaimer</AccordionTrigger>
+                <AccordionTrigger>{t('disclaimer')}</AccordionTrigger>
                 <AccordionContent>
-                  Disclaimer content goes here.
+                  {t('disclaimerContent')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="ourFlowers">
-                <AccordionTrigger>Our Flowers</AccordionTrigger>
+                <AccordionTrigger>{t('ourFlowers')}</AccordionTrigger>
                 <AccordionContent>
-                  Information about our flowers goes here.
+                  {t('ourFlowersContent')}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -362,7 +368,7 @@ export default function ProductDetails({ product, lang }: { product: Product, la
   
       {addonTypes.length > 0 && (
         <div className="mt-12 bg-gray-50 p-6 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-6">Enhance Your Order</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t('enhanceYourOrder')}</h2>
           <Tabs defaultValue={addonTypes[0].toLowerCase()} className="w-full">
             <TabsList className="w-full justify-start mb-6 bg-transparent border-b">
               {addonTypes.map((type) => (
@@ -371,7 +377,7 @@ export default function ProductDetails({ product, lang }: { product: Product, la
                   value={type.toLowerCase()}
                   className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
                 >
-                  {type}
+                  {t(`addonType.${type.toLowerCase()}`)}
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -396,28 +402,28 @@ export default function ProductDetails({ product, lang }: { product: Product, la
                               />
                             </div>
                             <div>
-                              <h3 className="font-semibold">{addon.name}</h3>
-                              <p className="text-sm text-gray-600 line-clamp-2">{addon.description}</p>
+                              <h3 className={`font-semibold ${rtlText}`}>{addon.name}</h3>
+                              <p className={`text-sm text-gray-600 line-clamp-2 ${rtlText}`}>{addon.description}</p>
                             </div>
                             {addon.addonVariations.length > 0 ? (
                               <select
-                                className="w-full border rounded-md p-2 text-sm"
+                                className={`w-full border rounded-md p-2 text-sm ${rtlText}`}
                                 onChange={(e) => {
                                   const selectedVariation = addon.addonVariations.find(v => v.id === parseInt(e.target.value))
                                   handleAddonChange(addon, selectedVariation || null)
                                 }}
                                 value={selectedAddons[addon.id]?.id || ''}
                               >
-                                <option value="">Select option</option>
+                                <option value="">{t('selectOption')}</option>
                                 {addon.addonVariations.map(variation => (
                                   <option key={variation.id} value={variation.id}>
-                                    {variation.size?.name} - AED {parsePrice(variation.price).toFixed(2)}
+                                    {variation.size?.name} - {t('currency', { amount: parsePrice(variation.price).toFixed(2) })}
                                   </option>
                                 ))}
                               </select>
                             ) : (
                               <p className="text-sm font-semibold">
-                                AED {parsePrice(addon.addonVariations[0]?.price || 0).toFixed(2)}
+                                {t('currency', { amount: parsePrice(addon.addonVariations[0]?.price || 0).toFixed(2) })}
                               </p>
                             )}
                             <div className="flex items-center">
@@ -435,9 +441,9 @@ export default function ProductDetails({ product, lang }: { product: Product, la
                               />
                               <label
                                 htmlFor={`addon-${addon.id}`}
-                                className="ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                className="ml-2 rtl:mr-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               >
-                                Add to order
+                                {t('addToOrder')}
                               </label>
                             </div>
                           </CardContent>
@@ -450,14 +456,14 @@ export default function ProductDetails({ product, lang }: { product: Product, la
           </Tabs>
           <div className="mt-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <p className="text-xl font-semibold">
-              Total: AED {calculateTotalPrice().toFixed(2)}
+              {t('total')}: {t('currency', { amount: calculateTotalPrice().toFixed(2) })}
             </p>
             <Button 
-              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-md flex items-center justify-center space-x-2 px-6 py-3"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-md flex items-center justify-center space-x-2 rtl:space-x-reverse px-6 py-3"
               onClick={() => handleAddToCart(true)}
             >
               <ShoppingCart className="w-5 h-5" />
-              <span>ADD TO CART WITH ADDONS</span>
+              <span>{t('addToCartWithAddons')}</span>
             </Button>
           </div>
         </div>

@@ -1,0 +1,47 @@
+{
+      "bouquets": {
+        "title": "Fresh Flower Bouquets",
+        "desc": "Discover our stunning collection of fresh flower bouquets. Each arrangement is a unique blend of seasonal blooms, perfect for any occasion or to brighten someone's day. From classic roses to exotic orchids, our expert florists create beautiful, vibrant bouquets that are sure to delight.",
+        "alt": "Colorful fresh flower bouquet"
+      },
+      "timelessWood": {
+        "title": "Timeless Wooden Box Roses",
+        "desc": "Experience the luxury of our wooden box rose collections. These long-lasting roses are beautifully presented in elegant wooden boxes, complete with a hidden chocolate surprise. Perfect for gifts or as a timeless centerpiece for your home.",
+        "alt": "Long-lasting roses in a wooden box"
+      },
+      "timelessCrystal": {
+        "title": "Crystal Encased Eternal Roses",
+        "desc": "Indulge in the beauty of our crystal-encased roses. These meticulously preserved flowers maintain their beauty for up to 5 years, encapsulated in clear crystal cases. Choose from single, duo, or heart-shaped rose arrangements for a truly magical gift.",
+        "alt": "Eternal rose encased in crystal"
+      },
+      "timelessAcrylic": {
+        "title": "Modern Acrylic Rose Designs",
+        "desc": "Explore our contemporary acrylic box rose designs. These long-life roses are artfully arranged in creative shapes within sleek acrylic boxes. A perfect blend of modern aesthetics and timeless beauty for your home or office.",
+        "alt": "Modern acrylic box with preserved roses"
+      },
+      "boxArrangements": {
+        "title": "Elegant Box Flower Arrangements",
+        "desc": "Discover our sophisticated box flower arrangements. Choose from round, square, or rectangular designs, each filled with a carefully curated selection of fresh flowers. These elegant boxes make for impressive gifts or stunning decor pieces.",
+        "alt": "Elegant box filled with fresh flowers"
+      },
+      "premiumArrangements": {
+        "title": "Premium Acrylic Flower Displays",
+        "desc": "Experience luxury with our premium acrylic flower displays. These handcrafted arrangements showcase select fresh flowers in clear acrylic boxes, allowing for a 360-degree view of nature's beauty. Perfect for those who appreciate fine floral artistry.",
+        "alt": "Premium flowers in clear acrylic display"
+      },
+      "leatherBags": {
+        "title": "Floral Leather Bag Ensembles",
+        "desc": "Discover our unique floral leather bag ensembles. Fresh flowers are artfully arranged in stylish leather bags, creating a perfect fusion of fashion and floristry. These innovative designs make for unforgettable gifts and striking decor pieces.",
+        "alt": "Flowers arranged in a designer leather bag"
+      },
+      "vases": {
+        "title": "Classic Vase Flower Collections",
+        "desc": "Explore our elegant vase flower collections. Our stunning fresh flower arrangements come in beautiful vases, perfect for adding a touch of nature's beauty to any space. From minimalist designs to ornate creations, find the perfect centerpiece for your home or office.",
+        "alt": "Fresh flower arrangement in an elegant vase"
+      },
+      "contactUs":{
+        "title": "Contact Us",
+      "desc": "Our DiaFlower team is delighted to assist you with your orders, style advice, gift ideas, and more. Please select your preferred method of contact below.",
+      "alt": "Contact us header image"
+      }
+  }

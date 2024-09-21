@@ -6,6 +6,7 @@ export interface CreateOrderDTO {
   userId?: string;
   items: OrderItemInput[];
   shippingAddressId?: number;
+  paymentMethod: 'ONLINE' | 'CASH_ON_DELIVERY';
   shippingAddress?: AddressInput;
   customerEmail: string;
   customerPhone: string;
@@ -39,10 +40,10 @@ export interface AddressInput {
   phone: string;
 }
 
-export const createOrder = async (orderData: CreateOrderDTO,token?:string) => {
+export const createOrder = async (orderData: CreateOrderDTO, token?: string) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/orders/create`, orderData,{
-      headers:{
+    const response = await axios.post(`${API_BASE_URL}/orders/create`, orderData, {
+      headers: {
         'Authorization': `Bearer ${token}`
       }
     });
@@ -52,7 +53,6 @@ export const createOrder = async (orderData: CreateOrderDTO,token?:string) => {
     throw error;
   }
 };
-
 
 
 export const updateOrderStatus = async (paymentIntentId: string) => {
@@ -65,26 +65,6 @@ export const updateOrderStatus = async (paymentIntentId: string) => {
   }
 };
 
-// New functions for order history page
-
-// export const fetchOrders = async (token: string, page: number = 1, pageSize: number = 10) => {
-//   try {
-//     const response = await axios.get(`${API_BASE_URL}/orders`, {
-//       headers: {
-//         'Authorization': `Bearer ${token}`
-//       },
-//       params: {
-//         page,
-//         pageSize
-//       }
-//     });
-//     console.log("response:",response)
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching orders:', error);
-//     throw error;
-//   }
-// };
 
 export const fetchOrders = async (token: string, page: number = 1, pageSize: number = 10, lang: string) => {
   try {
@@ -104,20 +84,6 @@ export const fetchOrders = async (token: string, page: number = 1, pageSize: num
     throw error;
   }
 };
-
-// export const fetchOrderById = async (token: string, orderId: string) => {
-//   try {
-//     const response = await axios.get(`${API_BASE_URL}/orders/${orderId}`, {
-//       headers: {
-//         'Authorization': `Bearer ${token}`
-//       }
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching order:', error);
-//     throw error;
-//   }
-// };
 
 
 export const fetchOrderById = async (token: string, orderId: string, lang: string) => {
