@@ -1,7 +1,9 @@
 import { useTranslations } from 'next-intl';
 import Hero from '@/components/home/Hero';
 import InfoCard from '@/components/shared/cards/InfoCard';
-import sectionImage from '../../public/section-min.jpg'
+import sectionImage from '@public/section-min.jpg'
+
+
 
 //////
 
