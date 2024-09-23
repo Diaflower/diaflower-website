@@ -6,7 +6,7 @@ export interface CreateOrderDTO {
   userId?: string;
   items: OrderItemInput[];
   shippingAddressId?: number;
-  paymentMethod: 'ONLINE' | 'CASH_ON_DELIVERY';
+  paymentMethod: 'ONLINE' | 'CASH_ON_DELIVERY' | undefined;
   shippingAddress?: AddressInput;
   customerEmail: string;
   customerPhone: string;

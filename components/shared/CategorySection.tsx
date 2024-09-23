@@ -17,37 +17,38 @@ const categories: Category[] = [
   { name: "EARRINGS", image: labelle },
 ]
 
+const CategoryItem: React.FC<{ category: Category; index: number }> = React.memo(({ category, index }) => (
+  <div className={`flex-1 ${index !== 0 ? 'md:ml-6 lg:ml-12' : ''}`}>
+    <Image
+      alt={category.name}
+      className="object-cover w-full h-80"
+      src={category.image}
+      width={300}
+      height={300}
+    />
+    <div className="p-4">
+      <h3 className="font-semibold text-lg">{category.name}</h3>
+    </div>
+  </div>
+))
+CategoryItem.displayName = 'CategoryItem'
+
 export default function CategorySection() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false })
   const [selectedIndex, setSelectedIndex] = React.useState(0)
 
   React.useEffect(() => {
     if (!emblaApi) return
-  
+
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap())
-    
+
     emblaApi.on("select", onSelect)
     onSelect() // Call once to initialize
-  
+
     return () => {
       emblaApi.off("select", onSelect)
     }
   }, [emblaApi, setSelectedIndex])
-
-  const CategoryItem: React.FC<{ category: Category; index: number }> = React.memo(({ category, index }) => (
-    <div className={`flex-1 ${index !== 0 ? 'md:ml-6 lg:ml-12' : ''}`}>
-      <Image
-        alt={category.name}
-        className="object-cover w-full h-80"
-        src={category.image}
-        width={300}
-        height={300}
-      />
-      <div className="p-4">
-        <h3 className="font-semibold text-lg">{category.name}</h3>
-      </div>
-    </div>
-  ))
 
   return (
     <section className="w-full container py-4 mb-6 bg-[#f9f9f9]">

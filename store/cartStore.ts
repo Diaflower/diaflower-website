@@ -7,7 +7,7 @@ import { ProductVariation, AddonVariation } from '@/types/product';
 interface CartAddon extends AddonVariation {
   addonType: string;
   name: string;
-  variationId: number;
+  variationId: number; // Add this line
 }
 
 export interface CartItem {
@@ -91,7 +91,11 @@ export const useCartStore = create(
             };
           } else {
             // New addon, add to the list
-            existingItem.addons.push({ ...newAddon, quantity: newAddon.quantity || 1 });
+            existingItem.addons.push({
+              ...newAddon,
+              quantity: newAddon.quantity || 1,
+              variationId: newAddon.id // Add this line
+            });
           }
         });
 
