@@ -26,7 +26,7 @@ const BouquetsPage = async ({ params: { lang } }: Props) => {
         imageSrc={HeroImage}
       />
       {/* <CategoryProductsSection /> */}
-      {/* <ProductList lang={lang as 'en' || 'ar'} tagName='' /> */}
+      <ProductList lang={lang as 'en' || 'ar'} tagName='leather bag' />
     </main>
   )
 }

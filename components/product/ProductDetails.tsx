@@ -45,13 +45,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
   const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
   const rtlText = useRTLAwareStyle('', 'text-right')
 
-  useEffect(() => {
-    const variation = product.variations[currentImageIndex]
-    if (variation) {
-      handleVariationChange(variation)
-    }
-  }, [currentImageIndex])
-
+ 
   const handleVariationChange = (variation: ProductVariation) => {
     setSelectedVariation(variation)
     const index = product.variations.findIndex(v => v.id === variation.id)
@@ -59,6 +53,14 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
       setCurrentImageIndex(index)
     }
   }
+  
+  useEffect(() => {
+    const variation = product.variations[currentImageIndex]
+    if (variation) {
+      handleVariationChange(variation)
+    }
+  }, [currentImageIndex ,product.variations])
+
   
   const handleAddonChange = (addon: Addon, variation: AddonVariation | null) => {
     setSelectedAddons(prev => {
@@ -72,25 +74,26 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
 
   const handleAddToCart = (withAddons: boolean) => {
     const cartItem: CartItemInput = {
-      lang: lang,
-      productSlug: product.slug,
-      productId: product.id,
-      variationId: selectedVariation.id,
-      variation: {
-        ...selectedVariation,
-        product: {
-          id: product.id,
-          name: product.name,
-          slug: product.slug,
-        },
+    lang: lang,
+    productSlug: product.slug,
+    productId: product.id,
+    variationId: selectedVariation.id,
+    variation: {
+      ...selectedVariation,
+      product: {
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
       },
-      quantity: quantity,
-      addons: withAddons ? Object.values(selectedAddons).map(addon => ({
-        ...addon,
-        addonType: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.addonType || '',
-        name: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.name || '',
-      })) : [],
-    };
+    },
+    quantity: quantity,
+    addons: withAddons ? Object.values(selectedAddons).map(addon => ({
+      ...addon,
+      addonType: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.addonType || '',
+      name: product.addons.find(a => a.addonVariations.some(v => v.id === addon.id))?.name || '',
+      variationId: addon.id // Add this line
+    })) : [],
+  };
 
     if (withAddons) {
       addAddonToItem(cartItem);

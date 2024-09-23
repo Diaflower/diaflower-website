@@ -25,6 +25,7 @@ export type Product = {
 }
 
 export type SimpleProduct = {
+  slug:string;
   id: number;
   name: string;
   image: {

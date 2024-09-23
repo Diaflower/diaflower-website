@@ -34,6 +34,7 @@ export const CheckoutProvider: React.FC<{ children: ReactNode }> = ({ children }
         shippingAddress: orderData.shippingAddress,
         cardMessage: orderData.cardMessage,
         couponCode: orderData.couponCode,
+        paymentMethod:orderData.paymentMethod,
       }
 
       const response = await createOrder(fullOrderData, token || undefined)

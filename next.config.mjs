@@ -6,7 +6,12 @@ const withNextIntl = createNextIntlPlugin("./i18n.ts");
 const nextConfig = {
   productionBrowserSourceMaps: true,
   images: {
-    domains: ["imagedelivery.net"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "imagedelivery.net",
+      },
+    ],
   },
   // Add any other Next.js config options here
 };
