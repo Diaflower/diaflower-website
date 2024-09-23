@@ -2,9 +2,9 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ProductDetails from '@/components/product/ProductDetails'
 import { getProductBySlug, getAllProductSlugs } from '@/data/products'
-import { getTranslations } from 'next-intl/server'
-
+import { getTranslations,unstable_setRequestLocale } from 'next-intl/server'
 export async function generateMetadata({ params }: { params: { slug: string, lang: 'en' | 'ar' } }): Promise<Metadata> {
+  unstable_setRequestLocale(params.lang);
   const product = await getProductBySlug(params.slug, params.lang)
   const t = await getTranslations('product')
   
@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: { slug: string, lan
 }
 
 export default async function ProductPage({ params }: { params: { slug: string, lang: 'en' | 'ar' } }) {
+  unstable_setRequestLocale(params.lang);
   const product = await getProductBySlug(params.slug, params.lang)
   
 
