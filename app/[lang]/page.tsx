@@ -6,7 +6,7 @@ import sectionImage from '../../public/section-min.jpg'
 
 
 //////
-
+////
 export default function Home({
   params: { lang }
 }: {
