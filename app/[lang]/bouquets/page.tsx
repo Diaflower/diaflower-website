@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
-import CategoryProductsSection from '@/components/shared/CategoryProductsSection'
+
 import HeroImage from '../../../public/Banner-main-min.jpg'
 import ProductList from '@/components/shared/ProductList'
 type Props = {
@@ -25,7 +25,7 @@ const BouquetsPage = async ({ params: { lang } }: Props) => {
         category="bouquets"
         imageSrc={HeroImage}
       />
-      {/* <CategoryProductsSection /> */}
+  
       <ProductList lang={lang as 'en' || 'ar'} tagName='leather bag' />
     </main>
   )

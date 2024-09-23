@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
-import CategoryProductsSection from '@/components/shared/CategoryProductsSection'
+
 import HeroImage from '../../../public/Banner-main-min.jpg'
 type Props = {
   params: { lang: string }
@@ -24,7 +24,6 @@ const CrystalPage = async ({ params: { lang } }: Props) => {
         category="timelessCrystal"
         imageSrc={HeroImage}
       />
-      <CategoryProductsSection />
     </main>
   )
 }
