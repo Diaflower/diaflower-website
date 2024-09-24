@@ -72,7 +72,7 @@ export default function Home({
         />
       </section> */}
 
-      <section className='flex w-full md:container my-3 gap-3'>
+      {/* <section className='flex w-full md:container my-3 gap-3'>
         <InfoCard
            title={t('card7.title')}
            desc={t('card7.description')}
@@ -94,7 +94,7 @@ export default function Home({
             alt={t('card8.alt')}
             img={sectionImage}
         />
-      </section>
+      </section> */}
     </main>
   );
 }
