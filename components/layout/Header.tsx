@@ -77,7 +77,7 @@ export default function Header() {
 
   return (
     <header className="border-b w-full relative bg-white">
-      <div className="flex flex-col justify-center gap-5 w-full md:container my-4 md:my-8">
+      <div className="flex flex-col justify-center gap-5 w-full md:container my-4 md:mt-8 md:mb:2">
         {/* Top Header Nav */}
         <div className="flex px-2 justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full">
           {/* Left Nav (hidden on mobile) */}
