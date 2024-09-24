@@ -7,7 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs'
 
 const fancyCut = localFont({
-  src: '../../public/fonts/Fancy Cut Pro.ttf',
+  src: '../../public/fonts/brolachess.ttf',
   variable: '--fancy',
 })
 
