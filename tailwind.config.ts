@@ -14,7 +14,8 @@ const config = {
   theme: {
   	fontFamily: {
   		brilliant: ['var(--brilliant)'],
-  		fancy: ['var(--fancy)']
+  		fancy: ['var(--fancy)'],
+		roboto:['var(--roboto)']
   	},
   	container: {
   		center: true,

@@ -33,6 +33,7 @@
     /* Font variables */
     --font-fancy: var(--fancy);
     --font-brilliant: var(--brilliant);
+    --font-robo: var(--roboto);
   }
 
   .dark {

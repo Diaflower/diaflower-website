@@ -6,6 +6,15 @@ import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs'
 
+import { Roboto } from 'next/font/google'
+
+
+const roboto = Roboto({
+  weight: ['400', '700','300','500',],
+  subsets: ['latin'],
+  display: 'swap',
+  variable:'--roboto'
+})
 
 const fancyCut = localFont({
   src: '../../public/fonts/brolachess.ttf',
@@ -49,7 +58,7 @@ export default async function LocaleLayout({
 
   return (
     <ClerkProvider publishableKey={clerkPubkey}>
-      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`${fancyCut.variable} ${brilliantCut.variable}`}>
+      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`${fancyCut.variable} ${brilliantCut.variable} ${roboto.variable}`}>
         <body className=''>
           <Providers locale={lang} messages={messages}>
             <MainLayout>
