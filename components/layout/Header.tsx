@@ -123,7 +123,7 @@ export default function Header() {
 
         {/* Bottom Header Nav */}
         <nav className="hidden md:flex justify-center">
-          <ul className="flex justify-center gap-5">
+          <ul className="flex justify-center gap-7">
             {navItems.map((item) => (
               <li 
                 key={item.name}
@@ -151,13 +151,10 @@ function NavLink({ href, children, isHovered, hasMegaMenu }: { href: string, chi
   
   return (
     <Link href={href} className="group inline-flex items-center cursor-pointer">
-      <span className={`relative z-10 transition-all duration-300 ease-in-out ${isHovered ? 'font-semibold' : ''} tracking-widest`}>
+      <span className={`relative z-10 transition-all duration-300 ease-in-out ${isHovered ? 'font-semibold' : ''} tracking-widest font-fancy`}>
         {children}
         <span className={`absolute bottom-0 ${rtlAwareStyle} w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out ${isHovered ? 'w-full' : ''}`}></span>
       </span>
-      {hasMegaMenu && (
-        <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isHovered ? 'rotate-180' : ''}`} />
-      )}
     </Link>
   );
 }
