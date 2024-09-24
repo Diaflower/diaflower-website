@@ -81,12 +81,12 @@ export default function Header() {
         {/* Top Header Nav */}
         <div className="flex px-2 justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full">
           {/* Left Nav (hidden on mobile) */}
-          <div className="hidden md:flex md:w-full space-x-4">
+          <div className="hidden md:flex md:w-full space-x-4 self-start">
             <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
             <Link href="/contact" className="hover:underline">{t('header.contactUs')}</Link>
           </div>
 
-          <div className="md:justify-self-center">
+          <div className="md:justify-self-center mt-4">
             <Link href={'/'}>
               <Logo />
               <VisuallyHidden.Root>{t('header.home')}</VisuallyHidden.Root>
@@ -94,7 +94,7 @@ export default function Header() {
           </div>
 
           {/* Right Nav */}
-          <div className="flex justify-end gap-5 w-full">
+          <div className="flex justify-end gap-5 w-full self-start">
             {icons.map((item, index) => (
               <IconWithTooltip 
                 key={item.text} 
