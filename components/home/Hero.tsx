@@ -23,7 +23,7 @@ export default function Hero() {
         </video>
 
       </div>
-      <h1 className='my-6 tracking-widest text-4xl'>
+      <h1 className='mt-6 mb-10 tracking-widest text-4xl'>
       EXQUISITE BLOOMS . TIMELESS ELEGANCE
       </h1>
     </section>
