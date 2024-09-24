@@ -151,7 +151,7 @@ function NavLink({ href, children, isHovered, hasMegaMenu }: { href: string, chi
   
   return (
     <Link href={href} className="group inline-flex items-center cursor-pointer">
-      <span className={`relative z-10 transition-all duration-300 ease-in-out ${isHovered ? 'font-semibold' : ''}`}>
+      <span className={`relative z-10 transition-all duration-300 ease-in-out ${isHovered ? 'font-semibold' : ''} tracking-widest`}>
         {children}
         <span className={`absolute bottom-0 ${rtlAwareStyle} w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out ${isHovered ? 'w-full' : ''}`}></span>
       </span>
