@@ -6,6 +6,7 @@ import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs'
 
+
 const fancyCut = localFont({
   src: '../../public/fonts/brolachess.ttf',
   variable: '--fancy',

@@ -8,7 +8,7 @@ export default function Hero() {
 
 
   return (
-    <section className="w-full xl:container mx-auto relative mb-10 flex flex-col items-center">
+    <section className="w-full xl:container mx-auto relative flex flex-col items-center">
       <div className="relative w-full h-[200px] md:h-[400px] lg:h-[550px] overflow-hidden">
         <video
           ref={videoRef}
@@ -23,7 +23,7 @@ export default function Hero() {
         </video>
 
       </div>
-      <h1 className='my-10 tracking-widest text-4xl'>
+      <h1 className='my-10 tracking-widest text-2xl'>
       EXQUISITE BLOOMS . TIMELESS ELEGANCE
       </h1>
     </section>
