@@ -89,6 +89,7 @@
     display: none;
   }
 
+ 
   /* Optional: Hide scrollbar for IE, Edge and Firefox */
   body {
     -ms-overflow-style: none;  /* IE and Edge */
@@ -120,5 +121,11 @@
   }
   * {
     @apply border-border;
+  }
+}
+
+@layer components {
+  .test {
+     letter-spacing: 10px;
   }
 }
