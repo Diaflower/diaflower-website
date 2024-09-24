@@ -17,7 +17,7 @@ export default function Home({
   return (
     <main className='w-full'>
       <Hero />
-      <section className='flex w-full md:container my-3 gap-3'>
+      <section className='flex w-full md:container my-3 gap-8'>
         <InfoCard
           title={t('card1.title')}
           desc={t('card1.description')}
@@ -45,7 +45,7 @@ export default function Home({
         />
       </section>
      
-      <section className='flex w-full md:container my-3 gap-3'>
+      <section className='flex w-full md:container my-3 gap-8'>
         <InfoCard
             title={t('card4.title')}
             desc={t('card4.description')}
