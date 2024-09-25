@@ -16,7 +16,9 @@ import divineImage from '@/public/images/divine.jpg';
 import diamondImage from '@/public/images/diamond.jpg';
 import woodImage from '@/public/images/wood.jpg';
 import eternalImage from '@/public/images/eternal.jpg';
-import arrangementImage from '@/public/images/arrangement.jpg';
+import squareImage from '@/public/images/square.jpg';
+import domeImage from '@/public/images/dome.jpg';
+import recImage from '@/public/images/rectangle.jpg';
 import premiumImage from '@/public/images/premium.jpg';
 
 
@@ -193,7 +195,9 @@ function LanguageSwitcher({ locale, switchLocale }: { locale: string, switchLoca
 
 function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sections: number }, isVisible: boolean }) {
   const t = useTranslations('common')
-  const gridColumns = item.sections === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'
+  // const gridColumns = item.sections === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'
+  const gridColumns = 'md:grid-cols-4'
+
 
   const menuItems = {
     [t('nav.timelessCollection')]: [
@@ -203,7 +207,9 @@ function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sec
       { title: t('nav.timelessDiamond'), description: t('nav.timelessDiamondDesc'), href: '/diamond', image:  diamondImage }
     ],
     [t('nav.boxes')]: [
-      { title: t('nav.boxArrangements'), description: t('nav.boxArrangementsDesc'), href: '/box-arrangement', image:  arrangementImage },
+      { title: t('nav.squareBoxArrangements'), description: t('nav.squareBoxArrangementsDesc'), href: '/box-arrangement', image:  squareImage },
+      { title: t('nav.domeBoxArrangements'), description: t('nav.domeBoxArrangementsDesc'), href: '/box-arrangement', image:  domeImage },
+      { title: t('nav.rectangleBoxArrangements'), description: t('nav.rectangleBoxArrangementsDesc'), href: '/box-arrangement', image:  recImage },
       { title: t('nav.premiumArrangements'), description: t('nav.premiumArrangementsDesc'), href: '/premium-box', image:  premiumImage }
     ]
   }
@@ -228,6 +234,7 @@ function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sec
                       src={menuItem.image}
                       alt={t(`nav.${menuItem.title.toLowerCase()}ImageAlt`)}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       className="object-cover transition-transform duration-200 group-hover:scale-105"
                     />
                   </div>
