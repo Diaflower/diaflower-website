@@ -1,12 +1,15 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef} from 'react'
 
-export default function Hero() {
+type Props = {
+  title1: string;
+  title2: string;
+  lang:string;
+}
+
+export default function Hero({title1,title2,lang}: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
-
-
-
   return (
     <section className="w-full xl:container mx-auto relative flex flex-col items-center">
       <div className="relative w-full h-[200px] md:h-[400px] lg:h-[550px] overflow-hidden">
@@ -23,8 +26,8 @@ export default function Hero() {
         </video>
 
       </div>
-      <h1 className='my-10 test text-2xl text-center'>
-      EXQUISITE BLOOMS . TIMELESS ELEGANCE
+      <h1 className={`my-4 md:my-10 test text-2xl text-center flex`}>
+      {title1} <span className='hidden md:flex'>.</span> {title2}
       </h1>
     </section>
   )

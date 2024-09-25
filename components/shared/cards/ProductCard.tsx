@@ -16,12 +16,13 @@ export default function ProductCard({ product }: ProductCardProps) {
  
   return (
     <div className="group relative w-full overflow-hidden rounded-lg border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg">
-      <div className="relative h-[230px] md:h-[300px] w-full overflow-hidden">
+      <div className="relative h-[230px] md:h-[350px] w-full overflow-hidden">
         <Image
           src={product.image.url}
           alt={product.image.altText}
           fill
           sizes="(max-width: 768px) 100vw, 100vw"
+          quality={100}
           className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
         />
       </div>

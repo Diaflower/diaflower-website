@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
 import HeroImage from '../../../public/Banner-main-min.jpg'
+import ProductList from '@/components/shared/ProductList'
 type Props = {
   params: { lang: string }
 }
@@ -23,6 +24,7 @@ const AcrylicPage = async ({ params: { lang } }: Props) => {
         category="timelessAcrylic"
         imageSrc={HeroImage}
       />
+      <ProductList lang={lang as 'en' || 'ar'} tagName='acrylic' />
     </main>
   )
 }

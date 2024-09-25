@@ -45,7 +45,7 @@ export default function Footer() {
                 ))}
               </div>
               <Collapsible className="sm:hidden">
-                <CollapsibleTrigger className="flex w-full items-center justify-between text-lg font-semibold text-white" aria-label={`Toggle ${section.title} section`}>
+                <CollapsibleTrigger className="flex w-full items-center justify-between text-base font-semibold text-white" aria-label={`Toggle ${section.title} section`}>
                   {section.title}
                   <ChevronDown className="h-5 w-5 transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" />
                 </CollapsibleTrigger>
@@ -61,7 +61,7 @@ export default function Footer() {
               </Collapsible>
             </div>
           ))}
-          <div className="space-y-2">
+          <div className="flex flex-col space-y-4 items-center justify-center">
             <h3 className="text-lg font-semibold text-white">{t('footer.followUs')}</h3>
             <div className={`flex ${rtlAwareStyle}`}>
               {socialIcons.map(({ Icon, href, name }, index) => (

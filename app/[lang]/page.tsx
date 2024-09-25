@@ -17,8 +17,8 @@ export default function Home({
 
   return (
     <main className='w-full'>
-      <Hero />
-      <section className='flex w-full md:container my-3 gap-8'>
+      <Hero title1={t('hero.title1')} title2={t('hero.title2')} lang={lang} />
+      <section className='flex flex-col md:flex-row w-full md:container my-3 gap-4 md:gap-8'>
         <InfoCard
           title={t('card1.title')}
           desc={t('card1.description')}
@@ -46,7 +46,7 @@ export default function Home({
         />
       </section>
      
-      <section className='flex w-full md:container my-3 gap-8'>
+      <section className='flex flex-col md:flex-row w-full md:container my-3 gap-4 md:gap-8'>
         <InfoCard
             title={t('card4.title')}
             desc={t('card4.description')}
@@ -62,40 +62,6 @@ export default function Home({
             img={sectionImage}
         />
       </section>
-
-      {/* <section className='flex w-full md:container my-3'>
-        <InfoCard
-           title={t('card6.title')}
-           desc={t('card6.description')}
-           href='/'
-           alt={t('card6.alt')}
-           img={sectionImage}
-        />
-      </section> */}
-
-      {/* <section className='flex w-full md:container my-3 gap-3'>
-        <InfoCard
-           title={t('card7.title')}
-           desc={t('card7.description')}
-           href='/'
-           alt={t('card7.alt')}
-           img={sectionImage}
-        />
-        <InfoCard
-           title={t('card7.title')}
-           desc={t('card7.description')}
-           href='/'
-           alt={t('card7.alt')}
-           img={sectionImage}
-        />
-        <InfoCard
-            title={t('card8.title')}
-            desc={t('card8.description')}
-            href='/'
-            alt={t('card8.alt')}
-            img={sectionImage}
-        />
-      </section> */}
     </main>
   );
 }

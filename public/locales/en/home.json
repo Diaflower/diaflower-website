@@ -39,5 +39,9 @@
     "description": "Timeless elegance in full bloom. Our vase collections feature a diverse mix of fresh flowers, expertly arranged to create stunning centerpieces that will enhance any space.",
     "alt": "Fresh flower arrangements in elegant vases"
   },
-  "link":"Discover The Collection"
+  "link":"Discover The Collection",
+  "hero":{
+    "title1":"EXQUISITE BLOOMS",
+    "title2":"TIMELESS ELEGANCE "
+  }
 }

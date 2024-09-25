@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
 import HeroImage from '../../../public/Banner-main-min.jpg'
+import ProductList from '@/components/shared/ProductList'
 type Props = {
   params: { lang: string }
 }
@@ -23,6 +24,11 @@ const BoxArrangementPage = async ({ params: { lang } }: Props) => {
         category="boxArrangement"
         imageSrc={HeroImage}
       />
+      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-box' />
+      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-round' />
+      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-dome' />
+      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-rectangle' />
+
 
     </main>
   )

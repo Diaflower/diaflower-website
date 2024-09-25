@@ -22,6 +22,7 @@ export default function ProductList({ tagName, lang }: ProductListProps) {
     queryFn: async () => getProductsByTag(tagName, lang),
   });
 
+  console.log("product",data)
   const sortedProducts = useMemo(() => {
     if (data && data.items) {
       return [...data.items].sort((a, b) => a.price - b.price);

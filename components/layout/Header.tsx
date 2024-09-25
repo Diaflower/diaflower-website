@@ -77,33 +77,11 @@ export default function Header() {
 
   return (
     <header className="border-b w-full relative bg-white">
-      <div className="flex flex-col justify-center gap-5 w-full md:container my-4 md:mt-8 md:mb:2">
+      <div className="flex flex-col justify-center gap-5 w-full md:container my-4 md:mt-8 md:mb-2">
         {/* Top Header Nav */}
-        <div className="flex px-2 justify-between items-center md:grid md:grid-cols-3 md:place-items-center w-full">
-          {/* Left Nav (hidden on mobile) */}
-          <div className="hidden md:flex md:w-full space-x-4 md:self-start">
-            <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
-            <Link href="/contact" className="hover:underline">{t('header.contactUs')}</Link>
-          </div>
-
-          <div className="md:justify-self-center ">
-            <Link href={'/'}>
-              <Logo />
-              <VisuallyHidden.Root>{t('header.home')}</VisuallyHidden.Root>
-            </Link>
-          </div>
-
-          {/* Right Nav */}
-          <div className="flex justify-end gap-5 w-full md:self-start">
-            {icons.map((item, index) => (
-              <IconWithTooltip 
-                key={item.text} 
-                item={item} 
-                index={index}
-                handleAccountClick={handleAccountClick}
-              />
-            ))}
-            {/* Mobile menu icon */}
+        <div className="flex px-2 items-center w-full">
+          {/* Left Nav (mobile menu on small screens, language switcher and contact us on larger screens) */}
+          <div className="flex-1 flex md:w-full space-x-4 md:self-start">
             <Sheet>
               <SheetTrigger className="md:hidden">
                 <Menu className="w-5 h-5 text-[#1d1c1c]" />
@@ -114,10 +92,34 @@ export default function Header() {
                 <SheetDescription>{t('header.menuDescription')}</SheetDescription>
               </VisuallyHidden.Root>
               
-              <SheetContent side={locale === 'ar' ? 'left' : 'right'}>
+              <SheetContent side={locale === 'ar' ? 'right' : 'left'}>
                 <MobileMenu navItems={navItems} locale={locale} switchLocale={switchLocale} />
               </SheetContent>
             </Sheet>
+            <div className="hidden md:flex space-x-4">
+              <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
+              <Link href="/contact" className="hover:underline">{t('header.contactUs')}</Link>
+            </div>
+          </div>
+
+          {/* Center Logo */}
+          <div className="flex-1 flex justify-center">
+            <Link href={'/'}>
+              <Logo />
+              <VisuallyHidden.Root>{t('header.home')}</VisuallyHidden.Root>
+            </Link>
+          </div>
+
+          {/* Right Nav */}
+          <div className="flex-1 flex justify-end gap-5 md:self-start">
+            {icons.map((item, index) => (
+              <IconWithTooltip 
+                key={item.text} 
+                item={item} 
+                index={index}
+                handleAccountClick={handleAccountClick}
+              />
+            ))}
           </div>
         </div>
 

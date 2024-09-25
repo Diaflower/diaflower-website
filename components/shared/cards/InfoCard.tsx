@@ -30,7 +30,7 @@ export default function InfoCard({title, desc,img, alt, href}: Props) {
             </div>
             <div className="p-2 md:p-6 flex flex-col items-center text-center">
                 <h2 className="text-lg md:text-2xl font-semibold mb-1 md:mb-2">{title}</h2>
-                <p className='hidden md:flex mb-2 md:mb-4 text-sm  md:neww font-roboto text-black'>
+                <p className='mb-2 md:mb-4 text-xs  md:neww font-roboto text-black'>
                     {desc}
                 </p>
                 <Link

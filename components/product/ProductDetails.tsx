@@ -110,53 +110,72 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
     }
   }
 
-  const renderOptions = (key: 'size' | 'infinityColor' | 'boxColor' | 'wrappingColor') => {
-    const uniqueOptions = product.variations.reduce((acc, variation) => {
-      const option = variation[key]
-      if (option) {
-        const isDuplicate = acc.some(item => 
-          key === 'size' 
-            ? (item as ProductSize).name === (option as ProductSize).name
-            : item.id === option.id
-        )
-        if (!isDuplicate) {
-          acc.push(option)
+  const renderOptions = (
+    optionType: 'size' | 'infinityColor' | 'boxColor' | 'wrappingColor',
+    product: { variations: ProductVariation[] },
+    selectedVariation: ProductVariation,
+    handleVariationChange: (variation: ProductVariation) => void,
+    t: (key: string, params?: Record<string, string>) => string
+  ) => {
+    const options = product.variations.reduce((acc, variation) => {
+      const option = variation[optionType];
+      if (option && typeof option === 'object' && 'id' in option) {
+        const isSize = 'name' in option && !('image' in option);
+        const isColor = 'image' in option;
+        
+        if ((isSize && optionType === 'size') || (isColor && optionType !== 'size')) {
+          const existingOption = acc.find(item => 
+            isSize 
+              ? (item as ProductSize).name === (option as ProductSize).name
+              : item.id === option.id
+          );
+          
+          if (!existingOption) {
+            acc.push(option as ProductSize | Color);
+          }
         }
       }
-      return acc
-    }, [] as (ProductSize | Color)[])
-    if (key === 'size') {
+      return acc;
+    }, [] as (ProductSize | Color)[]);
+  
+    if (options.length === 0) {
+      return null;
+    }
+  
+    if (optionType === 'size') {
       return (
         <RadioGroup
-          value={selectedVariation[key]?.id.toString()}
+          value={selectedVariation[optionType]?.id.toString()}
           onValueChange={(value) => {
-            const newVariation = product.variations.find(v => v[key]?.id.toString() === value)
-            if (newVariation) handleVariationChange(newVariation)
+            const newVariation = product.variations.find(v => v[optionType]?.id.toString() === value);
+            if (newVariation) handleVariationChange(newVariation);
           }}
-          className={`flex flex-wrap ${rtlDirection} gap-2`}
+          className="flex flex-wrap gap-2"
         >
-          {uniqueOptions.map((option) => (
+          {options.map((option) => (
             <div key={option.id} className="flex items-center space-x-2 gap-1 rtl:space-x-reverse">
               <RadioGroupItem value={option.id.toString()} id={`size-${option.id}`} />
               <Label htmlFor={`size-${option.id}`}>{(option as ProductSize).name}</Label>
             </div>
           ))}
         </RadioGroup>
-      )
+      );
     } else {
       return (
         <div className="flex flex-wrap gap-2">
-          {uniqueOptions.map((option) => {
-            const colorOption = option as Color
+          {options.map((option) => {
+            const colorOption = option as Color;
             return (
               <button
                 key={colorOption.id}
-                className={`w-10 h-10 rounded-full border-2 ${selectedVariation[key]?.id === colorOption.id ? "border-primary" : "border-gray-200"}`}
+                className={`w-10 h-10 rounded-full border-2 ${
+                  selectedVariation[optionType]?.id === colorOption.id ? "border-primary" : "border-gray-200"
+                }`}
                 onClick={() => {
-                  const newVariation = product.variations.find(v => v[key]?.id === colorOption.id)
-                  if (newVariation) handleVariationChange(newVariation)
+                  const newVariation = product.variations.find(v => v[optionType]?.id === colorOption.id);
+                  if (newVariation) handleVariationChange(newVariation);
                 }}
-                aria-label={t(`select${key.charAt(0).toUpperCase() + key.slice(1)}`, { color: colorOption.name })}
+                aria-label={t(`select${optionType.charAt(0).toUpperCase() + optionType.slice(1)}`, { color: colorOption.name })}
               >
                 <Image
                   src={colorOption.image?.url || '/placeholder.svg?height=40&width=40'}
@@ -166,12 +185,12 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
                   className="w-full h-full object-cover rounded-full"
                 />
               </button>
-            )
+            );
           })}
         </div>
-      )
+      );
     }
-  }
+  };
 
   const calculateTotalPrice = () => {
     const basePrice = parsePrice(selectedVariation.price) * quantity
@@ -192,7 +211,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
               src={selectedVariation.image?.url || product.mainImage.url}
               alt={selectedVariation.image?.altText || product.mainImage.altText || product.name}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
               priority
             />
@@ -272,54 +291,20 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
             </div>
           </div>
           <p className='text-sm text-gray-600'>{product.shortDescription}</p>
-          <div className="space-y-4">
-            {product.productType === 'LONG_LIFE' && (
-              <>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
-                  {renderOptions('size')}
+        
+          {(['size', 'infinityColor', 'boxColor', 'wrappingColor'] as const).map((optionType) => {
+            const options = renderOptions(optionType, product, selectedVariation, handleVariationChange, t);
+            if (options) {
+              return (
+                <div key={optionType} className="space-y-2">
+                  <h2 className="text-sm font-semibold uppercase">{t(optionType)}</h2>
+                  {options}
                 </div>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('infinityColor')}</h2>
-                  {renderOptions('infinityColor')}
-                </div>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('boxColor')}</h2>
-                  {renderOptions('boxColor')}
-                </div>
-              </>
-            )}
-            {product.productType === 'BOUQUET' && (
-              <>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
-                  {renderOptions('size')}
-                </div>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('wrappingColor')}</h2>
-                  {renderOptions('wrappingColor')}
-                </div>
-              </>
-            )}
-            {product.productType === 'ARRANGEMENT' && (
-              <>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
-                  {renderOptions('size')}
-                </div>
-                <div className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t('boxColor')}</h2>
-                  {renderOptions('boxColor')}
-                </div>
-              </>
-            )}
-            {product.productType === 'ACRYLIC_BOX' && (
-              <div className="space-y-2">
-                <h2 className="text-sm font-semibold uppercase">{t('size')}</h2>
-                {renderOptions('size')}
-              </div>
-            )}
-          </div>
+              );
+            }
+            return null;
+          })}
+
           <Button 
             className="w-full bg-primary hover:bg-primary/90 text-white rounded-md flex items-center justify-center space-x-2 rtl:space-x-reverse py-6"
             onClick={() => handleAddToCart(false)}

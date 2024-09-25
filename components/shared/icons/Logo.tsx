@@ -1,11 +1,5 @@
-import Link from 'next/link'
-import React from 'react'
 
-// type Props = {
-//     color: string
-//     scrolled?:boolean
-// }
-// { color,scrolled }: Props
+import React from 'react'
 const Logo = () => {
     return (
         <svg
