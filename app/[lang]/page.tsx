@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import Hero from '@/components/home/Hero';
 import InfoCard from '@/components/shared/cards/InfoCard';
 import sectionImage from '../../public/section-min.jpg'
-import crystalImage from '@/public/crystal.jpg'
+import crystalImage from '@/public/images/Heart.jpg'
 import vaseImage from '@/public/Vase.jpg'
 import leatherImage from '@/public/Leatherbag.jpg'
 import bouqetImage from '@/public/bouquet.jpg'
