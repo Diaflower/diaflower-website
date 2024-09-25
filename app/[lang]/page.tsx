@@ -55,14 +55,14 @@ export default function Home({
             desc={t('card4.description')}
             href='/'
             alt={t('card4.alt')}
-            img={vaseImage}
+            img={leatherImage}
         />
         <InfoCard
             title={t('card5.title')}
             desc={t('card5.description')}
             href='/'
             alt={t('card5.alt')}
-            img={leatherImage}
+            img={vaseImage}
         />
       </section>
     </main>
