@@ -99,7 +99,7 @@ const ContactUs: React.FC = () => {
     <div className={rtlStyle}>
       <CategoryHeaderSection
          category="contactUs"
-        imageSrc={contactImage}      
+        imageSrc={"https://imagedelivery.net/kfVaF5O0522QMIOueHgSrA/33a27abd-081c-42cb-1f35-bca154150800/public"}      
       />
       <section className="contact-options py-1 md:py-12">
         <div className="max-w-6xl mx-auto px-6 space-y-12">
