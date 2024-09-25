@@ -11,7 +11,14 @@ import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { IconWithTooltip } from "../shared/IconWithTooltip";
 import { useRTLAwareStyle } from "@/util/rtl";
 import Image from 'next/image';
-import HeroImage from '../../public/Banner-main-min.jpg';
+// import HeroImage from '@/public/images/Banner-main-min.jpg';
+import divineImage from '@/public/images/divine.jpg';
+import diamondImage from '@/public/images/diamond.jpg';
+import woodImage from '@/public/images/wood.jpg';
+import eternalImage from '@/public/images/eternal.jpg';
+import arrangementImage from '@/public/images/arrangement.jpg';
+import premiumImage from '@/public/images/premium.jpg';
+
 
 export default function Header() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -186,17 +193,18 @@ function LanguageSwitcher({ locale, switchLocale }: { locale: string, switchLoca
 
 function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sections: number }, isVisible: boolean }) {
   const t = useTranslations('common')
-  const gridColumns = item.sections === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
+  const gridColumns = item.sections === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'
 
   const menuItems = {
     [t('nav.timelessCollection')]: [
-      { title: t('nav.timelessCrystal'), description: t('nav.timelessCrystalDesc'), href: '/crystal', image: HeroImage},
-      { title: t('nav.timelessWood'), description: t('nav.timelessWoodDesc'), href: '/wood', image:  HeroImage },
-      { title: t('nav.timelessAcrylic'), description: t('nav.timelessAcrylicDesc'), href: '/timeless-acrylic', image:  HeroImage }
+      { title: t('nav.timelessDivine'), description: t('nav.timelessDivineDesc'), href: '/divine', image: divineImage},
+      { title: t('nav.timelessWood'), description: t('nav.timelessWoodDesc'), href: '/wood', image:  woodImage },
+      { title: t('nav.timelessAcrylic'), description: t('nav.timelessAcrylicDesc'), href: '/timeless-acrylic', image:  eternalImage },
+      { title: t('nav.timelessDiamond'), description: t('nav.timelessDiamondDesc'), href: '/diamond', image:  diamondImage }
     ],
     [t('nav.boxes')]: [
-      { title: t('nav.boxArrangements'), description: t('nav.boxArrangementsDesc'), href: '/box-arrangement', image:  HeroImage },
-      { title: t('nav.premiumArrangements'), description: t('nav.premiumArrangementsDesc'), href: '/premium-box', image:  HeroImage }
+      { title: t('nav.boxArrangements'), description: t('nav.boxArrangementsDesc'), href: '/box-arrangement', image:  arrangementImage },
+      { title: t('nav.premiumArrangements'), description: t('nav.premiumArrangementsDesc'), href: '/premium-box', image:  premiumImage }
     ]
   }
 

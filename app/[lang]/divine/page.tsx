@@ -18,7 +18,7 @@ export async function generateMetadata({ params: { lang } }: Props): Promise<Met
   }
 }
 
-const CrystalPage = async ({ params: { lang } }: Props) => {
+const DivinePage = async ({ params: { lang } }: Props) => {
   return (
     <main className='w-full'>
       <CategoryHeaderSection 
@@ -30,4 +30,4 @@ const CrystalPage = async ({ params: { lang } }: Props) => {
   )
 }
 
-export default CrystalPage
+export default DivinePage

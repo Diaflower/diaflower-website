@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PhoneIcon, MailIcon, MessageCircleIcon, MapPinIcon, CalendarIcon, HelpCircleIcon, ArrowRightIcon } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection';
-import contactImage from '../../../public/Banner-main-min.jpg'
+import contactImage from '../../../public/images/Banner-main-min.jpg'
 import { useTranslations } from 'next-intl';
 import { useRTLAwareStyle } from '@/util/rtl';
 

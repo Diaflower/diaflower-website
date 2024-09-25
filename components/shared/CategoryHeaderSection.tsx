@@ -30,7 +30,7 @@ const CategoryHeaderSection = ({ category, imageSrc }: HeaderSection) => {
         </div>
         <div className={`w-full md:w-1/2 bg-[#f9f9f9] p-4 sm:p-6 md:p-8 lg:p-10 flex items-center ${rtlAwarePadding}`}>
           <div className={`w-full space-y-3 sm:space-y-4 md:space-y-5 text-center md:text-left md:${rtlAwareTextAlign}`}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+            <h2 className={`${rtlAwareTextAlign} text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight`}>
               {t(`${category}.title`)}
             </h2>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-[600px] mx-auto md:mx-0 md:text-justify">

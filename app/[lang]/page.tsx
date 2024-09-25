@@ -6,7 +6,7 @@ import crystalImage from '@/public/crystal.jpg'
 import vaseImage from '@/public/Vase.jpg'
 import leatherImage from '@/public/Leatherbag.jpg'
 import bouqetImage from '@/public/bouquet.jpg'
-import arrangementImage from '@/public/arrang.jpeg'
+import arrangementImage from '@/public/images/arrang.jpeg'
 
 
 
