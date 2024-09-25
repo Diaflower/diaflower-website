@@ -3,6 +3,9 @@ import Hero from '@/components/home/Hero';
 import InfoCard from '@/components/shared/cards/InfoCard';
 import sectionImage from '../../public/section-min.jpg'
 import crystalImage from '@/public/crystal.jpg'
+import vaseImage from '@/public/Vase.jpg'
+import leatherImage from '@/public/Leatherbag.jpg'
+import bouqetImage from '@/public/bouquet.jpg'
 
 
 
@@ -31,7 +34,7 @@ export default function Home({
            desc={t('card2.description')}
            href='/'
            alt={t('card2.alt')}
-           img={sectionImage}
+           img={bouqetImage}
         />
       </section>
 
@@ -52,14 +55,14 @@ export default function Home({
             desc={t('card4.description')}
             href='/'
             alt={t('card4.alt')}
-            img={sectionImage}
+            img={vaseImage}
         />
         <InfoCard
             title={t('card5.title')}
             desc={t('card5.description')}
             href='/'
             alt={t('card5.alt')}
-            img={sectionImage}
+            img={leatherImage}
         />
       </section>
     </main>
