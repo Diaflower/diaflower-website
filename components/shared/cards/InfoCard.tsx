@@ -23,6 +23,7 @@ export default function InfoCard({title, desc,img, alt, href}: Props) {
                 src={img}
                 alt={alt}
                 fill
+                quality={100}
                 sizes="(max-width: 768px) 100vw, 100vw"
                 className="object-cover"
                 />
