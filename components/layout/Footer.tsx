@@ -31,12 +31,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full bg-gray-800 py-12 text-gray-200">
+    <footer className="w-full bg-[#222222] py-12 text-gray-200">
       <div className="container px-4 md:px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 sm:place-items-center">
           {footerSections.map((section, index) => (
             <div key={index} className="space-y-2">
-              <h3 className="text-lg font-semibold text-white hidden sm:block">{section.title}</h3>
+              <h3 className="text-lg font-semibold text-white hidden sm:block tracking-widest">{section.title}</h3>
               <div className="hidden sm:grid gap-1">
                 {section.links.map((link: string, linkIndex: number) => (
                   <Link key={linkIndex} href="#" className="text-gray-300 hover:text-white hover:underline" prefetch={false}>

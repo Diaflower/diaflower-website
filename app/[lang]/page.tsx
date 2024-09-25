@@ -42,28 +42,40 @@ export default function Home({
 
       <section className='flex w-full md:container my-3'>
         <InfoCard
-          title={t('card3.title')}
-          desc={t('card3.description')}
+          title={t('card5.title')}
+          desc={t('card5.description')}
           href='/'
-          alt={t('card3.alt')}
+          alt={t('card5.alt')}
           img={arrangementImage}
         />
       </section>
      
-      <section className='flex flex-col md:flex-row w-full md:container my-3 gap-4 md:gap-8'>
-        <InfoCard
+      <section className='flex flex-col md:flex-row w-full md:container my-3 gap-4 md:gap-4'>
+        
+      <InfoCard
             title={t('card4.title')}
             desc={t('card4.description')}
             href='/'
             alt={t('card4.alt')}
+            img={bouqetImage}
+            height
+        />
+        
+        <InfoCard
+            title={t('card7.title')}
+            desc={t('card7.description')}
+            href='/'
+            alt={t('card7.alt')}
             img={leatherImage}
+            height
         />
         <InfoCard
-            title={t('card5.title')}
-            desc={t('card5.description')}
+            title={t('card8.title')}
+            desc={t('card8.description')}
             href='/'
-            alt={t('card5.alt')}
+            alt={t('card8.alt')}
             img={vaseImage}
+            height
         />
       </section>
     </main>

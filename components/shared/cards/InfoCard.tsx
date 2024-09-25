@@ -9,14 +9,15 @@ type Props = {
     img: string | StaticImageData;
     alt: string;
     href: string;
+    height?:boolean
 }
 
-export default function InfoCard({title, desc,img, alt, href}: Props) {
+export default function InfoCard({title, desc,img, alt, href,height}: Props) {
     const rtlAwareUnderlineStyle = useRTLAwareStyle('left-0', 'right-0');
     const t = useTranslations('home');
     return (
         <div className="w-full relative">
-            <div className="relative w-full h-[200px] md:h-[400px] lg:h-[520px]">
+            <div className={`relative w-full h-[200px] md:h-[400px] ${height? "lg:h-[450px]":"lg:h-[520px]"}`}>
             {img && (
                 <Image
                 priority
