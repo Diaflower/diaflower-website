@@ -1,29 +1,33 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { SimpleProduct } from "@/types/product";
-import { useTranslations } from 'next-intl';
-import { useRTLAwareStyle } from "@/util/rtl";
-import Link from "next/link";
+'use client'
+
+import { Button } from "@/components/ui/button"
+import { SimpleProduct } from "@/types/product"
+import { useTranslations } from 'next-intl'
+import { useRTLAwareStyle } from "@/util/rtl"
+import Link from "next/link"
+import AnimatedImage from "../AnimatedImage"
 
 interface ProductCardProps {
-  product: SimpleProduct;
+  product: SimpleProduct
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const t = useTranslations('product');
-  const rtlAwareStyle = useRTLAwareStyle('left-0', 'right-0');
-  const letterSpacing = useRTLAwareStyle('tracking-widest','')
+  const t = useTranslations('product')
+  const rtlAwareStyle = useRTLAwareStyle('left-0', 'right-0')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
   return (
     <Link href={`/products/${product.slug}`} passHref className="block group relative w-full overflow-hidden border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg">
-      <div className="relative h-[230px] md:h-[350px] w-full overflow-hidden">
-        <Image
-          src={product.image.url}
+      <div className="relative w-full h-[230px] md:h-[350px] overflow-hidden">
+        <AnimatedImage
+          thumbnailSrc={product.image.url}
+          mainSrc={product.image.url}
           alt={product.image.altText}
-          fill
-          sizes="(max-width: 768px) 100vw, 100vw"
+          width={400}
+          height={350}
+          sizes="(max-width: 768px) 100vw, 400px"
           quality={100}
-          className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+          className="w-full h-full transition-transform duration-300 ease-in-out group-hover:scale-105"
         />
       </div>
       <div className="p-4 text-center">
@@ -38,5 +42,5 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
     </Link>
-  );
+  )
 }

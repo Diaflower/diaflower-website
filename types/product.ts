@@ -30,6 +30,7 @@ export type SimpleProduct = {
   name: string;
   image: {
     url: string;
+    thumbnail:string;
     altText: string;
   };
   price: number;
