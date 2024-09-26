@@ -28,7 +28,7 @@ export default function CategoryHeaderSection({ category, imageSrc }: HeaderSect
               priority
               src={imageSrc}
               alt={t(`${category}.alt`)}
-              quality={85}
+              quality={100}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
