@@ -7,6 +7,7 @@ import vaseImage from '@/public/Vase.jpg'
 import leatherImage from '@/public/Leatherbag.jpg'
 import bouqetImage from '@/public/bouquet.jpg'
 import arrangementImage from '@/public/images/arrang.jpeg'
+import treasureImage from '@/public/images/treasure.jpg'
 
 
 
@@ -35,7 +36,7 @@ export default function Home({
            desc={t('card2.description')}
            href='/'
            alt={t('card2.alt')}
-           img={bouqetImage}
+           img={treasureImage}
         />
       </section>
 

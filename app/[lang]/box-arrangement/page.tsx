@@ -24,10 +24,10 @@ const BoxArrangementPage = async ({ params: { lang } }: Props) => {
         category="boxArrangements"
         imageSrc={HeroImage}
       />
-      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-box' />
-      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-round' />
-      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-dome' />
-      <ProductList lang={lang as 'en' || 'ar'} tagName='arrangement-rectangle' />
+      <ProductList type="arr-square" lang={lang as 'en' || 'ar'} tagName='arrangement-box' />
+      <ProductList type="arr-round" lang={lang as 'en' || 'ar'} tagName='arrangement-round' />
+      <ProductList type="arr-dome" lang={lang as 'en' || 'ar'} tagName='arrangement-dome' />
+      <ProductList type="arr-rectangle" lang={lang as 'en' || 'ar'} tagName='arrangement-rectangle' />
 
 
     </main>

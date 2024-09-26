@@ -25,7 +25,7 @@ const LeatherPage = async ({ params: { lang } }: Props) => {
         category="leatherBags"
         imageSrc={leatherBanner}
       />
-    <ProductList lang={lang as 'en' || 'ar'} tagName='leather bag' />
+    <ProductList type="leather" lang={lang as 'en' || 'ar'} tagName='leather bag' />
 
     </main>
   )

@@ -24,7 +24,7 @@ const AcrylicPage = async ({ params: { lang } }: Props) => {
         category="timelessAcrylic"
         imageSrc={HeroImage}
       />
-      <ProductList lang={lang as 'en' || 'ar'} tagName='acrylic' />
+      <ProductList type="eternal" lang={lang as 'en' || 'ar'} tagName='acrylic' />
     </main>
   )
 }

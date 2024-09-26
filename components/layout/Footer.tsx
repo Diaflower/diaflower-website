@@ -1,33 +1,65 @@
 import Link from "next/link"
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
-import { ChevronDown, Facebook, Twitter, Instagram } from "lucide-react"
+import { ChevronDown, Facebook, Twitter, Instagram, MapPin } from "lucide-react"
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { useTranslations } from 'next-intl';
 import { useRTLAwareStyle } from "@/util/rtl";
 
+type FooterLink = {
+  text: string;
+  href: string;
+}
+
+type BranchLink = FooterLink & {
+  location: string;
+}
+
+type FooterSection = {
+  title: string;
+  links: FooterLink[] | BranchLink[];
+}
+
 export default function Footer() {
   const t = useTranslations('common');
   const rtlAwareStyle = useRTLAwareStyle('space-x-4', 'space-x-reverse space-x-4');
+  const letterSpacing = useRTLAwareStyle('tracking-widest','')
 
-  const footerSections = [
+  const footerSections: FooterSection[] = [
     {
       title: t('footer.sections.company.title'),
-      links: ['about', 'team', 'careers', 'news'].map(key => t(`footer.sections.company.links.${key}`))
+      links: [
+        { text: t('footer.sections.company.links.cityWalk'), href: 'https://goo.gl/maps/1234567890', location: 'Dia Flower, City Walk - Dubai' },
+        { text: t('footer.sections.company.links.dubaiMall'), href: 'https://goo.gl/maps/abcdefghijk', location: 'Dia Flower, LG Floor Dubai Mall - Downtown Dubai - Dubai' },
+        { text: t('footer.sections.company.links.yasMall'), href: 'https://goo.gl/maps/lmnopqrstuv', location: 'Dia Flower, Yas Mall - Abu Dhabi' },
+        { text: t('footer.sections.company.links.mallOfEmirates'), href: 'https://goo.gl/maps/wxyz123456', location: 'Dia Flower, Mall of the Emirates - Dubai' },
+        { text: t('footer.sections.company.links.soukMadinat'), href: 'https://goo.gl/maps/7890abcdef', location: 'Dia Flower, Souk Madinat Jumeirah - Dubai' },
+        { text: t('footer.sections.company.links.sharjah'), href: 'https://goo.gl/maps/ghijklmnop', location: 'Dia Flower, Sharjah' },
+      ] as BranchLink[]
     },
     {
       title: t('footer.sections.products.title'),
-      links: ['men', 'women', 'kids', 'accessories'].map(key => t(`footer.sections.products.links.${key}`))
+      links: [
+        { text: t('footer.sections.products.links.divine'), href: '/divine' },
+        { text: t('footer.sections.products.links.bouquets'), href: '/bouquets' },
+        { text: t('footer.sections.products.links.treasure'), href: '/treasure' },
+        { text: t('footer.sections.products.links.leather'), href: '/leather' },
+      ]
     },
     {
       title: t('footer.sections.resources.title'),
-      links: ['blog', 'community', 'support', 'faqs'].map(key => t(`footer.sections.resources.links.${key}`))
+      links: [
+        { text: t('footer.sections.resources.links.faq'), href: '/faq' },
+        { text: t('footer.sections.resources.links.termsConditions'), href: '/terms-conditions' },
+        { text: t('footer.sections.resources.links.privacyPolicy'), href: '/privacy-policy' },
+        { text: t('footer.sections.resources.links.refundsReturns'), href: '/refunds-returns' },
+      ]
     }
   ];
 
   const socialIcons = [
-    { Icon: Facebook, href: "#", name: t('footer.socialMedia.facebook') },
-    { Icon: Twitter, href: "#", name: t('footer.socialMedia.twitter') },
-    { Icon: Instagram, href: "#", name: t('footer.socialMedia.instagram') }
+    { Icon: Facebook, href: "https://facebook.com/diaflower", name: t('footer.socialMedia.facebook') },
+    { Icon: Twitter, href: "https://twitter.com/diaflower", name: t('footer.socialMedia.twitter') },
+    { Icon: Instagram, href: "https://instagram.com/diaflower", name: t('footer.socialMedia.instagram') }
   ];
 
   return (
@@ -36,11 +68,20 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 sm:place-items-center">
           {footerSections.map((section, index) => (
             <div key={index} className="space-y-2">
-              <h3 className="text-lg font-semibold text-white hidden sm:block tracking-widest">{section.title}</h3>
+              <h3 className={`text-lg font-semibold text-white hidden sm:block ${letterSpacing}`}>{section.title}</h3>
               <div className="hidden sm:grid gap-1">
-                {section.links.map((link: string, linkIndex: number) => (
-                  <Link key={linkIndex} href="#" className="text-gray-300 hover:text-white hover:underline" prefetch={false}>
-                    {link}
+                {section.links.map((link, linkIndex) => (
+                  <Link 
+                  key={linkIndex} 
+                  href={link.href} 
+                  className="text-gray-300 hover:text-white hover:underline font-roboto flex items-center" 
+                  prefetch={false}
+                  target={index === 0 ? "_blank" : undefined}
+                  rel={index === 0 ? "noopener noreferrer" : undefined}
+                  aria-label={index === 0 ? `${link.text} - ${(link as BranchLink).location} (opens in Google Maps)` : undefined}
+                  >
+                    {index === 0 && <MapPin className="h-4 w-4 mr-2" />}
+                    {link.text}
                   </Link>
                 ))}
               </div>
@@ -51,9 +92,18 @@ export default function Footer() {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <div className="grid gap-1 mt-2">
-                    {section.links.map((link: string, linkIndex: number) => (
-                      <Link key={linkIndex} href="#" className="text-gray-300 hover:text-white hover:underline" prefetch={false}>
-                        {link}
+                    {section.links.map((link, linkIndex) => (
+                      <Link 
+                      key={linkIndex} 
+                      href={link.href} 
+                      className="text-gray-300 hover:text-white hover:underline font-roboto flex items-center" 
+                      prefetch={false}
+                      target={index === 0 ? "_blank" : undefined}
+                      rel={index === 0 ? "noopener noreferrer" : undefined}
+                      aria-label={index === 0 ? `${link.text} - ${(link as BranchLink).location} (opens in Google Maps)` : undefined}
+                    >
+                        {index === 0 && <MapPin className="h-4 w-4 mr-2" />}
+                        {link.text}
                       </Link>
                     ))}
                   </div>
@@ -62,7 +112,7 @@ export default function Footer() {
             </div>
           ))}
           <div className="flex flex-col space-y-4 items-center justify-center">
-            <h3 className="text-lg font-semibold text-white">{t('footer.followUs')}</h3>
+            <h3 className={`text-lg font-semibold text-white ${letterSpacing}`}>{t('footer.followUs')}</h3>
             <div className={`flex ${rtlAwareStyle}`}>
               {socialIcons.map(({ Icon, href, name }, index) => (
                 <Link 

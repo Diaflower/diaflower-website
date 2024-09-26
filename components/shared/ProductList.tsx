@@ -4,16 +4,16 @@ import { SimpleProduct } from '@/types/product';
 import ProductCard from './cards/ProductCard';
 import { useTranslations } from 'next-intl';
 import { useRTLAwareStyle } from '@/util/rtl';
-
 import { useQuery } from '@tanstack/react-query';
-import {  useMemo } from 'react';
+import { useMemo } from 'react';
 
 interface ProductListProps {
   tagName: string;
   lang: 'en' | 'ar';
+  type: "divine"|"diamond" |"treasure"|"eternal"|"bouquet"|"red-love"|"arr-square"|"arr-round"|"arr-rectangle"|"arr-dome"|"arr-box"|"arr-tub"|"leather"|"vase";
 }
 
-export default function ProductList({ tagName, lang }: ProductListProps) {
+export default function ProductList({ tagName, lang, type }: ProductListProps) {
   const t = useTranslations('product');
   const rtlAwareStyle = useRTLAwareStyle('space-x-4 rtl:space-x-reverse', 'space-x-4');
 
@@ -22,7 +22,6 @@ export default function ProductList({ tagName, lang }: ProductListProps) {
     queryFn: async () => getProductsByTag(tagName, lang),
   });
 
-  console.log("product",data)
   const sortedProducts = useMemo(() => {
     if (data && data.items) {
       return [...data.items].sort((a, b) => a.price - b.price);
@@ -35,7 +34,15 @@ export default function ProductList({ tagName, lang }: ProductListProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="mb-6 text-2xl font-bold text-center">{t('productsTaggedWith', { tag: tagName })}</h2>
+      <div className="mb-8 w-full">
+        <div className="relative py-4">
+          <div className="relative flex justify-center border rounded-2xl border-gray-400 p-2">
+            <span className="bg-white px-4 text-3xl font-fancy  text-gray-900 tracking-widest">
+            {t(`heading.${type}`)}
+            </span>
+          </div>
+        </div>
+      </div>
       {sortedProducts.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
           {sortedProducts.map((product: SimpleProduct) => (

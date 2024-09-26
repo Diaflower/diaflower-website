@@ -19,6 +19,7 @@ export async function generateMetadata({ params: { lang } }: Props): Promise<Met
 }
 
 const BouquetsPage = async ({ params: { lang } }: Props) => {
+  
   return (
     <main className='w-full'>
       <CategoryHeaderSection 
@@ -26,7 +27,7 @@ const BouquetsPage = async ({ params: { lang } }: Props) => {
         imageSrc={HeroImage}
       />
   
-      <ProductList lang={lang as 'en' || 'ar'} tagName='leather bag' />
+      <ProductList type="bouquet" lang={lang as 'en' || 'ar'} tagName='leather bag' />
     </main>
   )
 }

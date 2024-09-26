@@ -52,43 +52,45 @@
       "ar": "العربية",
       "name": "English"
     },
-    "footer": {
-      "sections": {
-        "company": {
-          "title": "Company",
-          "links": {
-            "about": "About Us",
-            "team": "Our Team",
-            "careers": "Careers",
-            "news": "News"
-          }
-        },
-        "products": {
-          "title": "Products",
-          "links": {
-            "men": "Men",
-            "women": "Women",
-            "kids": "Kids",
-            "accessories": "Accessories"
-          }
-        },
-        "resources": {
-          "title": "Resources",
-          "links": {
-            "blog": "Blog",
-            "community": "Community",
-            "support": "Support",
-            "faqs": "FAQs"
-          }
+     "footer": {
+    "sections": {
+      "company": {
+        "title": "Our Branches",
+        "links": {
+          "cityWalk": "City Walk",
+          "dubaiMall": "Dubai Mall",
+          "yasMall": "Yas Mall",
+          "mallOfEmirates": "Mall of the Emirates",
+          "soukMadinat": "Souk Madinat",
+          "sharjah": "Sharjah"
         }
       },
-      "followUs": "Follow Us",
-      "socialMedia": {
-        "facebook": "Facebook",
-        "twitter": "Twitter",
-        "instagram": "Instagram"
+      "products": {
+        "title": "Products",
+        "links": {
+          "divine": "Divine",
+          "bouquets": "Bouquets",
+          "treasure": "Treasure",
+          "leather": "Leather"
+        }
       },
-      "copyright": "© 2024 DiaFlower. All rights reserved."
-    }
+      "resources": {
+        "title": "Resources",
+        "links": {
+          "faq": "FAQ",
+          "termsConditions": "Terms & Conditions",
+          "privacyPolicy": "Privacy Policy",
+          "refundsReturns": "Refunds & Returns"
+        }
+      }
+    },
+    "followUs": "Follow Us",
+    "socialMedia": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© 2024 DiaFlower. All rights reserved."
+  }
   
 }

@@ -25,7 +25,7 @@ const VasesPage = async ({ params: { lang } }: Props) => {
         imageSrc={vaseBanner}
       />
 
-<ProductList lang={lang as 'en' || 'ar'} tagName='vases' />
+<ProductList type="vase" lang={lang as 'en' || 'ar'} tagName='vases' />
     </main>
   )
 }

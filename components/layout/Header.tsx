@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { useAuth } from '@clerk/nextjs';
 import Logo from "../shared/icons/Logo";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { UserRound, ShoppingBag, Search, Menu, ChevronDown } from "lucide-react";
+import { UserRound, ShoppingBag,Menu, ChevronDown } from "lucide-react";
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { IconWithTooltip } from "../shared/IconWithTooltip";
 import { useRTLAwareStyle } from "@/util/rtl";
 import Image from 'next/image';
-// import HeroImage from '@/public/images/Banner-main-min.jpg';
+
+
 import divineImage from '@/public/images/divine.jpg';
 import diamondImage from '@/public/images/diamond.jpg';
 import woodImage from '@/public/images/wood.jpg';
@@ -32,7 +33,6 @@ export default function Header() {
   const { isSignedIn } = useAuth();
   const t = useTranslations('common');
   const rtlAwareStyle = useRTLAwareStyle('left-2', 'right-2');
-
   const icons = [
     { icon: <UserRound className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.account') },
     { icon: <ShoppingBag className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.viewCart'), badge: true }
@@ -195,6 +195,9 @@ function LanguageSwitcher({ locale, switchLocale }: { locale: string, switchLoca
 
 function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sections: number }, isVisible: boolean }) {
   const t = useTranslations('common')
+  const letterSpacing = useRTLAwareStyle('tracking-widest','')
+  const icon = useRTLAwareStyle('','rotate-180')
+  const translate = useRTLAwareStyle('group-hover:translate-x-1','')
   // const gridColumns = item.sections === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'
   const gridColumns = 'md:grid-cols-4'
 
@@ -239,15 +242,15 @@ function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sec
                     />
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-200 mb-2">
+                    <h3 className={`text-xl font-semibold group-hover:text-primary transition-colors duration-200 mb-2 ${letterSpacing}`}>
                       {menuItem.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-grow">
+                    <p className="text-sm text-darGreyy leading-relaxed flex-grow font-roboto">
                       {menuItem.description}
                     </p>
-                    <span className="inline-flex items-center text-sm font-medium text-primary mt-4">
+                    <span className={`inline-flex items-center text-sm font-medium text-darGreyy mt-4 ${letterSpacing}`}>
                       {t('nav.learnMore')}
-                      <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className={`w-4 h-4 ml-2 ${translate} transition-transform duration-200 ${icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </span>

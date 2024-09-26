@@ -53,43 +53,45 @@
       "ar": "العربية",
       "name": "العربية"
     },
-    "footer":{
-      "sections": {
-        "company": {
-          "title": "الشركة",
-          "links": {
-            "about": "من نحن",
-            "team": "فريقنا",
-            "careers": "وظائف",
-            "news": "أخبار"
-          }
-        },
-        "products": {
-          "title": "المنتجات",
-          "links": {
-            "men": "رجال",
-            "women": "نساء",
-            "kids": "أطفال",
-            "accessories": "إكسسوارات"
-          }
-        },
-        "resources": {
-          "title": "الموارد",
-          "links": {
-            "blog": "المدونة",
-            "community": "المجتمع",
-            "support": "الدعم",
-            "faqs": "الأسئلة الشائعة"
-          }
+    "footer": {
+    "sections": {
+      "company": {
+        "title": "فروعنا",
+        "links": {
+          "cityWalk": "سيتي ووك",
+          "dubaiMall": "دبي مول",
+          "yasMall": "ياس مول",
+          "mallOfEmirates": "مول الإمارات",
+          "soukMadinat": "سوق مدينة",
+          "sharjah": "الشارقة"
         }
       },
-      "followUs": "تابعنا",
-      "socialMedia": {
-        "facebook": "فيسبوك",
-        "twitter": "تويتر",
-        "instagram": "إنستغرام"
+      "products": {
+        "title": "المنتجات",
+        "links": {
+          "divine": "ديفاين",
+          "bouquets": "باقات",
+          "treasure": "تريجر",
+          "leather": "جلد"
+        }
       },
-      "copyright": "© 2024 ديافلاور. جميع الحقوق محفوظة."
-    }
+      "resources": {
+        "title": "الموارد",
+        "links": {
+          "faq": "الأسئلة الشائعة",
+          "termsConditions": "الشروط والأحكام",
+          "privacyPolicy": "سياسة الخصوصية",
+          "refundsReturns": "الاسترجاع والاستبدال"
+        }
+      }
+    },
+    "followUs": "تابعنا",
+    "socialMedia": {
+      "facebook": "فيسبوك",
+      "twitter": "تويتر",
+      "instagram": "إنستغرام"
+    },
+    "copyright": "© 2024 دياف لاور. جميع الحقوق محفوظة."
+  }
   
 }

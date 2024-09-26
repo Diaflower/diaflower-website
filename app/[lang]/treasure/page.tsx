@@ -25,7 +25,7 @@ const WoodPage = async ({ params: { lang } }: Props) => {
         imageSrc={HeroImage}
       />
 
-<ProductList lang={lang as 'en' || 'ar'} tagName='wood' />
+  <ProductList type="treasure" lang={lang as 'en' || 'ar'} tagName='wood' />
 
     </main>
   )

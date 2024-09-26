@@ -60,5 +60,21 @@
   "ratingRequired": "Please select a rating",
   "reviewRequired": "Please write a review",
   "viewCart": "View Cart",
-  "continueShopping": "Continue Shopping"
+  "continueShopping": "Continue Shopping",
+ "heading": {
+    "divine": "Eternal Beauty above Crystal",
+    "diamond": "Faceted Elegance, Floral Brilliance",
+    "treasure": "Blooms and Sweets Chest",
+    "eternal": "Timeless Acrylic Floral Art",
+    "bouquet": "Classic Elegance in Bloom",
+    "red-love": "Passionate Crimson Expressions",
+    "arr-square": "Squared Floral Perfection",
+    "arr-round": "Circular Symphony of Petals",
+    "arr-rectangle": "Linear Luxury in Bloom",
+    "arr-dome": "Blossoming Floral Hemisphere",
+    "arr-box": "Transparent Elegance Encased",
+    "arr-tub": "Grand Acrylic Floral Display",
+    "leather": "Blooms in Luxe Leather",
+    "vase": "Vessel of Floral Dreams"
+  }
 }

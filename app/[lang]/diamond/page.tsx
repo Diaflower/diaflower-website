@@ -24,7 +24,7 @@ const DiamondPage = async ({ params: { lang } }: Props) => {
         category="timelessDiamond"
         imageSrc={HeroImage}
       />
-      <ProductList lang={lang as 'en' || 'ar'} tagName='crystal new' />
+      <ProductList type="diamond" lang={lang as 'en' || 'ar'} tagName='crystal new' />
     </main>
   )
 }
