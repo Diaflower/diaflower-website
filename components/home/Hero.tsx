@@ -26,7 +26,7 @@ export default function Hero({title1,title2,lang}: Props) {
         </video>
 
       </div>
-      <h1 className={`my-4 md:my-10 test text-2xl text-center flex`}>
+      <h1 className={`my-4 md:my-10 text-2xl text-center flex ${lang === 'en' && "test"}`}>
       {title1} <span className='hidden md:flex'>.</span> {title2}
       </h1>
     </section>

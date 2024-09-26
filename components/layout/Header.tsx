@@ -159,10 +159,11 @@ export default function Header() {
 
 function NavLink({ href, children, isHovered, hasMegaMenu }: { href: string, children: React.ReactNode, isHovered: boolean, hasMegaMenu: boolean |undefined }) {
   const rtlAwareStyle = useRTLAwareStyle('left-0', 'right-0');
-  
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+
   return (
     <Link href={href} className="group inline-flex items-center cursor-pointer">
-      <span className={`relative z-10 transition-all duration-300 ease-in-out font-semibold tracking-widest font-fancy`}>
+      <span className={`relative z-10 transition-all duration-300 ease-in-out font-semibold ${letterSpacing}`}>
         {children}
         <span className={`absolute bottom-0 ${rtlAwareStyle} w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out ${isHovered ? 'w-full' : ''}`}></span>
       </span>

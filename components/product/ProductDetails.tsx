@@ -211,6 +211,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
         <div className="space-y-4">
           <div className="aspect-square relative overflow-hidden rounded-lg">
             <AnimatedImage
+            quality={100}
               thumbnailSrc = {selectedVariation.image?.thumbnail || product.mainImage.thumbnail}
               mainSrc={selectedVariation.image?.url || product.mainImage.url}
               alt={selectedVariation.image?.altText || product.mainImage.altText || product.name}

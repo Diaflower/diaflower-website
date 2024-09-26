@@ -81,6 +81,8 @@
   html[lang="ar"] h4, 
   html[lang="ar"] h5, 
   html[lang="ar"] h6,
+  html[lang="ar"] li,
+  html[lang="ar"] span,
   html[lang="ar"] a {
     font-family: var(--font-arabic-heading);
   }
@@ -91,6 +93,8 @@
   html:not([lang="ar"]) h4, 
   html:not([lang="ar"]) h5, 
   html:not([lang="ar"]) h6,
+  html:not([lang="ar"]) li,
+  html:not([lang="ar"]) span,
   html:not([lang="ar"]) a {
     font-family: var(--font-fancy);
   }
