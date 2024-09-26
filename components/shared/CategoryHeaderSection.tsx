@@ -36,7 +36,7 @@ export default function CategoryHeaderSection({ category, imageSrc }: HeaderSect
           </div>
         </div>
         <div className={`w-full md:w-2/3 p-4 sm:p-6 md:p-8 lg:p-10 flex items-center ${rtlAwarePadding}`}>
-          <div className={`lg:ml-40 xl:ml-44 w-full space-y-3 sm:space-y-4 md:space-y-5 text-center md:text-left md:${rtlAwareTextAlign}`}>
+          <div className={`lg:ml-24 xl:ml-32 w-full space-y-3 sm:space-y-4 md:space-y-5 text-center md:text-left md:${rtlAwareTextAlign}`}>
             <h2 className={`${rtlAwareTextAlign} text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-semibold leading-tight ${letterSpacing}`}>
               {t(`${category}.title`)}
             </h2>

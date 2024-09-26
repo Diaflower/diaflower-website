@@ -1,4 +1,5 @@
 'use client'
+
 import { getProductsByTag } from '@/data/products';
 import { SimpleProduct } from '@/types/product';
 import ProductCard from './cards/ProductCard';
@@ -37,8 +38,11 @@ export default function ProductList({ tagName, lang, type }: ProductListProps) {
       <div className="mb-8 w-full">
         <div className="relative py-4">
           <div className="relative flex justify-center border rounded-2xl border-gray-400 p-2">
-            <span className="text-center bg-white px-4 text-3xl font-fancy  text-gray-900 tracking-widest">
-            {t(`heading.${type}`)}
+            <div className="absolute inset-0 flex items-center lg:px-12 xl:px-16">
+              <div className="flex-grow border-t border-gray-300"></div>
+            </div>
+            <span className="relative z-10 text-center bg-white px-4 text-3xl font-fancy text-gray-900 tracking-widest">
+              {t(`heading.${type}`)}
             </span>
           </div>
         </div>
