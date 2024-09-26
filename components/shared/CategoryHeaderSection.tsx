@@ -14,11 +14,15 @@ const CategoryHeaderSection = ({ category, imageSrc }: HeaderSection) => {
   const rtlAwareTextAlign = useRTLAwareStyle('md:text-left', 'md:text-right')
   const rtlAwarePadding = useRTLAwareStyle('pl-6 md:pl-12 lg:pl-16', 'pr-6 md:pr-12 lg:pr-16')
   const letterSpacing = useRTLAwareStyle('tracking-widest','')
+  const rtlAwareGradient = useRTLAwareStyle(
+    'bg-gradient-to-r from-[#e4e4e4] to-[#f9f9f9]',
+    'bg-gradient-to-l from-[#e4e4e4] to-[#f9f9f9]'
+  )
 
   return (
-    <section className="w-full md:mb-10">
+    <section className={`w-full md:mb-10 ${rtlAwareGradient}`}>
       <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2 relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[350px] xl:h-[370px]">
+        <div className="w-full md:w-1/3 relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[350px] xl:h-[370px]">
           <Image
             priority
             src={imageSrc}
@@ -29,12 +33,12 @@ const CategoryHeaderSection = ({ category, imageSrc }: HeaderSection) => {
             className="object-cover"
           />
         </div>
-        <div className={`w-full md:w-1/2 bg-[#f9f9f9] p-4 sm:p-6 md:p-8 lg:p-10 flex items-center ${rtlAwarePadding}`}>
-          <div className={`w-full space-y-3 sm:space-y-4 md:space-y-5 text-center md:text-left md:${rtlAwareTextAlign}`}>
+        <div className={`w-full md:w-2/3 p-4 sm:p-6 md:p-8 lg:p-10 flex items-center ${rtlAwarePadding}`}>
+          <div className={`lg:ml-44 xl:ml-48 w-full space-y-3 sm:space-y-4 md:space-y-5 text-center md:text-left md:${rtlAwareTextAlign}`}>
             <h2 className={`${rtlAwareTextAlign} text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-semibold leading-tight ${letterSpacing}`}>
               {t(`${category}.title`)}
             </h2>
-            <p className="{` text-sm text-center text-darGreyy max-w-[600px] mx-auto md:mx-0 md:text-justify">
+            <p className="text-sm text-center text-darkGrey max-w-[600px] mx-auto md:mx-0 md:text-justify">
               {t(`${category}.desc`)}
             </p>
           </div>
