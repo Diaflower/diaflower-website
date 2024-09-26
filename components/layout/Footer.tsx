@@ -28,12 +28,12 @@ export default function Footer() {
     {
       title: t('footer.sections.company.title'),
       links: [
-        { text: t('footer.sections.company.links.cityWalk'), href: 'https://goo.gl/maps/1234567890', location: 'Dia Flower, City Walk - Dubai' },
-        { text: t('footer.sections.company.links.dubaiMall'), href: 'https://goo.gl/maps/abcdefghijk', location: 'Dia Flower, LG Floor Dubai Mall - Downtown Dubai - Dubai' },
-        { text: t('footer.sections.company.links.yasMall'), href: 'https://goo.gl/maps/lmnopqrstuv', location: 'Dia Flower, Yas Mall - Abu Dhabi' },
-        { text: t('footer.sections.company.links.mallOfEmirates'), href: 'https://goo.gl/maps/wxyz123456', location: 'Dia Flower, Mall of the Emirates - Dubai' },
-        { text: t('footer.sections.company.links.soukMadinat'), href: 'https://goo.gl/maps/7890abcdef', location: 'Dia Flower, Souk Madinat Jumeirah - Dubai' },
-        { text: t('footer.sections.company.links.sharjah'), href: 'https://goo.gl/maps/ghijklmnop', location: 'Dia Flower, Sharjah' },
+        { text: t('footer.sections.company.links.cityWalk'), href: 'https://maps.app.goo.gl/BF5CqVd5srDjJM9A8', location: 'Dia Flower, City Walk - Dubai' },
+        { text: t('footer.sections.company.links.dubaiMall'), href: 'https://maps.app.goo.gl/uR8sMjToSwmwjzUZ7', location: 'Dia Flower, LG Floor Dubai Mall - Downtown Dubai - Dubai' },
+        { text: t('footer.sections.company.links.yasMall'), href: 'https://maps.app.goo.gl/FeCWoQFtPDaJdF1C7', location: 'Dia Flower, Yas Mall - Abu Dhabi' },
+        { text: t('footer.sections.company.links.mallOfEmirates'), href: 'https://maps.app.goo.gl/Cuf43tXjwrB1mjmq5', location: 'Dia Flower, Mall of the Emirates - Dubai' },
+        { text: t('footer.sections.company.links.soukMadinat'), href: 'https://maps.app.goo.gl/bwQYkLQryqK2MRx97', location: 'Dia Flower, Souk Madinat Jumeirah - Dubai' },
+        { text: t('footer.sections.company.links.sharjah'), href: 'https://maps.app.goo.gl/TFRyjCrtyoAbBGRV8', location: 'Dia Flower, Sharjah' },
       ] as BranchLink[]
     },
     {

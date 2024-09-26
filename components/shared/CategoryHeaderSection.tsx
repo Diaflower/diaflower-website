@@ -18,7 +18,7 @@ const CategoryHeaderSection = ({ category, imageSrc }: HeaderSection) => {
   return (
     <section className="w-full md:mb-10">
       <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2 relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[380px] xl:h-[400px]">
+        <div className="w-full md:w-1/2 relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[350px] xl:h-[370px]">
           <Image
             priority
             src={imageSrc}
