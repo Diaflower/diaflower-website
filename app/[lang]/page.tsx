@@ -27,14 +27,14 @@ export default function Home({
         <InfoCard
           title={t('card1.title')}
           desc={t('card1.description')}
-          href='/'
+          href='/divine'
           alt={t('card1.alt')}
           img={crystalImage}
         />
         <InfoCard
            title={t('card2.title')}
            desc={t('card2.description')}
-           href='/'
+           href='/treasure'
            alt={t('card2.alt')}
            img={treasureImage}
         />
@@ -45,7 +45,7 @@ export default function Home({
         <InfoCard
           title={t('card5.title')}
           desc={t('card5.description')}
-          href='/'
+          href='/box-arrangement'
           alt={t('card5.alt')}
           img={arrangementImage}
         />
@@ -56,7 +56,7 @@ export default function Home({
       <InfoCard
             title={t('card4.title')}
             desc={t('card4.description')}
-            href='/'
+            href='/bouquets'
             alt={t('card4.alt')}
             img={bouqetImage}
             height
@@ -65,7 +65,7 @@ export default function Home({
         <InfoCard
             title={t('card7.title')}
             desc={t('card7.description')}
-            href='/'
+            href='/leather'
             alt={t('card7.alt')}
             img={leatherImage}
             height
@@ -73,7 +73,7 @@ export default function Home({
         <InfoCard
             title={t('card8.title')}
             desc={t('card8.description')}
-            href='/'
+            href='/vases'
             alt={t('card8.alt')}
             img={vaseImage}
             height

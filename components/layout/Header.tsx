@@ -205,8 +205,8 @@ function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sec
   const menuItems = {
     [t('nav.timelessCollection')]: [
       { title: t('nav.timelessDivine'), description: t('nav.timelessDivineDesc'), href: '/divine', image: divineImage},
-      { title: t('nav.timelessWood'), description: t('nav.timelessWoodDesc'), href: '/wood', image:  woodImage },
-      { title: t('nav.timelessAcrylic'), description: t('nav.timelessAcrylicDesc'), href: '/timeless-acrylic', image:  eternalImage },
+      { title: t('nav.timelessWood'), description: t('nav.timelessWoodDesc'), href: '/treasure', image:  woodImage },
+      { title: t('nav.timelessAcrylic'), description: t('nav.timelessAcrylicDesc'), href: '/eternal', image:  eternalImage },
       { title: t('nav.timelessDiamond'), description: t('nav.timelessDiamondDesc'), href: '/diamond', image:  diamondImage }
     ],
     [t('nav.boxes')]: [

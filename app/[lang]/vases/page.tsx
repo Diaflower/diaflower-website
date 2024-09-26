@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
-import vaseBanner from '@/public/Vase.jpg'
+import vaseBanner from '@/public/images/vasevategory.jpg'
 import ProductList from '@/components/shared/ProductList'
 type Props = {
   params: { lang: string }

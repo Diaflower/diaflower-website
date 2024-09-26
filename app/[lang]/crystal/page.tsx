@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CategoryHeaderSection from '@/components/shared/CategoryHeaderSection'
 
-import HeroImage from '@/public/images/Banner-main-min.jpg'
+import HeroImage from '@/public/images/divinecategory.jpg'
 import ProductList from '@/components/shared/ProductList'
 type Props = {
   params: { lang: string }
@@ -25,7 +25,7 @@ const CrystalPage = async ({ params: { lang } }: Props) => {
         category="timelessCrystal"
         imageSrc={HeroImage}
       />
-    <ProductList type="divine" lang={lang as 'en' || 'ar'} tagName='crystal' />
+   <ProductList type="divine" lang={lang as 'en' || 'ar'} tagName='crystal' />
     </main>
   )
 }
