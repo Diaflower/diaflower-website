@@ -32,8 +32,8 @@
     
     /* Font variables */
     --font-fancy: var(--fancy);
-    --font-brilliant: var(--brilliant);
     --font-robo: var(--roboto);
+    --font-arabic-heading: var(--arabic-heading);
   }
 
   .dark {
@@ -72,25 +72,34 @@
   body {
     /* padding-right: calc(100vw - 100%); */
     @apply bg-background text-[#1d1c1c];
-    /* font-family: var(--font-brilliant); */
   }
 
-  /* Headings */
-  h1, h2, h3, h4, h5, h6 {
+  /* Update the heading styles to use different fonts based on language */
+  html[lang="ar"] h1, 
+  html[lang="ar"] h2, 
+  html[lang="ar"] h3, 
+  html[lang="ar"] h4, 
+  html[lang="ar"] h5, 
+  html[lang="ar"] h6,
+  html[lang="ar"] a {
+    font-family: var(--font-arabic-heading);
+  }
+
+  html:not([lang="ar"]) h1, 
+  html:not([lang="ar"]) h2, 
+  html:not([lang="ar"]) h3, 
+  html:not([lang="ar"]) h4, 
+  html:not([lang="ar"]) h5, 
+  html:not([lang="ar"]) h6,
+  html:not([lang="ar"]) a {
     font-family: var(--font-fancy);
   }
-
-  /* Paragraphs and other text elements */
-  /* p,div, li, a {
-    font-family: var(--font-brilliant);
-  } */
 
   /* Optional: Hide scrollbar for Chrome, Safari and Opera */
   body::-webkit-scrollbar {
     display: none;
   }
 
- 
   /* Optional: Hide scrollbar for IE, Edge and Firefox */
   body {
     -ms-overflow-style: none;  /* IE and Edge */
@@ -132,6 +141,5 @@
 
   .neww {
     font-size: 15px;
-    
   }
 }

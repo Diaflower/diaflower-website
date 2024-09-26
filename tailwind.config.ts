@@ -13,7 +13,7 @@ const config = {
   prefix: "",
   theme: {
   	fontFamily: {
-  		brilliant: ['var(--brilliant)'],
+  		// brilliant: ['var(--brilliant)'],
   		fancy: ['var(--fancy)'],
 		roboto:['var(--roboto)']
   	},
@@ -90,17 +90,18 @@ const config = {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate"),
-   plugin(function({addBase,theme}:PluginAPI){
-    addBase({
-      'h1,h2,h3,h4,h5,h6,a':{
-        fontFamily:theme('fontFamily.brilliant'),
-      },
-      'a': {
-        fontFamily:theme('fontFamily.fancy'),
-      },
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(function({ addBase, theme }: PluginAPI) {
+      addBase({
+        'h1,h2,h3,h4,h5,h6,a': {
+          fontFamily: theme('fontFamily.fancy'),
+        },
+        'html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6, html[lang="ar"] a': {
+          fontFamily: theme('fontFamily.arabicHeading'),
+        },
+      })
     })
-   })
   ],
 } satisfies Config
 

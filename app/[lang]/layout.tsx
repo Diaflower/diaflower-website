@@ -21,10 +21,11 @@ const fancyCut = localFont({
   variable: '--fancy',
 })
 
-const brilliantCut = localFont({
-  src: '../../public/fonts/Brilliant Cut Pro.ttf',
-  variable: '--brilliant',
+const arabicHeading = localFont({
+  src: '../../public/fonts/arabic-heading.ttf',
+  variable: '--arabic-heading',
 })
+
 
 export async function generateMetadata({ params: { lang } }: { params: { lang: string } }) {
   const t = await getTranslations({ locale: lang, namespace: 'metadata' });
@@ -58,7 +59,7 @@ export default async function LocaleLayout({
 
   return (
     <ClerkProvider publishableKey={clerkPubkey}>
-      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`${fancyCut.variable} ${brilliantCut.variable} ${roboto.variable}`}>
+      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`${fancyCut.variable} ${roboto.variable} ${arabicHeading.variable}`}>
         <body className=''>
           <Providers locale={lang} messages={messages}>
             <MainLayout>
