@@ -77,7 +77,8 @@ export type Color = {
 export type ProductImage = {
   id: number
   url: string
-  thumbnail: string | null
+  // thumbnail: string | null
+  thumbnail: string 
   altText: string | null
   caption: string | null
 }

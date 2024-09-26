@@ -23,8 +23,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           thumbnailSrc={product.image.url}
           mainSrc={product.image.url}
           alt={product.image.altText}
-          width={400}
-          height={350}
           sizes="(max-width: 768px) 100vw, 400px"
           quality={100}
           className="w-full h-full transition-transform duration-300 ease-in-out group-hover:scale-105"

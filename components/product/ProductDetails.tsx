@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
+
 import {
   Accordion,
   AccordionContent,
@@ -27,6 +28,7 @@ import { CartItemInput, useCartStore } from '@/store/cartStore'
 import { toast } from '@/hooks/use-toast'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { useTranslations } from 'next-intl'
+import AnimatedImage from '../shared/AnimatedImage'
 
 const parsePrice = (price: string | number): number => {
   if (typeof price === 'number') return price;
@@ -44,6 +46,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
   const rtlText = useRTLAwareStyle('', 'text-right')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
  
   const handleVariationChange = (variation: ProductVariation) => {
@@ -204,15 +207,16 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className={`grid md:grid-cols-2 gap-8 ${rtlDirection}`}>
+      <div className={`grid md:grid-cols-2 gap-8 ${rtlDirection} pb-20`}>
         <div className="space-y-4">
           <div className="aspect-square relative overflow-hidden rounded-lg">
-            <Image
-              src={selectedVariation.image?.url || product.mainImage.url}
+            <AnimatedImage
+              thumbnailSrc = {selectedVariation.image?.thumbnail || product.mainImage.thumbnail}
+              mainSrc={selectedVariation.image?.url || product.mainImage.url}
               alt={selectedVariation.image?.altText || product.mainImage.altText || product.name}
               fill
-              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover w-full h-full"
               priority
             />
           </div>
@@ -240,6 +244,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
                           alt={variation.image?.altText || product.mainImage.altText || product.name}
                           fill
                           className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </button>
                     </div>
@@ -267,7 +272,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
               {/* <Button variant="outline" size="icon">
                 <Heart className="h-4 w-4" />
               </Button> */}
-              <div className="flex items-center border border-gray-300 rounded-md">
+              <div className="flex items-center border border-darGreyy rounded-md">
                 <Button 
                   variant="ghost"
                   size="icon"
@@ -277,7 +282,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
                 >
                   <Minus className="w-4 h-4" />
                 </Button>
-                <span className="px-4 py-2 border-x border-gray-300">{quantity}</span>
+                <span className="px-4 py-2 border-x border-darGreyy">{quantity}</span>
                 <Button 
                   variant="ghost"
                   size="icon"
@@ -297,7 +302,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
             if (options) {
               return (
                 <div key={optionType} className="space-y-2">
-                  <h2 className="text-sm font-semibold uppercase">{t(optionType)}</h2>
+                  <h2 className={`text-sm md:text-base font-semibold uppercase ${letterSpacing}`}>{t(optionType)}</h2>
                   {options}
                 </div>
               );
@@ -306,7 +311,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
           })}
 
           <Button 
-            className="w-full bg-primary hover:bg-primary/90 text-white rounded-md flex items-center justify-center space-x-2 rtl:space-x-reverse py-6"
+            className="w-full bg-darGreyy hover:bg-darGreyy/90 text-white rounded-md flex items-center justify-center space-x-2 rtl:space-x-reverse py-6"
             onClick={() => handleAddToCart(false)}
           >
             <ShoppingCart className="w-5 h-5" />
@@ -314,38 +319,38 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
           </Button> 
           <div className="space-y-4 pt-4 border-t border-gray-200">
             <div>
-              <h3 className="text-sm font-semibold text-gray-500 mb-2">{t('shareWithFriend')}</h3>
+              <h3 className={`text-sm font-semibold text-darGreyy mb-2 ${letterSpacing}`}>{t('shareWithFriend')}</h3>
               <div className="flex space-x-4 rtl:space-x-reverse">
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className='border-darGreyy'>
                   <Facebook className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className='border-darGreyy'>
                   <Instagram className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className='border-darGreyy'>
                   <Twitter className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className='border-darGreyy'>
                   <Mail className="w-4 h-4" />
                 </Button>
               </div>
             </div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="flowerDeliveryInfo">
-                <AccordionTrigger>{t('flowerDeliveryInfo')}</AccordionTrigger>
-                <AccordionContent>
+                <AccordionTrigger className={`text-darGreyy ${letterSpacing}`}>{t('flowerDeliveryInfo')}</AccordionTrigger>
+                <AccordionContent className='text-gray-600'>
                   {t('flowerDeliveryInfoContent')}
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="disclaimer">
+              <AccordionItem value="disclaimer" className={`text-darGreyy ${letterSpacing}`}>
                 <AccordionTrigger>{t('disclaimer')}</AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className='text-gray-600'>
                   {t('disclaimerContent')}
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="ourFlowers">
+              <AccordionItem value="ourFlowers" className={`text-darGreyy ${letterSpacing}`}>
                 <AccordionTrigger>{t('ourFlowers')}</AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className= 'text-gray-600'>
                   {t('ourFlowersContent')}
                 </AccordionContent>
               </AccordionItem>

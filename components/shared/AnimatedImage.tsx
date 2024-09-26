@@ -8,8 +8,7 @@ interface AnimatedImageProps extends Omit<ImageProps, 'src' | 'alt'> {
   thumbnailSrc: string
   mainSrc: string
   alt: string
-  width: number
-  height: number
+
 }
 
 export default function AnimatedImage({
