@@ -37,7 +37,7 @@ export default function ProductList({ tagName, lang, type }: ProductListProps) {
       <div className="mb-8 w-full">
         <div className="relative py-4">
           <div className="relative flex justify-center border rounded-2xl border-gray-400 p-2">
-            <span className="bg-white px-4 text-3xl font-fancy  text-gray-900 tracking-widest">
+            <span className="text-center bg-white px-4 text-3xl font-fancy  text-gray-900 tracking-widest">
             {t(`heading.${type}`)}
             </span>
           </div>
