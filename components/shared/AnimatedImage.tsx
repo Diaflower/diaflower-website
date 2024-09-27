@@ -60,6 +60,7 @@ export default function AnimatedImage({
         className="absolute inset-0"
       >
         <Image 
+          
           src={mainSrc} 
           alt={alt} 
           fill

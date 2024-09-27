@@ -216,7 +216,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
               mainSrc={selectedVariation.image?.url || product.mainImage.url}
               alt={selectedVariation.image?.altText || product.mainImage.altText || product.name}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
               className="object-cover w-full h-full"
               priority
             />
