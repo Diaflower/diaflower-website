@@ -1,6 +1,7 @@
 'use client'
-
 import { useRef} from 'react'
+import { motion } from 'framer-motion'
+import { useInView } from '@/hooks/useInView'
 
 type Props = {
   title1: string;
@@ -9,9 +10,15 @@ type Props = {
 }
 
 export default function Hero({title1,title2,lang}: Props) {
+  const { ref, isInView } = useInView()
   const videoRef = useRef<HTMLVideoElement>(null)
   return (
-    <section className="w-full xl:container mx-auto relative flex flex-col items-center">
+    <motion.section
+      ref={ref}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : {}}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+    className="w-full xl:container mx-auto relative flex flex-col items-center">
       <div className="relative w-full h-[200px] md:h-[400px] lg:h-[550px] overflow-hidden">
         <video
           ref={videoRef}
@@ -29,6 +36,6 @@ export default function Hero({title1,title2,lang}: Props) {
       <h1 className={`my-4 md:my-10 text-2xl text-center flex ${lang === 'en' && "test"}`}>
       {title1} <span className='hidden md:flex'>.</span> {title2}
       </h1>
-    </section>
+    </motion.section>
   )
 }

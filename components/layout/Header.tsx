@@ -21,6 +21,7 @@ import squareImage from '@/public/images/square.jpg'
 import domeImage from '@/public/images/dome.jpg'
 import recImage from '@/public/images/rectangle.jpg'
 import premiumImage from '@/public/images/premium.jpg'
+import { useInView } from "@/hooks/useInView"
 
 export default function Header() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
@@ -32,6 +33,7 @@ export default function Header() {
   const { isSignedIn } = useAuth()
   const t = useTranslations('common')
   const rtlAwareStyle = useRTLAwareStyle('left-2', 'right-2')
+  const { ref, isInView } = useInView()
   const icons = [
     { icon: <UserRound className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.account') },
     { icon: <ShoppingBag className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.viewCart'), badge: true }
@@ -89,7 +91,13 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="border-b w-full relative bg-white">
+    <motion.header
+      ref={ref}
+      initial={{ opacity: 0, y: -50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className="border-b w-full relative bg-white"
+    >
       <div className="flex flex-col justify-center gap-5 w-full md:container my-4 md:mt-8 md:mb-2">
         {/* Top Header Nav */}
         <div className="flex px-2 items-center w-full">
@@ -163,7 +171,7 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-    </header>
+    </motion.header>
   )
 }
 
