@@ -33,9 +33,13 @@ export default function Hero({title1,title2,lang}: Props) {
         </video>
 
       </div>
-      <h1 className={`my-4 md:my-10 text-2xl text-center flex ${lang === 'en' && "test"}`}>
+      <motion.h1 
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+      className={`my-4 md:my-10 text-2xl text-center flex ${lang === 'en' && "test"}`}>
       {title1} <span className='hidden md:flex'>.</span> {title2}
-      </h1>
+      </motion.h1>
     </motion.section>
   )
 }
