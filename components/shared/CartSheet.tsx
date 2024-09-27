@@ -18,6 +18,8 @@ export default function CartSheet() {
   
   const t = useTranslations('cart')
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+
   const formatPrice = (price: number) => t('currency', { amount: price.toFixed(2) })
 
   if (items.length === 0) {
@@ -36,7 +38,7 @@ export default function CartSheet() {
   return (
     <div className="flex flex-col h-full mt-6">
       <div className={rtlAlign}>
-        <h2 className="text-lg font-semibold">{t('yourCart')}</h2>
+        <h2 className={`text-lg font-bold ${letterSpacing}`}>{t('yourCart')}</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {t('itemsInCart', { count: getTotalItems() })}
         </p>

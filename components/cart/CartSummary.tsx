@@ -11,6 +11,8 @@ export function CartSummary() {
   const { getTotalPrice, getTotalItems } = useCartStore()
   const t = useTranslations('cart')
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+
 
   const [isClient, setIsClient] = useState(false)
 
@@ -35,7 +37,7 @@ export function CartSummary() {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4">{t('summary')}</h2>
+      <h2 className={`text-2xl font-bold mb-4 ${letterSpacing}`}>{t('summary')}</h2>
       <div className={`space-y-2 mt-4 ${rtlAlign}`}>
         <div className="flex justify-between">
           <span>{t('subtotal')}</span>
@@ -55,7 +57,7 @@ export function CartSummary() {
         </div>
       </div>
       <Button className="w-full mt-6 bg-gray-900 text-white hover:bg-gray-800">
-        <Link href={'/checkout'}>
+        <Link href={'/checkout'} className={`${letterSpacing}`}>
         {t('goToCheckout')}
         </Link>
       </Button>

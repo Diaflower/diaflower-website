@@ -38,6 +38,7 @@ export function LanguageAwareCartItem({
   const rtlMargin = useRTLAwareStyle('ml-4', 'mr-4')
   const rtlText = useRTLAwareStyle('', 'text-right')
   const rtlRow = useRTLAwareStyle('md:flex-row','md:flex-row-reverse')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
   useEffect(() => {
     async function fetchProduct() {
@@ -130,12 +131,14 @@ export function LanguageAwareCartItem({
         </div>
         <div className={`${rtlMargin} flex-1 flex flex-col ${rtlAlign}`}>
           <div>
-            <div className={`${rtlDirection} flex justify-between text-base font-medium`}>
-              <h3>{product.name}</h3>
-              <p>{formatPrice(variation.price * item.quantity)}</p>
+            <div className={`${rtlDirection} flex justify-between text-base font-medium items-center`}>
+              <h3 className={`${letterSpacing} font-semibold`}>{product.name}</h3>
+              <p className=' text-sm font-normal'>{formatPrice(variation.price * item.quantity)}</p>
             </div>
             <p className="mt-1 text-sm text-muted-foreground">
-              {variation.size?.name} - {variation.infinityColor?.name}
+              variation: {variation.size?.name} {variation.infinityColor?.name && `-${variation.infinityColor?.name}`}
+              {variation.boxColor?.name && `-${variation.boxColor?.name}`}
+              {variation.wrappingColor?.name && `-${variation.wrappingColor?.name}`}
             </p>
           </div>
           <div className="flex-1 flex items-end justify-between text-sm">
@@ -162,7 +165,7 @@ export function LanguageAwareCartItem({
             />
           </div>
           <div>
-            <h3 className={`text-sm md:text-base font-medium text-gray-900 ${rtlText}`}>{product.name}</h3>
+            <h3 className={`text-sm md:text-base font-medium text-gray-900 ${rtlText} ${letterSpacing}`}>{product.name}</h3>
             <p className="mt-1 text-xs md:text-sm text-gray-500">
               {variation.size?.name && `${t('size')}: ${variation.size.name}, `}
               {variation.infinityColor?.name && `${t('color')}: ${variation.infinityColor.name}, `}
@@ -197,7 +200,7 @@ export function LanguageAwareCartItem({
         />
       </div>
       <div className="flex-grow">
-        <h3 className="font-semibold">{product.name}</h3>
+        <h3 className={`font-semibold ${letterSpacing}`}>{product.name}</h3>
         <p className="text-sm text-muted-foreground">
           {variation.size?.name && `${t('size')}: ${variation.size.name}, `}
           {variation.infinityColor?.name && `${t('color')}: ${variation.infinityColor.name}, `}

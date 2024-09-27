@@ -57,6 +57,7 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
   const [isRecipient, setIsRecipient] = useState(false)
   const rtlMargin = useRTLAwareStyle('', 'mr-2')
   const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
   const { data: userData, isLoading: isUserDataLoading } = useQuery({
     queryKey: ['userData'],
@@ -154,15 +155,15 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {!isSignedIn && (
               <div className="flex justify-between items-center bg-muted p-4 rounded-lg mb-6">
-                <h2 className="text-lg font-semibold">{t('haveAccount')}</h2>
+                <h2 className={`text-lg font-semibold ${letterSpacing}`}>{t('haveAccount')}</h2>
                 <Button variant="link" className="text-primary underline underline-offset-4" asChild>
-                  <Link href="/sign-in">{t('signIn')}</Link>
+                  <Link href="/sign-in" className={`${letterSpacing} font-semibold`}>{t('signIn')}</Link>
                 </Button>
               </div>
             )}
 
             <div>
-              <h2 className="text-lg font-semibold mb-4 mt-2">{t('personalInformation')}</h2>
+              <h2 className={`text-lg font-semibold mb-4 mt-2 ${letterSpacing}`}>{t('personalInformation')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
@@ -221,7 +222,7 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
             <Separator />
 
             <div>
-              <h2 className="text-lg font-semibold mb-4">{t('deliveryLocation')}</h2>
+              <h2 className={`text-lg font-semibold mb-4 ${letterSpacing}`}>{t('deliveryLocation')}</h2>
               <div className="mb-4">
                 <FormField
                   control={form.control}
@@ -404,7 +405,7 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
             <Separator />
 
             <div>
-              <h2 className="text-lg font-semibold mb-4">{t('cardMessage')}</h2>
+              <h2 className={`text-lg font-semibold mb-4 ${letterSpacing}`}>{t('cardMessage')}</h2>
               <FormField
                 control={form.control}
                 name="cardMessage"

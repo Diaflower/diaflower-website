@@ -29,6 +29,7 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
   console.log("items:",items)
   const subtotal = getTotalPrice()
@@ -98,7 +99,7 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   return (
     <Card className="w-full">
       <CardHeader className="flex justify-between items-center cursor-pointer md:cursor-default" onClick={() => setIsExpanded(!isExpanded)}>
-        <CardTitle>{t('orderSummary')}</CardTitle>
+        <CardTitle className={`${letterSpacing}`}>{t('orderSummary')}</CardTitle>
         <Button variant="ghost" size="sm" className="md:hidden">
           {isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </Button>

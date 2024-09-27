@@ -14,6 +14,8 @@ export default function CartPageContent() {
   const { isSignedIn, isLoaded } = useUser()
   const t = useTranslations('cart')
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function CartPageContent() {
             <p className="text-sm text-gray-600">{t('signInForBetterExperience')}</p>
           </div>
           <Button variant="outline" asChild>
-            <Link href="/sign-in">{t('signIn')}</Link>
+            <Link href="/sign-in" className={`text-darGreyy ${letterSpacing}`}>{t('signIn')}</Link>
           </Button>
         </div>
       )}

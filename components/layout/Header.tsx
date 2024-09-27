@@ -33,6 +33,8 @@ export default function Header() {
   const { isSignedIn } = useAuth()
   const t = useTranslations('common')
   const rtlAwareStyle = useRTLAwareStyle('left-2', 'right-2')
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+
   const { ref, isInView } = useInView()
   const icons = [
     { icon: <UserRound className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.account') },
@@ -119,7 +121,7 @@ export default function Header() {
             </Sheet>
             <div className="hidden md:flex space-x-4">
               <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
-              <Link href="/contact" className="hover:underline">{t('header.contactUs')}</Link>
+              <Link href="/contact" className={`hover:underline ${letterSpacing} text-darGreyy font-semibold`}>{t('header.contactUs')}</Link>
             </div>
           </div>
 

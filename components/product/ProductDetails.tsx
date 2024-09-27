@@ -47,6 +47,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
   const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
   const rtlText = useRTLAwareStyle('', 'text-right')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+  const rightArabic = useRTLAwareStyle('', 'justify-end')
 
  
   const handleVariationChange = (variation: ProductVariation) => {
@@ -153,7 +154,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
             const newVariation = product.variations.find(v => v[optionType]?.id.toString() === value);
             if (newVariation) handleVariationChange(newVariation);
           }}
-          className="flex flex-wrap gap-2"
+          className={`flex flex-wrap gap-2 ${rightArabic} `}
         >
           {options.map((option) => (
             <div key={option.id} className="flex items-center space-x-2 gap-1 rtl:space-x-reverse">
