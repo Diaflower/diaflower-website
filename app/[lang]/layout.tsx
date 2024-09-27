@@ -5,15 +5,13 @@ import '../globals.css'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs'
-
 import { Roboto } from 'next/font/google'
 
-
 const roboto = Roboto({
-  weight: ['400', '700','300','500',],
+  weight: ['400', '700', '300', '500'],
   subsets: ['latin'],
   display: 'swap',
-  variable:'--roboto'
+  variable: '--roboto'
 })
 
 const fancyCut = localFont({
@@ -25,7 +23,6 @@ const arabicHeading = localFont({
   src: '../../public/fonts/arabic-heading.ttf',
   variable: '--arabic-heading',
 })
-
 
 export async function generateMetadata({ params: { lang } }: { params: { lang: string } }) {
   const t = await getTranslations({ locale: lang, namespace: 'metadata' });
@@ -60,7 +57,7 @@ export default async function LocaleLayout({
   return (
     <ClerkProvider publishableKey={clerkPubkey}>
       <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`${fancyCut.variable} ${roboto.variable} ${arabicHeading.variable}`}>
-        <body className=''>
+        <body>
           <Providers locale={lang} messages={messages}>
             <MainLayout>
               <Toaster />

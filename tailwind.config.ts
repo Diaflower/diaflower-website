@@ -95,9 +95,9 @@ const config = {
     require("tailwindcss-animate"),
     plugin(function({ addBase, theme }: PluginAPI) {
       addBase({
-        // 'h1,h2,h3,h4,h5,h6,a': {
-        //   fontFamily: theme('fontFamily.fancy'),
-        // },
+        'h1,h2,h3,h4,h5,h6,a': {
+          fontFamily: theme('fontFamily.fancy'),
+        },
         'html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6, html[lang="ar"] a ,html[lang="ar"] li html[lang="ar"] span': {
           fontFamily: theme('fontFamily.arabic'),
         },
