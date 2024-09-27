@@ -93,8 +93,8 @@ export default function Header() {
   return (
     <motion.header
       ref={ref}
-      initial={{ opacity: 0, y: -50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0.70 }}
+      animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="border-b w-full relative bg-white"
     >

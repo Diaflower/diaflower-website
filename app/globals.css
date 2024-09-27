@@ -93,11 +93,16 @@
   html:not([lang="ar"]) h4, 
   html:not([lang="ar"]) h5, 
   html:not([lang="ar"]) h6,
-  html:not([lang="ar"]) li,
-  html:not([lang="ar"]) span,
+  /* html:not([lang="ar"]) li, */
+  /* html:not([lang="ar"]) span, */
   html:not([lang="ar"]) a {
-    font-family: var(--font-fancy);
+    font-family: var(--fancy);
   }
+
+  html:not([lang="ar"]) p{
+    font-family: var(--roboto);
+  }
+
 
   /* Optional: Hide scrollbar for Chrome, Safari and Opera */
   body::-webkit-scrollbar {

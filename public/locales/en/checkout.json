@@ -71,7 +71,7 @@
   "errorApplyingCoupon": "Error applying coupon:",
   "error": "Error",
   "couponErrorMessage": "An error occurred while validating the coupon. Please try again.",
-  "haveAccount": "Already have an account?",
+  "haveAccount": "Already have an account",
   "signIn": "Sign in",
   "loadingUserData": "Loading user data...",
   "noItemsInCart": "No items in cart",

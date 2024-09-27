@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 export function CartSummary() {
   const { getTotalPrice, getTotalItems } = useCartStore()
@@ -54,7 +55,9 @@ export function CartSummary() {
         </div>
       </div>
       <Button className="w-full mt-6 bg-gray-900 text-white hover:bg-gray-800">
+        <Link href={'/checkout'}>
         {t('goToCheckout')}
+        </Link>
       </Button>
     </div>
   )
