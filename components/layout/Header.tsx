@@ -1,42 +1,41 @@
 'use client'
-import { useState, useRef, useEffect } from "react";
-import { useRouter, usePathname } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
-import { useAuth } from '@clerk/nextjs';
-import Logo from "../shared/icons/Logo";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { UserRound, ShoppingBag,Menu, ChevronDown } from "lucide-react";
-import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
-import { IconWithTooltip } from "../shared/IconWithTooltip";
-import { useRTLAwareStyle } from "@/util/rtl";
-import Image from 'next/image';
+import { useState, useRef, useEffect } from "react"
+import { useRouter, usePathname } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { useAuth } from '@clerk/nextjs'
+import Logo from "../shared/icons/Logo"
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet"
+import { UserRound, ShoppingBag, Menu, ChevronDown } from "lucide-react"
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden'
+import { IconWithTooltip } from "../shared/IconWithTooltip"
+import { useRTLAwareStyle } from "@/util/rtl"
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
-
-import divineImage from '@/public/images/divine.jpg';
-import diamondImage from '@/public/images/diamond.jpg';
-import woodImage from '@/public/images/wood.jpg';
-import eternalImage from '@/public/images/eternal.jpg';
-import squareImage from '@/public/images/square.jpg';
-import domeImage from '@/public/images/dome.jpg';
-import recImage from '@/public/images/rectangle.jpg';
-import premiumImage from '@/public/images/premium.jpg';
-
+import divineImage from '@/public/images/divine.jpg'
+import diamondImage from '@/public/images/diamond.jpg'
+import woodImage from '@/public/images/wood.jpg'
+import eternalImage from '@/public/images/eternal.jpg'
+import squareImage from '@/public/images/square.jpg'
+import domeImage from '@/public/images/dome.jpg'
+import recImage from '@/public/images/rectangle.jpg'
+import premiumImage from '@/public/images/premium.jpg'
 
 export default function Header() {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter();
-  const pathname = usePathname();
-  const locale = useLocale();
-  const { isSignedIn } = useAuth();
-  const t = useTranslations('common');
-  const rtlAwareStyle = useRTLAwareStyle('left-2', 'right-2');
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
+  const locale = useLocale()
+  const { isSignedIn } = useAuth()
+  const t = useTranslations('common')
+  const rtlAwareStyle = useRTLAwareStyle('left-2', 'right-2')
   const icons = [
     { icon: <UserRound className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.account') },
     { icon: <ShoppingBag className="w-5 h-5 text-[#1d1c1c]" />, text: t('header.viewCart'), badge: true }
-  ];
+  ]
 
   const navItems = [
     { name: t('nav.timelessCollection'), href: '#', megaMenu: true, sections: 3 },
@@ -44,45 +43,50 @@ export default function Header() {
     { name: t('nav.boxes'), href: '#', megaMenu: true, sections: 2 },
     { name: t('nav.leather'), href: '/leather' },
     { name: t('nav.vases'), href: '/vases' }
-  ];
+  ]
 
   const switchLocale = (newLocale: string) => {
     if (newLocale !== locale) {
-      const newPathname = pathname.replace(`/${locale}`, '') || '/';
-      router.push(`/${newLocale}${newPathname}`);
+      const newPathname = pathname.replace(`/${locale}`, '') || '/'
+      router.push(`/${newLocale}${newPathname}`)
     }
-  };
+  }
 
   const handleAccountClick = () => {
     if (isSignedIn) {
-      router.push('/account/overview');
+      router.push('/account/overview')
     } else {
-      router.push('/sign-in');
+      router.push('/sign-in')
     }
-  };
+  }
 
   const handleMouseEnter = (itemName: string) => {
     if (menuTimeoutRef.current) {
-      clearTimeout(menuTimeoutRef.current);
+      clearTimeout(menuTimeoutRef.current)
     }
-    setHoveredItem(itemName);
-    setIsMenuVisible(true);
-  };
+    setHoveredItem(itemName)
+    setIsMenuVisible(true)
+  }
 
   const handleMouseLeave = () => {
     menuTimeoutRef.current = setTimeout(() => {
-      setHoveredItem(null);
-      setIsMenuVisible(false);
-    }, 300);
-  };
+      setHoveredItem(null)
+      setIsMenuVisible(false)
+    }, 300)
+  }
+
+  const handleMegaMenuLinkClick = () => {
+    setHoveredItem(null)
+    setIsMenuVisible(false)
+  }
 
   useEffect(() => {
     return () => {
       if (menuTimeoutRef.current) {
-        clearTimeout(menuTimeoutRef.current);
+        clearTimeout(menuTimeoutRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   return (
     <header className="border-b w-full relative bg-white">
@@ -145,9 +149,15 @@ export default function Header() {
                 <NavLink href={item.href} isHovered={hoveredItem === item.name} hasMegaMenu={item.megaMenu}>
                   {item.name}
                 </NavLink>
-                {item.megaMenu && hoveredItem === item.name && (
-                  <MegaMenu item={item} isVisible={isMenuVisible} />
-                )}
+                <AnimatePresence>
+                  {item.megaMenu && hoveredItem === item.name && (
+                    <MegaMenu 
+                      item={item} 
+                      isVisible={isMenuVisible} 
+                      onLinkClick={handleMegaMenuLinkClick}
+                    />
+                  )}
+                </AnimatePresence>
               </li>
             ))}
           </ul>
@@ -158,7 +168,7 @@ export default function Header() {
 }
 
 function NavLink({ href, children, isHovered, hasMegaMenu }: { href: string, children: React.ReactNode, isHovered: boolean, hasMegaMenu: boolean |undefined }) {
-  const rtlAwareStyle = useRTLAwareStyle('left-0', 'right-0');
+  const rtlAwareStyle = useRTLAwareStyle('left-0', 'right-0')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
   return (
@@ -168,11 +178,11 @@ function NavLink({ href, children, isHovered, hasMegaMenu }: { href: string, chi
         <span className={`absolute bottom-0 ${rtlAwareStyle} w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out ${isHovered ? 'w-full' : ''}`}></span>
       </span>
     </Link>
-  );
+  )
 }
 
 function LanguageSwitcher({ locale, switchLocale }: { locale: string, switchLocale: (newLocale: string) => void }) {
-  const t = useTranslations('common');
+  const t = useTranslations('common')
   return (
     <div className={`flex space-x-2 ${locale === 'ar' ? "flex-row-reverse ml-3" : ""}`}>
       <button 
@@ -191,17 +201,19 @@ function LanguageSwitcher({ locale, switchLocale }: { locale: string, switchLoca
         {t('lang.ar')}
       </button>
     </div>
-  );
+  )
 }
 
-function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sections: number }, isVisible: boolean }) {
+function MegaMenu({ item, isVisible, onLinkClick }: { 
+  item: { name: string; href: string; sections: number }, 
+  isVisible: boolean,
+  onLinkClick: () => void
+}) {
   const t = useTranslations('common')
   const letterSpacing = useRTLAwareStyle('tracking-widest','')
   const icon = useRTLAwareStyle('','rotate-180')
   const translate = useRTLAwareStyle('group-hover:translate-x-1','')
-  // const gridColumns = item.sections === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'
   const gridColumns = 'md:grid-cols-4'
-
 
   const menuItems = {
     [t('nav.timelessCollection')]: [
@@ -221,17 +233,19 @@ function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sec
   const currentItems = menuItems[item.name as keyof typeof menuItems] || []
 
   return (
-    <div 
-      className={`absolute left-0 w-full bg-white shadow-lg z-50 border-t transition-all duration-300 ease-in-out ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`} 
+    <motion.div 
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: 'auto', opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      className={`absolute left-0 w-full bg-white shadow-lg z-50 border-t overflow-hidden`}
       style={{ top: '100%' }}
     >
       <div className="container mx-auto px-4 py-8">
         <ul className={`grid gap-8 ${gridColumns}`}>
           {currentItems.map((menuItem, index) => (
             <li key={index} className="col-span-1">
-              <Link href={menuItem.href} className="group block h-full">
+              <Link href={menuItem.href} className="group block h-full" onClick={onLinkClick}>
                 <div className="flex flex-col h-full border rounded-lg overflow-hidden">
                   <div className="relative h-48 w-full">
                     <Image
@@ -262,12 +276,12 @@ function MegaMenu({ item, isVisible }: { item: { name: string; href: string; sec
           ))}
         </ul>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 function MobileMenu({ navItems, locale, switchLocale }: { navItems: Array<{ name: string; href: string; megaMenu?: boolean }>, locale: string, switchLocale: (newLocale: string) => void }) {
-  const t = useTranslations('common');
+  const t = useTranslations('common')
   return (
     <div className="py-4">
       <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
@@ -285,5 +299,5 @@ function MobileMenu({ navItems, locale, switchLocale }: { navItems: Array<{ name
         </ul>
       </nav>
     </div>
-  );
+  )
 }
