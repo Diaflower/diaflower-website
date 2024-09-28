@@ -3,17 +3,15 @@
 import React, { useState, useEffect } from 'react'
 import { useCartStore } from '@/store/cartStore'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import axios from 'axios'
 import { toast } from '@/hooks/use-toast'
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
-import { CartItems } from '../cart/CartItems'
 import { CartContent } from '../shared/CartContent'
+import { validateCoupon } from '@/data/coupons'
 
 interface PaymentSummaryProps {
   emirate: string
@@ -22,7 +20,7 @@ interface PaymentSummaryProps {
 
 export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps) {
   const t = useTranslations('checkout')
-  const { items, getTotalPrice } = useCartStore()
+  const { getTotalPrice } = useCartStore()
   const [showCouponInput, setShowCouponInput] = useState(false)
   const [couponCode, setCouponCode] = useState('')
   const [couponDiscount, setCouponDiscount] = useState(0)
@@ -31,7 +29,6 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
-  console.log("items:",items)
   const subtotal = getTotalPrice()
   const tax = subtotal * 0.05 // 5% tax
   const [shippingCost, setShippingCost] = useState<number | null>(null)
@@ -60,8 +57,7 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
     setIsApplyingCoupon(true)
 
     try {
-      const response = await axios.post('http://localhost:3001/api/coupons/validate', { code: couponCode, subtotal })
-      const { isValid, discountAmount, message } = response.data
+      const { isValid, discountAmount, message } = await validateCoupon({ code: couponCode, subtotal })
 
       if (isValid) {
         setCouponDiscount(discountAmount)

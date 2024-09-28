@@ -28,7 +28,7 @@ export default function AnimatedImage({
     img.src = mainSrc
     img.onload = () => {
       setIsLoaded(true)
-      setTimeout(() => setShowPlaceholder(false), 500) // Delay to allow for smooth transition
+     setShowPlaceholder(false)
     }
   }, [mainSrc])
 
