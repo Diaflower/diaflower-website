@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Product, SimpleProduct } from '@/types/product';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://dia-backend.onrender.com/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export interface ProductsResponse {
   items: SimpleProduct[];

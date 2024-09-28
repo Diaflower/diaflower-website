@@ -18,6 +18,7 @@ import { useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { toast } from '@/hooks/use-toast'
 
+
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export default function Checkout() {
@@ -145,6 +146,7 @@ export default function Checkout() {
   if (items.length === 0) {
     return <EmptyCart />
   }
+
 
   return (
     <CheckoutProvider>
