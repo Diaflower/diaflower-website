@@ -91,7 +91,7 @@ export default function InfoCard({title, desc,img, alt, href,height}: Props) {
                     className="inline-block relative group"
                     prefetch={false}
                 >
-                    <span className="relative z-10 transition-opacity duration-300 ease-in-out group-hover:opacity-70">
+                    <span className="text-gray-600 relative z-10 transition-opacity duration-300 ease-in-out group-hover:opacity-70 font-roboto">
                         {t('link')}
                     </span>
                     <span className={`absolute bottom-0 ${rtlAwareUnderlineStyle} w-full h-[1px] bg-black transition-all duration-700 ease-in-out group-hover:w-0`}></span>
