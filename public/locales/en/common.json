@@ -91,6 +91,12 @@
       "instagram": "Instagram"
     },
     "copyright": "© 2024 DiaFlower. All rights reserved."
+  },
+
+  "whatsapp": {
+    "chatWithUs": "Chat with us",
+    "tooltip": "Contact us on WhatsApp",
+    "defaultMessage": "Hello, I have a question about your products/services."
   }
   
 }

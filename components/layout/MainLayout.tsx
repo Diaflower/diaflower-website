@@ -5,6 +5,8 @@ import Header from './Header'
 import Footer from './Footer'
 import PageTransition from '../shared/PageTransition'
 
+import WhatsAppButton from '../shared/WhatsAppButton'
+
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
@@ -17,6 +19,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         </main>
       </PageTransition>
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }
