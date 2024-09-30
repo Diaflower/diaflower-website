@@ -31,11 +31,11 @@ export default function Home({
               img={crystalImage}
             />
             <InfoCard
-              title={t('card2.title')}
-              desc={t('card2.description')}
-              href='/treasure'
-              alt={t('card2.alt')}
-              img={treasureImage}
+              title={t('card4.title')}
+              desc={t('card4.description')}
+              href='/bouquets'
+              alt={t('card4.alt')}
+              img={bouqetImage}
             />
           </div>
         </AnimatedSection>
@@ -54,12 +54,12 @@ export default function Home({
        
         <AnimatedSection>
           <div className='flex flex-col md:flex-row w-full md:container my-3 gap-4 md:gap-4'>
-            <InfoCard
-              title={t('card4.title')}
-              desc={t('card4.description')}
-              href='/bouquets'
-              alt={t('card4.alt')}
-              img={bouqetImage}
+          <InfoCard
+              title={t('card2.title')}
+              desc={t('card2.description')}
+              href='/treasure'
+              alt={t('card2.alt')}
+              img={treasureImage}
               height
             />
             <InfoCard

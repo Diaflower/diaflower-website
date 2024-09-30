@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Minus, Plus, X } from 'lucide-react'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { TableCell, TableRow } from "@/components/ui/table"
+import { Skeleton } from '../ui/skeleton'
 
 interface LanguageAwareCartItemProps {
   item: CartItem
@@ -60,9 +61,57 @@ export function LanguageAwareCartItem({
 
 
 
+  const renderSkeleton = () => {
+    if (variant === 'page') {
+      return (
+        <TableRow>
+          <TableCell colSpan={4}>
+            <div className="flex items-center space-x-4">
+              <Skeleton className="h-16 w-16 rounded-md" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[200px]" />
+                <Skeleton className="h-4 w-[150px]" />
+              </div>
+            </div>
+          </TableCell>
+        </TableRow>
+      )
+    }
+
+    if (variant === 'sheet') {
+      return (
+        <div className="flex items-center space-x-4 py-6">
+          <Skeleton className="h-24 w-24 rounded-md" />
+          <div className="space-y-2 flex-1">
+            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-4 w-[150px]" />
+            <div className="flex justify-between">
+              <Skeleton className="h-8 w-24" />
+              <Skeleton className="h-8 w-16" />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    if (variant === 'summary') {
+      return (
+        <div className="flex items-center space-x-4">
+          <Skeleton className="h-16 w-16 rounded" />
+          <div className="space-y-2 flex-1">
+            <Skeleton className="h-4 w-[150px]" />
+            <Skeleton className="h-4 w-[100px]" />
+            <Skeleton className="h-4 w-[80px]" />
+          </div>
+        </div>
+      )
+    }
+
+    return null
+  }
+
   if (isLoading) {
-    if (variant === 'page') return <TableRow><TableCell colSpan={4}>{t('loading')}</TableCell></TableRow>
-    return <div>{t('loading')}</div>
+    return renderSkeleton()
   }
 
   if (!product || !variation) {
@@ -126,6 +175,7 @@ export function LanguageAwareCartItem({
             alt={product.name}
             width={96}
             height={96}
+            priority
             className="object-cover object-center w-full h-full"
           />
         </div>
@@ -165,8 +215,8 @@ export function LanguageAwareCartItem({
             />
           </div>
           <div>
-            <h3 className={`text-sm md:text-base font-medium text-gray-900 ${rtlText} ${letterSpacing}`}>{product.name}</h3>
-            <p className="mt-1 text-xs md:text-sm text-gray-500">
+            <h3 className={`text-sm md:text-base font-semibold text-gray-900 ${rtlText} ${letterSpacing}`}>{product.name}</h3>
+            <p className="mt-1 text-xs md:text-sm text-gray-500 font-light">
               {variation.size?.name && `${t('size')}: ${variation.size.name}, `}
               {variation.infinityColor?.name && `${t('color')}: ${variation.infinityColor.name}, `}
               {variation.boxColor?.name && `${t('box')}: ${variation.boxColor.name}, `}

@@ -1,47 +1,47 @@
 {
   "card1": {
-    "title": "Crystal Encased Roses",
-    "description": "Timeless beauty captured in crystal. Our long-life roses, preserved for up to 5 years, are elegantly displayed in clear crystal cases. Choose from single, duo, or heart-shaped rose arrangements for a truly magical gift.",
-    "alt": "Long-lasting roses encased in crystal"
+    "title": "Crystal Roses",
+    "description": "Long-life roses preserved for up to 5 years in elegant crystal cases.",
+    "alt": "Long-lasting roses in crystal"
   },
   "card2": {
-    "title": "Wooden Box Rose Collections",
-    "description": "Luxury meets longevity. Our wooden boxes with acrylic tops showcase 9, 16, or 25 exquisite long-life roses. Each box features a secret drawer filled with delectable chocolates for an extra sweet surprise.",
-    "alt": "Long-lasting roses in wooden boxes with chocolate drawers"
+    "title": "Wooden Box Roses",
+    "description": "Long-life roses in wooden boxes with hidden chocolate drawers.",
+    "alt": "Roses in wooden boxes with chocolates"
   },
   "card3": {
-    "title": "Acrylic Box Rose Designs",
-    "description": "Modern artistry meets floral preservation. Our acrylic boxes feature stunning long-life roses arranged in creative designs like hearts and teddy bears. A contemporary twist on classic flower gifting.",
-    "alt": "Long-lasting roses in designer acrylic boxes"
+    "title": "Acrylic Rose Designs",
+    "description": "Creative long-life rose arrangements in modern acrylic boxes.",
+    "alt": "Designer roses in acrylic boxes"
   },
   "card4": {
-    "title": "Fresh Flower Bouquets",
-    "description": "Vibrant and varied, our fresh flower bouquets burst with color and fragrance. Each arrangement is a unique blend of seasonal blooms, perfect for any occasion or to brighten someone's day.",
-    "alt": "Fresh, colorful flower bouquets"
+    "title": "Fresh Bouquets",
+    "description": "Vibrant seasonal blooms for any occasion.",
+    "alt": "Fresh flower bouquets"
   },
   "card5": {
-    "title": "Box Flower Arrangements",
-    "description": "Elegance in every shape. Choose from round, square, or rectangular boxes, each filled with a carefully curated selection of fresh flowers. A sophisticated gift that's sure to impress.",
-    "alt": "Fresh flowers arranged in stylish boxes"
+    "title": "Boxed Flowers",
+    "description": "Fresh flowers in elegant round, square, or rectangular boxes.",
+    "alt": "Flowers in stylish boxes"
   },
   "card6": {
-    "title": "Premium Acrylic Flower Displays",
-    "description": "Showcase nature's beauty. Our premium arrangements feature select fresh flowers displayed in clear acrylic boxes, allowing for a 360-degree view of these stunning botanical creations.",
-    "alt": "Premium fresh flowers in clear acrylic boxes"
+    "title": "Acrylic Flower Displays",
+    "description": "Premium fresh flowers in clear acrylic boxes for 360-degree views.",
+    "alt": "Flowers in clear acrylic boxes"
   },
   "card7": {
-    "title": "Leather Bag Floral Ensembles",
-    "description": "Fashion meets floristry. Our exclusive leather bag designs come filled with an exquisite arrangement of fresh flowers. A truly unique gift that combines style and natural beauty.",
-    "alt": "Fresh flower arrangements in designer leather bags"
+    "title": "Leather Bag Florals",
+    "description": "Fresh flower arrangements in exclusive leather bags.",
+    "alt": "Flowers in designer leather bags"
   },
   "card8": {
-    "title": "Vase Flower Collections",
-    "description": "Timeless elegance in full bloom. Our vase collections feature a diverse mix of fresh flowers, expertly arranged to create stunning centerpieces that will enhance any space.",
-    "alt": "Fresh flower arrangements in elegant vases"
+    "title": "Vase Collections",
+    "description": "Expertly arranged fresh flowers in elegant vases.",
+    "alt": "Flower arrangements in vases"
   },
-  "link":"Discover The Collection",
-  "hero":{
-    "title1":"EXQUISITE BLOOMS",
-    "title2":"TIMELESS ELEGANCE "
+  "link": "Discover The Collection",
+  "hero": {
+    "title1": "EXQUISITE BLOOMS",
+    "title2": "TIMELESS ELEGANCE"
   }
 }

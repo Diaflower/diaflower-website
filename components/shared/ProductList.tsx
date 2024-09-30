@@ -67,7 +67,7 @@ export default function ProductList({ tagName, lang, type }: ProductListProps) {
             <div className="absolute inset-0 flex items-center lg:px-12 xl:px-16">
               <div className="flex-grow border-t border-gray-300"></div>
             </div>
-            <span className="relative z-10 text-center bg-white px-4 text-3xl font-fancy text-gray-900 tracking-widest">
+            <span className="relative z-10 text-center bg-white px-4 text-xl md:text-3xl font-fancy text-gray-900 tracking-widest">
               {t(`heading.${type}`)}
             </span>
           </div>

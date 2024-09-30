@@ -17,6 +17,8 @@ type Props = {
 
 export default function InfoCard({title, desc,img, alt, href,height}: Props) {
     const rtlAwareUnderlineStyle = useRTLAwareStyle('left-0', 'right-0');
+    const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+
     const t = useTranslations('home');
     const { ref, isInView } = useInView(0.2)
    
@@ -54,8 +56,13 @@ export default function InfoCard({title, desc,img, alt, href,height}: Props) {
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
         className="w-full relative">
-            <div className={`relative w-full h-[200px] md:h-[400px] ${height? "lg:h-[450px]":"lg:h-[520px]"}`}>
-            {img && (
+            <div className={`relative w-full h-[300px] md:h-[400px] ${height? "lg:h-[450px]":"lg:h-[520px]"}`}>
+            <Link
+              href={href}
+              className="w-full h-full"
+              prefetch={false}
+            >
+                {img && (
                 <Image
                 priority
                 src={img}
@@ -66,16 +73,17 @@ export default function InfoCard({title, desc,img, alt, href,height}: Props) {
                 className="object-cover"
                 />
             )}
+            </Link>
             </div>
             <motion.div
             variants={contentVariants}
             className="p-2 md:p-6 flex flex-col items-center text-center">
                 <motion.h2
                 variants={itemVariants}
-                className="text-lg md:text-2xl font-semibold mb-1 md:mb-2">{title}</motion.h2>
+                className={`text-lg md:text-2xl font-semibold mb-1 md:mb-2 ${letterSpacing}`}>{title}</motion.h2>
                 <motion.p 
                 variants={itemVariants}
-                className='mb-2 md:mb-4 text-xs  md:neww font-roboto text-black'>
+                className='mb-2 md:mb-4 text-xs  md:text-base font-roboto text-gray-600'>
                     {desc}
                 </motion.p>
                 <Link

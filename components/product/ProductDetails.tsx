@@ -29,6 +29,8 @@ import { toast } from '@/hooks/use-toast'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { useTranslations } from 'next-intl'
 import AnimatedImage from '../shared/AnimatedImage'
+import { generateShareUrl } from '@/util/shareUtils'
+import { useRouter } from 'next/router'
 
 const parsePrice = (price: string | number): number => {
   if (typeof price === 'number') return price;
@@ -45,10 +47,21 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
   const { addItem, addAddonToItem } = useCartStore()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const rtlDirection = useRTLAwareStyle('', 'flex-row-reverse')
-  const rtlText = useRTLAwareStyle('', 'text-right')
+  const rtlText = useRTLAwareStyle('text-left', 'text-right')
+  const rtlTextmd = useRTLAwareStyle('md:text-left', 'md:text-right')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
   const rightArabic = useRTLAwareStyle('', 'justify-end')
+  
 
+
+  const handleShare = (platform: string) => {
+    const shareUrl = generateShareUrl(platform, product.slug, product.name, lang);
+    if (shareUrl) {
+      if (typeof window !== 'undefined') {
+        window.open(shareUrl, '_blank');
+      }
+    }
+  };
  
   const handleVariationChange = (variation: ProductVariation) => {
     setSelectedVariation(variation)
@@ -260,9 +273,9 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
         </div>
         
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold">{product.name}</h1>
+          <h1 className={`text-center  text-2xl md:text-3xl font-bold ${rtlTextmd}`}>{product.name}</h1>
           <div className="flex items-center justify-between">
-            <p className="text-2xl font-semibold" aria-live="polite">
+            <p className="text-xl md:text-2xl" aria-live="polite">
               {t('currency', { amount: parsePrice(selectedVariation.price).toFixed(2) })}
               {selectedVariation.previousPrice && (
                 <span className="ml-2 text-sm line-through text-gray-500">
@@ -322,37 +335,59 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
           <div className="space-y-4 pt-4 border-t border-gray-200">
             <div>
               <h3 className={`text-sm font-semibold text-darGreyy mb-2 ${letterSpacing}`}>{t('shareWithFriend')}</h3>
-              <div className="flex space-x-4 rtl:space-x-reverse">
-                <Button variant="outline" size="icon" className='border-darGreyy'>
-                  <Facebook className="w-4 h-4" />
-                </Button>
-                <Button variant="outline" size="icon" className='border-darGreyy'>
-                  <Instagram className="w-4 h-4" />
-                </Button>
-                <Button variant="outline" size="icon" className='border-darGreyy'>
-                  <Twitter className="w-4 h-4" />
-                </Button>
-                <Button variant="outline" size="icon" className='border-darGreyy'>
-                  <Mail className="w-4 h-4" />
-                </Button>
+           
+
+            <div className="flex space-x-4 rtl:space-x-reverse">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className='border-darGreyy'
+                onClick={() => handleShare('facebook')}
+              >
+                <Facebook className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className='border-darGreyy'
+                onClick={() => handleShare('instagram')}
+              >
+                <Instagram className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className='border-darGreyy'
+                onClick={() => handleShare('twitter')}
+              >
+                <Twitter className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className='border-darGreyy'
+                onClick={() => handleShare('email')}
+              >
+                <Mail className="w-4 h-4" />
+              </Button>
               </div>
             </div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="flowerDeliveryInfo">
                 <AccordionTrigger className={`text-darGreyy ${letterSpacing}`}>{t('flowerDeliveryInfo')}</AccordionTrigger>
-                <AccordionContent className='text-gray-600'>
+                <AccordionContent className='text-gray-600 font-roboto'>
                   {t('flowerDeliveryInfoContent')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="disclaimer" className={`text-darGreyy ${letterSpacing}`}>
                 <AccordionTrigger>{t('disclaimer')}</AccordionTrigger>
-                <AccordionContent className='text-gray-600'>
+                <AccordionContent className='text-gray-600 font-roboto'>
                   {t('disclaimerContent')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="ourFlowers" className={`text-darGreyy ${letterSpacing}`}>
                 <AccordionTrigger>{t('ourFlowers')}</AccordionTrigger>
-                <AccordionContent className= 'text-gray-600'>
+                <AccordionContent className= 'text-gray-600 font-roboto'>
                   {t('ourFlowersContent')}
                 </AccordionContent>
               </AccordionItem>

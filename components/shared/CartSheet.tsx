@@ -3,9 +3,8 @@
 import { useCartStore } from '@/store/cartStore'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
-
 import { SheetClose, SheetFooter } from '@/components/ui/sheet'
-import {ShoppingBag } from 'lucide-react'
+import { ShoppingBag } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { CartContent } from './CartContent'
@@ -13,8 +12,6 @@ import Link from 'next/link'
 
 export default function CartSheet() {
   const { items, getTotalPrice, getTotalItems } = useCartStore()
- 
- 
   
   const t = useTranslations('cart')
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
@@ -44,7 +41,7 @@ export default function CartSheet() {
         </p>
       </div>
       <ScrollArea className="flex-1">
-      <CartContent variant="sheet" />
+        <CartContent variant="sheet" />
       </ScrollArea>
       <SheetFooter className="">
         <div className={`mt-6 w-full ${rtlAlign}`}>
@@ -54,11 +51,13 @@ export default function CartSheet() {
           </div>
           <p className="mt-0.5 text-sm text-muted-foreground">{t('shippingAndTaxes')}</p>
           <div className="mt-6">
-          <Link href='/cart'>
-              <Button className="w-full">
-                {t('checkout')}
-              </Button>
-            </Link>
+            <SheetClose asChild>
+              <Link href='/cart'>
+                <Button className="w-full">
+                  {t('checkout')}
+                </Button>
+              </Link>
+            </SheetClose>
           </div>
           <div className="mt-6 flex justify-center text-center text-sm text-muted-foreground">
             <p>

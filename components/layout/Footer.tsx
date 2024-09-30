@@ -49,7 +49,7 @@ export default function Footer() {
     {
       title: t('footer.sections.resources.title'),
       links: [
-        { text: t('footer.sections.resources.links.faq'), href: '/faq' },
+        { text: t('footer.sections.resources.links.faq'), href: '/' },
         { text: t('footer.sections.resources.links.termsConditions'), href: '/' },
         { text: t('footer.sections.resources.links.privacyPolicy'), href: '/' },
         { text: t('footer.sections.resources.links.refundsReturns'), href: '/' },
@@ -58,24 +58,24 @@ export default function Footer() {
   ];
 
   const socialIcons = [
-    { Icon: Facebook, href: "https://facebook.com/diaflower", name: t('footer.socialMedia.facebook') },
-    { Icon: Twitter, href: "https://twitter.com/diaflower", name: t('footer.socialMedia.twitter') },
-    { Icon: Instagram, href: "https://instagram.com/diaflower", name: t('footer.socialMedia.instagram') }
+    // { Icon: Facebook, href: "https://facebook.com/diaflower", name: t('footer.socialMedia.facebook') },
+    // { Icon: Twitter, href: "https://twitter.com/diaflower", name: t('footer.socialMedia.twitter') },
+    { Icon: Instagram, href: "https://instagram.com/diaflowershop", name: t('footer.socialMedia.instagram') }
   ];
 
   return (
-    <footer className="w-full bg-[#222222] py-12 text-gray-200">
+    <footer className="w-full border-t  py-12 text-darGreyy">
       <div className="container px-4 md:px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 sm:place-items-center">
           {footerSections.map((section, index) => (
             <div key={index} className="space-y-2">
-              <h3 className={`text-lg font-semibold text-white hidden sm:block ${letterSpacing}`}>{section.title}</h3>
+              <h3 className={`text-lg font-semibold  hidden sm:block ${letterSpacing}`}>{section.title}</h3>
               <div className="hidden sm:grid gap-1">
                 {section.links.map((link, linkIndex) => (
                   <Link 
                   key={linkIndex} 
                   href={link.href} 
-                  className="text-gray-300 hover:text-white hover:underline font-roboto flex items-center" 
+                  className="hover:underline font-roboto  flex items-center" 
                   prefetch={false}
                   target={index === 0 ? "_blank" : undefined}
                   rel={index === 0 ? "noopener noreferrer" : undefined}
@@ -87,7 +87,7 @@ export default function Footer() {
                 ))}
               </div>
               <Collapsible className="sm:hidden">
-                <CollapsibleTrigger className="flex w-full items-center justify-between text-base font-semibold text-white" aria-label={`Toggle ${section.title} section`}>
+                <CollapsibleTrigger className={`flex w-full items-center justify-between text-base text-darGreyy font-fancy ${letterSpacing}`} aria-label={`Toggle ${section.title} section`}>
                   {section.title}
                   <ChevronDown className="h-5 w-5 transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" />
                 </CollapsibleTrigger>
@@ -113,13 +113,13 @@ export default function Footer() {
             </div>
           ))}
           <div className="flex flex-col space-y-4 items-center justify-center">
-            <h3 className={`text-lg font-semibold text-white ${letterSpacing}`}>{t('footer.followUs')}</h3>
+            <h3 className={`text-lg font-semibold ${letterSpacing}`}>{t('footer.followUs')}</h3>
             <div className={`flex ${rtlAwareStyle}`}>
               {socialIcons.map(({ Icon, href, name }, index) => (
                 <Link 
                   key={index} 
                   href={href} 
-                  className="text-gray-300 hover:text-white" 
+                  className="" 
                   prefetch={false}
                   aria-label={`${name} (opens in a new tab)`}
                   target="_blank" 

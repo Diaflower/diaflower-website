@@ -92,10 +92,7 @@
   html:not([lang="ar"]) h3, 
   html:not([lang="ar"]) h4, 
   html:not([lang="ar"]) h5, 
-  html:not([lang="ar"]) h6,
-  /* html:not([lang="ar"]) li, */
-  /* html:not([lang="ar"]) span, */
-  html:not([lang="ar"]) a {
+  html:not([lang="ar"]) h6{
     font-family: var(--fancy);
   }
 

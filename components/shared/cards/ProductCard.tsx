@@ -31,7 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-4 text-center">
         <h3 className={`text-xl font-bold ${letterSpacing}`}>{product.name}</h3>
         <div className="mt-2 flex flex-col items-center gap-2">
-          <span className="text-base font-semibold font-roboto">
+          <span className="text-base  font-roboto">
             {t('from')} {t('currency', { amount: product.price })}
           </span>
           <Button className={`w-full rounded-none bg-darGreyy text-white transition-colors duration-300 ease-in-out md:bg-transparent md:text-darGreyy md:group-hover:bg-darGreyy md:group-hover:text-white ${letterSpacing}`}>
