@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useAuth } from '@clerk/nextjs'
 import Logo from "../shared/icons/Logo"
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet"
-import { UserRound, ShoppingBag, Menu, ChevronDown } from "lucide-react"
+import { UserRound, ShoppingBag, Menu, ChevronDown, ChevronUp } from "lucide-react"
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden'
 import { IconWithTooltip } from "../shared/IconWithTooltip"
 import { useRTLAwareStyle } from "@/util/rtl"
@@ -116,7 +116,12 @@ export default function Header() {
               </VisuallyHidden.Root>
               
               <SheetContent side={locale === 'ar' ? 'right' : 'left'}>
-                <MobileMenu navItems={navItems} locale={locale} switchLocale={switchLocale} />
+                <MobileMenu
+                onLinkClick={() => {
+                  // Close the sheet
+                  document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'Escape'}));
+                }}
+                navItems={navItems} locale={locale} switchLocale={switchLocale} />
               </SheetContent>
             </Sheet>
             <div className="hidden md:flex space-x-4">
@@ -290,22 +295,99 @@ function MegaMenu({ item, isVisible, onLinkClick }: {
   )
 }
 
-function MobileMenu({ navItems, locale, switchLocale }: { navItems: Array<{ name: string; href: string; megaMenu?: boolean }>, locale: string, switchLocale: (newLocale: string) => void }) {
+function MobileMenu({ navItems, locale, switchLocale, onLinkClick }: { 
+  navItems: Array<{ name: string; href: string; megaMenu?: boolean; sections?: number }>, 
+  locale: string, 
+  switchLocale: (newLocale: string) => void,
+  onLinkClick: () => void
+}) {
   const t = useTranslations('common')
+  const [expandedItem, setExpandedItem] = useState<string | null>(null)
+  const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+  const menuItems = {
+    [t('nav.timelessCollection')]: [
+      { title: t('nav.timelessDivine'), href: '/divine', image: '/images/divine.jpg' },
+      { title: t('nav.timelessWood'), href: '/treasure', image: '/images/wood.jpg' },
+      { title: t('nav.timelessAcrylic'), href: '/eternal', image: '/images/eternal.jpg' },
+      { title: t('nav.timelessDiamond'), href: '/diamond', image: '/images/diamond.jpg' }
+    ],
+    [t('nav.boxes')]: [
+      { title: t('nav.squareBoxArrangements'), href: '/box-arrangement', image: '/images/square.jpg' },
+      { title: t('nav.domeBoxArrangements'), href: '/box-arrangement', image: '/images/dome.jpg' },
+      { title: t('nav.rectangleBoxArrangements'), href: '/box-arrangement', image: '/images/rectangle.jpg' },
+      { title: t('nav.premiumArrangements'), href: '/premium-box', image: '/images/premium.jpg' }
+    ]
+  }
+
+  const toggleExpand = (itemName: string) => {
+    setExpandedItem(expandedItem === itemName ? null : itemName)
+  }
+
+  const handleLinkClick = () => {
+    onLinkClick()
+  }
+
   return (
     <div className="py-4">
       <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
-      <nav className="mt-4">
-        <ul className="space-y-2">
+      <nav className="mt-6">
+        <ul className="space-y-4">
           {navItems.map((item) => (
-            <li key={item.name}>
-              <span className="flex items-center py-2 hover:bg-gray-100 cursor-pointer">
-                {item.name}
-                {item.megaMenu && <ChevronDown className="ml-1 w-4 h-4" />}
-              </span>
+            <li key={item.name} className="border-b border-gray-200 pb-4">
+              {item.megaMenu ? (
+                <div>
+                  <button 
+                    onClick={() => toggleExpand(item.name)}
+                    className={`flex justify-between items-center w-full py-2 text-left font-fancy font-semibold text-lg ${letterSpacing}`}
+                  >
+                    {item.name}
+                    {expandedItem === item.name ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                  </button>
+                  {expandedItem === item.name && (
+                    <ul className="mt-2 space-y-4">
+                      {menuItems[item.name as keyof typeof menuItems]?.map((subItem, index) => (
+                        <li key={index}>
+                          <Link 
+                            href={subItem.href} 
+                            className="flex items-center py-2 pl-4 hover:bg-gray-100"
+                            onClick={handleLinkClick}
+                          >
+                            <div className="relative w-20 h-20 mr-4">
+                              <Image 
+                                src={subItem.image} 
+                                alt={subItem.title} 
+                                fill
+                                sizes="(max-width: 768px) 100vw, 400px"
+                                className="rounded-md object-cover"
+                              />
+                            </div>
+                            <span className="font-roboto">{subItem.title}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <Link 
+                  href={item.href} 
+                  className={`block py-2 font-fancy font-semibold text-lg ${letterSpacing}`}
+                  onClick={handleLinkClick}
+                >
+                  {item.name}
+                </Link>
+              )}
             </li>
           ))}
-          <li><Link href="/contact" className="block py-2 hover:bg-gray-100">{t('header.contactUs')}</Link></li>
+          <li>
+            <Link 
+              href="/contact" 
+              className="block py-2 font-fancy font-semibold text-lg"
+              onClick={handleLinkClick}
+            >
+              {t('header.contactUs')}
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>
