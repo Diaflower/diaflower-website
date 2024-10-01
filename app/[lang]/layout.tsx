@@ -1,11 +1,11 @@
-import { Providers } from '../providers';
-import { getTranslations } from 'next-intl/server';
+import { ReactNode } from 'react'
+import { Providers } from '../providers'
+import { getTranslations } from 'next-intl/server'
 import MainLayout from '@/components/layout/MainLayout'
-import '../globals.css'
-import localFont from 'next/font/local'
-import { Toaster } from '@/components/ui/toaster';
-import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from '@/components/ui/toaster'
+
 import { Roboto } from 'next/font/google'
+import localFont from 'next/font/local'
 
 const roboto = Roboto({
   weight: ['400', '700', '300', '500'],
@@ -25,20 +25,20 @@ const arabicHeading = localFont({
 })
 
 export async function generateMetadata({ params: { lang } }: { params: { lang: string } }) {
-  const t = await getTranslations({ locale: lang, namespace: 'metadata' });
+  const t = await getTranslations({ locale: lang, namespace: 'metadata' })
 
   return {
     title: t('title'),
     description: t('description'),
-  };
+  }
 }
 
 export default async function LocaleLayout({
   children,
   params: { lang }
 }: {
-  children: React.ReactNode;
-  params: { lang: string };
+  children: ReactNode
+  params: { lang: string }
 }) {
   const messages = {
     common: (await import(`../../public/locales/${lang}/common.json`)).default,
@@ -50,22 +50,16 @@ export default async function LocaleLayout({
     cart: (await import(`../../public/locales/${lang}/cart.json`)).default,
     categories: (await import(`../../public/locales/${lang}/categories.json`)).default,
     product: (await import(`../../public/locales/${lang}/product.json`)).default,
-  };
-
-  const clerkPubkey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  }
 
   return (
-    <ClerkProvider publishableKey={clerkPubkey}>
-      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`${fancyCut.variable} ${roboto.variable} ${arabicHeading.variable}`}>
-        <body>
-          <Providers locale={lang} messages={messages}>
-            <MainLayout>
-              <Toaster />
-              {children}
-            </MainLayout>
-          </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
-  );
+    <Providers locale={lang} messages={messages}>
+      <div className={`${fancyCut.variable} ${roboto.variable} ${arabicHeading.variable}`} lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+        <MainLayout>
+          <Toaster />
+          {children}
+        </MainLayout>
+      </div>
+    </Providers>
+  )
 }

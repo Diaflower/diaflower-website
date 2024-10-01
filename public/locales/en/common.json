@@ -97,6 +97,11 @@
     "chatWithUs": "Chat with us",
     "tooltip": "Contact us on WhatsApp",
     "defaultMessage": "Hello, I have a question about your products/services."
+  },
+  "404": {
+    "title": "Oops! Page Not Found",
+    "message": "It seems this flower has bloomed elsewhere. Let's find you a fresh bouquet!",
+    "backHome": "Back to Home"
   }
   
 }
