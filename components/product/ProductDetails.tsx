@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { Facebook, Instagram, Twitter, Mail, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -31,6 +31,7 @@ import { useTranslations } from 'next-intl'
 import AnimatedImage from '../shared/AnimatedImage'
 import { generateShareUrl } from '@/util/shareUtils'
 import { useRouter } from 'next/router'
+import AnimatedVariationWrapper from '../shared/AnimatedVariationWrapper'
 
 const parsePrice = (price: string | number): number => {
   if (typeof price === 'number') return price;
@@ -62,22 +63,54 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
       }
     }
   };
+
+const optionTypes = ['size', 'infinityColor', 'boxColor', 'wrappingColor'] as const;
+type OptionType = typeof optionTypes[number];
+
+// Type guard function
+function isOptionType(key: string): key is OptionType {
+  return optionTypes.includes(key as OptionType);
+}
  
-  const handleVariationChange = (variation: ProductVariation) => {
-    setSelectedVariation(variation)
-    const index = product.variations.findIndex(v => v.id === variation.id)
+const handleVariationChange = useCallback((newOption: ProductSize | Color, optionType: OptionType) => {
+  const newVariation = product.variations.find(v => {
+    if (optionType === 'size') {
+      return v.size?.id === newOption.id && 
+        v[selectedVariation.wrappingColor ? 'wrappingColor' : selectedVariation.infinityColor ? 'infinityColor' : 'boxColor']?.id === 
+        selectedVariation[selectedVariation.wrappingColor ? 'wrappingColor' : selectedVariation.infinityColor ? 'infinityColor' : 'boxColor']?.id;
+    } else {
+      return v[optionType]?.id === newOption.id && v.size?.id === selectedVariation.size?.id;
+    }
+  });
+
+  if (newVariation) {
+    setSelectedVariation(newVariation);
+    const index = product.variations.findIndex(v => v.id === newVariation.id);
     if (index !== -1) {
-      setCurrentImageIndex(index)
+      setCurrentImageIndex(index);
     }
   }
-  
-  useEffect(() => {
-    const variation = product.variations[currentImageIndex]
-    if (variation) {
-      handleVariationChange(variation)
-    }
-  }, [currentImageIndex ,product.variations])
+}, [product.variations, selectedVariation, setSelectedVariation, setCurrentImageIndex]);
 
+
+useEffect(() => {
+  const variation = product.variations[currentImageIndex];
+  if (variation) {
+    // Find the changed option type
+    const changedOptionType = optionTypes.find(
+      optionType => isOptionType(optionType) && 
+        variation[optionType]?.id !== selectedVariation[optionType]?.id
+    );
+
+    // If we found a changed option, call handleVariationChange with the new option and its type
+    if (changedOptionType) {
+      const newOption = variation[changedOptionType];
+      if (newOption && ('name' in newOption || 'image' in newOption)) {
+        handleVariationChange(newOption, changedOptionType);
+      }
+    }
+  }
+}, [currentImageIndex, product.variations, selectedVariation, handleVariationChange]);
   
   const handleAddonChange = (addon: Addon, variation: AddonVariation | null) => {
     setSelectedAddons(prev => {
@@ -131,7 +164,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
     optionType: 'size' | 'infinityColor' | 'boxColor' | 'wrappingColor',
     product: { variations: ProductVariation[] },
     selectedVariation: ProductVariation,
-    handleVariationChange: (variation: ProductVariation) => void,
+    handleVariationChange: (newOption: ProductSize | Color, optionType: 'size' | 'infinityColor' | 'boxColor' | 'wrappingColor') => void,
     t: (key: string, params?: Record<string, string>) => string
   ) => {
     const options = product.variations.reduce((acc, variation) => {
@@ -164,8 +197,8 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
         <RadioGroup
           value={selectedVariation[optionType]?.id.toString()}
           onValueChange={(value) => {
-            const newVariation = product.variations.find(v => v[optionType]?.id.toString() === value);
-            if (newVariation) handleVariationChange(newVariation);
+            const newOption = options.find(o => o.id.toString() === value);
+            if (newOption) handleVariationChange(newOption, optionType);
           }}
           className={`flex flex-wrap gap-2 ${rightArabic} `}
         >
@@ -188,10 +221,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
                 className={`w-10 h-10 rounded-full border-2 ${
                   selectedVariation[optionType]?.id === colorOption.id ? "border-primary" : "border-gray-200"
                 }`}
-                onClick={() => {
-                  const newVariation = product.variations.find(v => v[optionType]?.id === colorOption.id);
-                  if (newVariation) handleVariationChange(newVariation);
-                }}
+                onClick={() => handleVariationChange(colorOption, optionType)}
                 aria-label={t(`select${optionType.charAt(0).toUpperCase() + optionType.slice(1)}`, { color: colorOption.name })}
               >
                 <Image
@@ -224,15 +254,11 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
       <div className={`grid md:grid-cols-2 gap-8 ${rtlDirection} pb-20`}>
         <div className="space-y-4">
           <div className="aspect-square relative overflow-hidden rounded-lg">
-            <AnimatedImage
-            quality={100}
-              thumbnailSrc = {selectedVariation.image?.thumbnail || product.mainImage.thumbnail}
+          <AnimatedVariationWrapper
+              thumbnailSrc={selectedVariation.image?.thumbnail || product.mainImage.thumbnail}
               mainSrc={selectedVariation.image?.url || product.mainImage.url}
               alt={selectedVariation.image?.altText || product.mainImage.altText || product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-              className="object-cover w-full h-full"
-              priority
+              variationId={selectedVariation.id}
             />
           </div>
           
@@ -273,7 +299,7 @@ export default function ProductDetails({ product, lang}: { product: Product, lan
         </div>
         
         <div className="space-y-6">
-          <h1 className={`text-center  text-2xl md:text-3xl font-bold ${rtlTextmd}`}>{product.name}</h1>
+          <h1 className={`text-center  text-2xl md:text-3xl font-bold ${rtlTextmd} ${letterSpacing}`}>{product.name}</h1>
           <div className="flex items-center justify-between">
             <p className="text-xl md:text-2xl" aria-live="polite">
               {t('currency', { amount: parsePrice(selectedVariation.price).toFixed(2) })}

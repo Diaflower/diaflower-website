@@ -11,36 +11,36 @@ import { useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function CartPageContent() {
-  const { isSignedIn, isLoaded } = useUser()
+  // const { isSignedIn, isLoaded } = useUser()
   const t = useTranslations('cart')
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
 
   const [isClient, setIsClient] = useState(false)
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  // useEffect(() => {
+  //   setIsClient(true)
+  // }, [])
 
-  if (!isClient || !isLoaded) {
-    return (
-      <div className="container mx-auto p-4 md:p-8">
-        <Skeleton className="w-full h-16 mb-6" />
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-2/3">
-            <Skeleton className="w-full h-[20vh] md:h-[60vh]" />
-          </div>
-          <div className="lg:w-1/3">
-            <Skeleton className="w-full h-[40vh]" />
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // if (!isClient || !isLoaded) {
+  //   return (
+  //     <div className="container mx-auto p-4 md:p-8">
+  //       <Skeleton className="w-full h-16 mb-6" />
+  //       <div className="flex flex-col lg:flex-row gap-8">
+  //         <div className="lg:w-2/3">
+  //           <Skeleton className="w-full h-[20vh] md:h-[60vh]" />
+  //         </div>
+  //         <div className="lg:w-1/3">
+  //           <Skeleton className="w-full h-[40vh]" />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="container mx-auto p-4 md:p-8">
-      {!isSignedIn && (
+      {/* {!isSignedIn && (
         <div className={`flex justify-between items-center mb-6 pb-4 border-b ${rtlAlign}`}>
           <div>
             <h2 className="text-lg font-semibold">{t('haveAccount')}</h2>
@@ -50,7 +50,7 @@ export default function CartPageContent() {
             <Link href="/sign-in" className={`text-darGreyy ${letterSpacing}`}>{t('signIn')}</Link>
           </Button>
         </div>
-      )}
+      )} */}
       <h1 className="text-3xl font-bold mb-6">{t('cart')}</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="lg:w-2/3">
