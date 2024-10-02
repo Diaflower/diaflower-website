@@ -60,11 +60,7 @@ export default function Checkout() {
 
   const completeOrderForCashOnDelivery = async () => {
     try {
-      
-      // const token = await getToken() ?? '';
-      const token =  '';
-
-      console.log("first",token)
+      const token = await getToken() ?? '';
       const orderData = {
         ...shippingData,
         items: items.map(item => ({
@@ -109,9 +105,7 @@ export default function Checkout() {
     } else {
       // Create PaymentIntent for online payment
       try {
-        // const token = await getToken() ?? '';
-        const token = '';
-        
+        const token = await getToken() ?? '';
         const orderData = {
           ...shippingData,
           items: items.map(item => ({

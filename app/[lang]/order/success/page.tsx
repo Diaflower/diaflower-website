@@ -58,8 +58,7 @@ export default function OrderSuccessPage() {
             setError(t('unableToRetrieveOrderDetails'))
           }
         } else if (orderId) {
-          // const token = await getToken()
-          const token = ''
+          const token = await getToken()
           const order = await fetchOrderById(token ?? '', orderId, lang)
           setOrderDetails(order)
           clearCart()
