@@ -28,6 +28,7 @@ const BouquetsPage = async ({ params: { lang } }: Props) => {
       />
   
       <ProductList type="bouquet" lang={lang as 'en' || 'ar'} tagName='bouquet' />
+      <ProductList type="red-love" lang={lang as 'en' || 'ar'} tagName='red bouquet ' />
     </main>
   )
 }
