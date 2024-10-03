@@ -25,10 +25,10 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   const [couponCode, setCouponCode] = useState('')
   const [couponDiscount, setCouponDiscount] = useState(0)
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(true)
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
-
+  
   const subtotal = getTotalPrice()
   const tax = subtotal * 0.05 // 5% tax
   const [shippingCost, setShippingCost] = useState<number | null>(null)

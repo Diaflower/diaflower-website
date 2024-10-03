@@ -35,17 +35,20 @@ export function PaymentForm({ clientSecret, shippingData, items, paymentMethod }
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent?.status) {
         case "succeeded":
-          setError(t('paymentSucceeded'))
-          break
+          setError(t('paymentSucceeded'));
+          break;
         case "processing":
-          setError(t('paymentProcessing'))
-          break
+          setError(t('paymentProcessing'));
+          break;
         case "requires_payment_method":
-          setError(null)
-          break
+          setError(null);
+          break;
+        case "canceled":
+          setError(t('paymentCanceled'));
+          break;
         default:
-          setError(t('paymentError'))
-          break
+          setError(t('paymentError'));
+          break;
       }
     })
   }, [stripe, clientSecret, t])

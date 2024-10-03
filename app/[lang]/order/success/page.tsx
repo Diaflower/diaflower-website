@@ -14,6 +14,7 @@ import { useParams } from 'next/navigation'
 
 interface OrderDetails {
   id: string;
+  status: 'PENDING_PAYMENT' | 'PAYMENT_FAILED' |'PAID' |'PROCESSING' |'ON_DELIVERY' |'DELIVERED' |'CANCELLED' | 'CASH_PAYMENT';
   total: string;
   items: Array<{
     quantity: number;
@@ -103,6 +104,8 @@ export default function OrderSuccessPage() {
     )
   }
 
+
+
   if (!orderDetails) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-100 to-rose-100">
@@ -120,6 +123,25 @@ export default function OrderSuccessPage() {
         </Card>
       </div>
     )
+  }
+
+  if (orderDetails.status === 'PAYMENT_FAILED') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-100 to-rose-100">
+        <Card className="w-full max-w-md">
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <AlertTriangle className="mx-auto h-12 w-12 text-yellow-500" />
+              <h2 className="mt-4 text-2xl font-semibold text-gray-900">{t('paymentFailed')}</h2>
+              <p className="mt-2 text-gray-600">{t('paymentFailedMessage')}</p>
+              <Button asChild className="mt-6 bg-rose-600 hover:bg-rose-700">
+                <Link href={`/${lang}/checkout`}>{t('tryAgain')}</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
