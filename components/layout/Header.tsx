@@ -115,14 +115,17 @@ export default function Header() {
                 <SheetDescription>{t('header.menuDescription')}</SheetDescription>
               </VisuallyHidden.Root>
               
-              <SheetContent side={locale === 'ar' ? 'right' : 'left'}>
-                <MobileMenu
+              <SheetContent side={locale === 'ar' ? 'right' : 'left'} className="flex flex-col">
+              <MobileMenu
                 onLinkClick={() => {
                   // Close the sheet
                   document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'Escape'}));
                 }}
-                navItems={navItems} locale={locale} switchLocale={switchLocale} />
-              </SheetContent>
+                navItems={navItems}
+                locale={locale}
+                switchLocale={switchLocale}
+              />
+            </SheetContent>
             </Sheet>
             <div className="hidden md:flex space-x-4">
               <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
@@ -328,9 +331,11 @@ function MobileMenu({ navItems, locale, switchLocale, onLinkClick }: {
   }
 
   return (
-    <div className="py-4">
-      <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
-      <nav className="mt-6">
+    <div className="flex flex-col h-full">
+      <div className="py-4">
+        <LanguageSwitcher locale={locale} switchLocale={switchLocale} />
+      </div>
+      <nav className="flex-grow overflow-y-auto">
         <ul className="space-y-4">
           {navItems.map((item) => (
             <li key={item.name} className="border-b border-gray-200 pb-4">
@@ -338,7 +343,7 @@ function MobileMenu({ navItems, locale, switchLocale, onLinkClick }: {
                 <div>
                   <button 
                     onClick={() => toggleExpand(item.name)}
-                    className={`flex justify-between items-center w-full py-2 text-left font-fancy font-semibold text-lg ${letterSpacing}`}
+                    className={`flex justify-between items-center w-full py-2 text-left font-fancy font-medium text-base ${letterSpacing}`}
                   >
                     {item.name}
                     {expandedItem === item.name ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
@@ -371,7 +376,7 @@ function MobileMenu({ navItems, locale, switchLocale, onLinkClick }: {
               ) : (
                 <Link 
                   href={item.href} 
-                  className={`block py-2 font-fancy font-semibold text-lg ${letterSpacing}`}
+                  className={`block py-2 font-fancy font-medium text-base ${letterSpacing}`}
                   onClick={handleLinkClick}
                 >
                   {item.name}
@@ -379,17 +384,17 @@ function MobileMenu({ navItems, locale, switchLocale, onLinkClick }: {
               )}
             </li>
           ))}
-          <li>
-            <Link 
-              href="/contact" 
-              className="block py-2 font-fancy font-semibold text-lg"
-              onClick={handleLinkClick}
-            >
-              {t('header.contactUs')}
-            </Link>
-          </li>
         </ul>
       </nav>
+      <div className="py-4 mt-auto">
+        <Link 
+          href="/contact" 
+          className="block py-2 font-fancy font-semibold text-lg"
+          onClick={handleLinkClick}
+        >
+          {t('header.contactUs')}
+        </Link>
+      </div>
     </div>
   )
 }
