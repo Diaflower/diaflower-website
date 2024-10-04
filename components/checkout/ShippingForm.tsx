@@ -24,6 +24,7 @@ import 'react-phone-number-input/style.css'
 import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { Skeleton } from '../ui/skeleton'
+import { CouponCustomerInfo } from '@/data/coupons'
 
 const formSchema = z.object({
   customerName: z.string().min(2, 'Name is required'),
@@ -46,9 +47,10 @@ const formSchema = z.object({
 interface ShippingFormProps {
   onComplete: (shippingData: z.infer<typeof formSchema>) => void
   onEmirateChange: (emirate: string) => void
+  onCustomerInfoChange: (updater: (prev: CouponCustomerInfo) => CouponCustomerInfo) => void;
 }
 
-export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps) {
+export function ShippingForm({ onComplete, onEmirateChange, onCustomerInfoChange }: ShippingFormProps) {
   const t = useTranslations('checkout')
   const [isLoading, setIsLoading] = useState(false)
   const { createPaymentIntent } = useCheckout()
@@ -89,6 +91,8 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
       cardMessage: '',
     },
   })
+
+  
 
   useEffect(() => {
     if (userData) {
@@ -172,7 +176,13 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
                     <FormItem>
                       <FormLabel>{t('fullName')}</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                      <Input {...field} onChange={(e) => {
+                        field.onChange(e);
+                        onCustomerInfoChange(state => ({
+                          ...state,
+                          name: e.target.value
+                        }));
+                      }} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -185,7 +195,13 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
                     <FormItem>
                       <FormLabel>{t('email')}</FormLabel>
                       <FormControl>
-                        <Input type="email" {...field} />
+                      <Input type="email" {...field} onChange={(e) => {
+                        field.onChange(e);
+                        onCustomerInfoChange((state: CouponCustomerInfo) => ({
+                          ...state,
+                          email: e.target.value
+                        }));
+                      }} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -198,20 +214,26 @@ export function ShippingForm({ onComplete, onEmirateChange }: ShippingFormProps)
                     <FormItem>
                       <FormLabel>{t('phone')}</FormLabel>
                       <FormControl>
-                        <Controller
-                          name="customerPhone"
-                          control={form.control}
-                          render={({ field }) => (
-                            <PhoneInput
-                              international
-                              defaultCountry="AE"
-                              value={field.value}
-                              onChange={field.onChange}
-                              className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${rtlDirection}`}
-                            />
-                          )}
-                        />
-                      </FormControl>
+                      <Controller
+                        name="customerPhone"
+                        control={form.control}
+                        render={({ field }) => (
+                          <PhoneInput
+                            international
+                            defaultCountry="AE"
+                            value={field.value}
+                            onChange={(value) => {
+                              field.onChange(value);
+                              onCustomerInfoChange((state: CouponCustomerInfo) => ({
+                                ...state,
+                                phone: value || undefined
+                              }));
+                            }}
+                            className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${rtlDirection}`}
+                          />
+                        )}
+                      />
+                    </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

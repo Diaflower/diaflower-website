@@ -12,13 +12,16 @@ import { useTranslations } from 'next-intl'
 import { useRTLAwareStyle } from '@/util/rtl'
 import { CartContent } from '../shared/CartContent'
 import { validateCoupon } from '@/data/coupons'
+import { useAuth } from '@clerk/nextjs'
 
 interface PaymentSummaryProps {
   emirate: string
   onCouponApplied: (code: string, discount: number) => void
+  customerInfo: { name?: string; email?: string; phone?: string }
+  onRequestCustomerInfo: () => void
 }
 
-export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps) {
+export function PaymentSummary({ emirate, onCouponApplied, customerInfo, onRequestCustomerInfo }: PaymentSummaryProps) {
   const t = useTranslations('checkout')
   const { getTotalPrice } = useCartStore()
   const [showCouponInput, setShowCouponInput] = useState(false)
@@ -28,6 +31,7 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   const [isExpanded, setIsExpanded] = useState(true)
   const rtlAlign = useRTLAwareStyle('text-left', 'text-right')
   const letterSpacing = useRTLAwareStyle('tracking-widest', '')
+  const { userId, isSignedIn } = useAuth()
   
   const subtotal = getTotalPrice()
   const tax = subtotal * 0.05 // 5% tax
@@ -54,10 +58,26 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
   const handleApplyCoupon = async () => {
     if (!couponCode) return
 
+    if (!isSignedIn && (!customerInfo.name || !customerInfo.email || !customerInfo.phone)) {
+      toast({
+        title: t('additionalInfoRequired'),
+        description: t('pleaseProvideInfoForCoupon'),
+        duration: 5000,
+      })
+      onRequestCustomerInfo()
+      return
+    }
+
     setIsApplyingCoupon(true)
 
     try {
-      const { isValid, discountAmount, message } = await validateCoupon({ code: couponCode, subtotal })
+      const { isValid, discountAmount, message } = await validateCoupon({
+        code: couponCode,
+        subtotal,
+        userId: userId || undefined,
+        email: customerInfo.email,
+        phone: customerInfo.phone
+      })
 
       if (isValid) {
         setCouponDiscount(discountAmount)
@@ -70,9 +90,21 @@ export function PaymentSummary({ emirate, onCouponApplied }: PaymentSummaryProps
       } else {
         setCouponDiscount(0)
         onCouponApplied('', 0)
+        let errorMessage = t('invalidCoupon')
+        if (message.includes('not valid for your account')) {
+          errorMessage = t('couponNotValidForAccount')
+        } else if (message.includes('not valid for your email')) {
+          errorMessage = t('couponNotValidForEmail')
+        } else if (message.includes('not valid for your phone number')) {
+          errorMessage = t('couponNotValidForPhone')
+        } else if (message === 'Expired coupon') {
+          errorMessage = t('expiredCoupon')
+        } else if (message === 'Coupon usage limit reached') {
+          errorMessage = t('couponUsageLimitReached')
+        }
         toast({
           title: t('invalidCoupon'),
-          description: message,
+          description: errorMessage,
           variant: "destructive",
           duration: 3000,
         })

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js'
 import { ShippingForm } from './ShippingForm'
@@ -17,6 +17,7 @@ import { createOrder } from '@/data/orders'
 import { useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { toast } from '@/hooks/use-toast'
+import { CouponCustomerInfo } from '@/data/coupons'
 
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -32,8 +33,10 @@ export default function Checkout() {
   const [isStoreHydrated, setIsStoreHydrated] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState<'ONLINE' | 'CASH_ON_DELIVERY' | null>(null)
   const [shippingData, setShippingData] = useState<any>(null)
+  const [customerInfo, setCustomerInfo] = useState<CouponCustomerInfo>({});
   const { getToken } = useAuth()
   const router = useRouter()
+  const shippingFormRef = useRef<HTMLDivElement>(null)
 
   const options: StripeElementsOptions = {
     clientSecret: clientSecret || undefined,
@@ -42,9 +45,22 @@ export default function Checkout() {
     },
   }
 
+  console.log("customer Info:",customerInfo)
+
   const handleCouponApplied = (code: string, discount: number) => {
     setCouponCode(code)
     setCouponDiscount(discount)
+  }
+
+  const handleRequestCustomerInfo = () => {
+    if (shippingFormRef.current) {
+      shippingFormRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+    toast({
+      title: t('additionalInfoRequired'),
+      description: t('pleaseProvideInfoForCoupon'),
+      duration: 5000,
+    })
   }
 
   useEffect(() => {
@@ -159,15 +175,18 @@ export default function Checkout() {
         />
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full md:w-2/3 order-2 md:order-1">
-            {currentStep === 0 && (
-              <ShippingForm
-                onComplete={(data) => {
-                  setShippingData(data)
-                  setCurrentStep(1)
-                }}
-                onEmirateChange={setSelectedEmirate}
-              />
-            )}
+          <div ref={shippingFormRef}>
+              {currentStep === 0 && (
+                <ShippingForm
+                  onComplete={(data) => {
+                    setShippingData(data)
+                    setCurrentStep(1)
+                  }}
+                  onEmirateChange={setSelectedEmirate}
+                  onCustomerInfoChange={setCustomerInfo}
+                />
+              )}
+            </div>
             {currentStep === 1 && (
               <PaymentMethodSelection
                 onSelect={handlePaymentMethodSelection}
@@ -188,6 +207,8 @@ export default function Checkout() {
             <PaymentSummary
               emirate={selectedEmirate}
               onCouponApplied={handleCouponApplied}
+              customerInfo={customerInfo}
+              onRequestCustomerInfo={handleRequestCustomerInfo}
             />
           </div>
         </div>
