@@ -12,6 +12,7 @@ export default getRequestConfig(async ({ locale }) => ({
     cart: (await import(`./public/locales/${locale}/cart.json`)).default,
     categories: (await import(`./public/locales/${locale}/categories.json`)).default,
     product: (await import(`./public/locales/${locale}/product.json`)).default,
+    terms: (await import(`./public/locales/${locale}/terms.json`)).default,
     // Add other namespaces as needed
   },
   // timeZone: 'Asia/Dubai', // Dubai's time zone

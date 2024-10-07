@@ -50,6 +50,7 @@ export default async function LocaleLayout({
     cart: (await import(`../../public/locales/${lang}/cart.json`)).default,
     categories: (await import(`../../public/locales/${lang}/categories.json`)).default,
     product: (await import(`../../public/locales/${lang}/product.json`)).default,
+    terms: (await import(`../../public/locales/${lang}/terms.json`)).default,
   }
 
   return (

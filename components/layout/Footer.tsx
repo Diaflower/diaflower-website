@@ -50,9 +50,9 @@ export default function Footer() {
       title: t('footer.sections.resources.title'),
       links: [
         { text: t('footer.sections.resources.links.faq'), href: '/' },
-        { text: t('footer.sections.resources.links.termsConditions'), href: '/' },
-        { text: t('footer.sections.resources.links.privacyPolicy'), href: '/' },
-        { text: t('footer.sections.resources.links.refundsReturns'), href: '/' },
+        { text: t('footer.sections.resources.links.termsConditions'), href: '/terms-and-conditions' },
+        // { text: t('footer.sections.resources.links.privacyPolicy'), href: '/' },
+        // { text: t('footer.sections.resources.links.refundsReturns'), href: '/' },
       ]
     }
   ];
