@@ -25,6 +25,7 @@ const AcrylicPage = async ({ params: { lang } }: Props) => {
         imageSrc={HeroImage}
       />
       <ProductList type="eternal" lang={lang as 'en' || 'ar'} tagName='acrylic' />
+      <ProductList type="eternal-grand" lang={lang as 'en' || 'ar'} tagName='acrylic-premium' />
     </main>
   )
 }

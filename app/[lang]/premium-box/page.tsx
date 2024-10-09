@@ -26,6 +26,7 @@ const WoodPage = async ({ params: { lang } }: Props) => {
       />
 
      <ProductList type="arr-box" lang={lang as 'en' || 'ar'} tagName='premium arrangement' />
+     <ProductList type="arr-tub" lang={lang as 'en' || 'ar'} tagName='premium arrangement acrylic' />
     </main>
   )
 }

@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 interface ProductListProps {
   tagName: string
   lang: 'en' | 'ar'
-  type: "divine"|"diamond"|"treasure"|"eternal"|"bouquet"|"red-love"|"arr-square"|"arr-round"|"arr-rectangle"|"arr-dome"|"arr-box"|"arr-tub"|"leather"|"vase"
+  type: "divine"|"diamond"|"treasure"|"eternal"|"bouquet"|"red-love"|"arr-square"|"arr-round"|"arr-rectangle"|"arr-dome"|"arr-box"|"arr-tub"|"leather"|"vase" |"eternal-grand"
 }
 
 const ProductSkeleton = () => (
