@@ -26,7 +26,7 @@ const BouquetsPage = async ({ params: { lang } }: Props) => {
         category="bouquets"
         imageSrc={HeroImage}
       />
-  
+  <ProductList type="old-bouquet" lang={lang as 'en' || 'ar'} tagName='old-bouquet' />
       <ProductList type="bouquet" lang={lang as 'en' || 'ar'} tagName='bouquet' />
       <ProductList type="red-love" lang={lang as 'en' || 'ar'} tagName='red bouquet ' />
     </main>
